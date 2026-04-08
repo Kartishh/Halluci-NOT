@@ -95,7 +95,6 @@ class PoTEngine:
 
         # --- Safe Imports ---
         lines.append("import math")
-        lines.append("import sympy")
         lines.append("")
 
         # --- Generate deterministic code ---

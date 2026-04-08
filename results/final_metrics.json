@@ -1,0 +1,8 @@
+{
+  "baseline_accuracy": 96.66666666666667,
+  "lgp_accuracy": 100.0,
+  "drift_detection_rate": 0.0,
+  "correction_success_rate": 0,
+  "improvements": 1,
+  "regressions": 0
+}

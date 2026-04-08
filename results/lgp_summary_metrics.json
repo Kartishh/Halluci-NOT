@@ -1,0 +1,42 @@
+{
+  "gsm": {
+    "label": "GSM-8K (curated)",
+    "n": 20,
+    "baseline_accuracy": 90.0,
+    "lgp_accuracy": 65.0,
+    "drift_detection_rate": 80.0,
+    "correction_attempts": 16,
+    "correction_successes": 16,
+    "correction_success_rate": 100.0,
+    "improvements": 0,
+    "regressions": 5,
+    "net_gain": -5
+  },
+  "drift": {
+    "label": "Drift Stress Test",
+    "n": 30,
+    "baseline_accuracy": 53.3,
+    "lgp_accuracy": 53.3,
+    "drift_detection_rate": 70.0,
+    "correction_attempts": 21,
+    "correction_successes": 21,
+    "correction_success_rate": 100.0,
+    "improvements": 7,
+    "regressions": 7,
+    "net_gain": 0
+  },
+  "overall": {
+    "label": "Overall",
+    "n": 50,
+    "baseline_accuracy": 68.0,
+    "lgp_accuracy": 58.0,
+    "drift_detection_rate": 74.0,
+    "correction_attempts": 37,
+    "correction_successes": 37,
+    "correction_success_rate": 100.0,
+    "improvements": 7,
+    "regressions": 12,
+    "net_gain": -5
+  },
+  "elapsed_seconds": 1213.2
+}

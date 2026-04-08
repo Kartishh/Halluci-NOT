@@ -105,6 +105,8 @@ Your job: Convert natural language reasoning into structured atomic facts.
 RULES:
 1. Output ONLY a JSON array of fact objects. No explanation, no markdown.
 2. Each fact must have exactly: {"predicate": "...", "arguments": [...], "raw_text": "..."}
+   NEVER collapse computed values into Assign.
+   Use Add/Subtract/Multiply/Divide when variables are involved.
 3. Supported predicates and their argument patterns:
    - Assign(value, variable): "price is 5" → Assign("5", "price")
    - Add(a, b, result): "total is cost plus tax" → Add("cost", "tax", "total")
@@ -143,35 +145,21 @@ Output:"""
 
 
 # ---------------------------------------------------------------------------
-# Gemini Client (Lazy-loaded Singleton)
+# Gemini Client (Replaced with Groq for rate limits)
 # ---------------------------------------------------------------------------
 
 _gemini_model = None
 
-
 def _get_gemini_model():
-    """Lazy-load Gemini model for decomposition."""
     global _gemini_model
     if _gemini_model is None:
         try:
-            import google.generativeai as genai
-            from dotenv import load_dotenv
-
-            load_dotenv()
-            api_key = os.getenv("GEMINI_API_KEY")
-            if not api_key:
-                logger.warning("No GEMINI_API_KEY found. LLM extraction disabled.")
-                return None
-
-            genai.configure(api_key=api_key)
-            _gemini_model = genai.GenerativeModel(
-                os.getenv("LLM_MODEL", "gemini-2.0-flash")
-            )
-            logger.info("Gemini model loaded for decomposition.")
+            from core.groq_llm import get_groq_llm
+            _gemini_model = get_groq_llm()
+            logger.info("Groq model loaded for decomposition.")
         except Exception as e:
-            logger.error(f"Failed to initialize Gemini: {e}")
+            logger.error(f"Failed to initialize Groq: {e}")
             return None
-
     return _gemini_model
 
 
@@ -203,12 +191,22 @@ class SymbolicDecomposer:
         """
         Convert reasoning text into atomic facts.
 
-        Uses regex for structured input, falls back to Gemini for
-        natural language reasoning.
+        Pipeline:
+            1. Try PoT conversion → regex extraction (structured path)
+            2. Fallback: regex on raw segments
+            3. Fallback: Gemini few-shot for remaining
         """
         if not text or not text.strip():
             raise ValueError("Input text for decomposition cannot be empty.")
 
+        # --- Stage 0: PoT Pre-Processing (NEW) ---
+        pot_facts = self._try_pot_path(text)
+        if pot_facts:
+            self._validate_facts(pot_facts)
+            self._multi_pass_validate(pot_facts)
+            return pot_facts
+
+        # --- Stage 1+2: Original regex + Gemini flow (FALLBACK) ---
         segments = self._segment_text(text)
         facts: List[AtomicFact] = []
         unresolved_segments: List[str] = []
@@ -240,6 +238,7 @@ class SymbolicDecomposer:
                 )
 
         self._validate_facts(facts)
+        self._multi_pass_validate(facts)
         return facts
 
     # ------------------------------------------------------------------
@@ -263,8 +262,8 @@ class SymbolicDecomposer:
         """
         facts: List[AtomicFact] = []
 
-        # Pattern: a = b * c
-        match = re.match(r"(\w+)\s*=\s*(\w+)\s*\*\s*(\w+)", segment)
+        # Pattern: a = b * c (supports decimals in operands)
+        match = re.match(r"(\w+)\s*=\s*([\w.]+)\s*\*\s*([\w.]+)", segment)
         if match:
             facts.append(AtomicFact(
                 predicate="Multiply",
@@ -273,8 +272,8 @@ class SymbolicDecomposer:
             ))
             return facts
 
-        # Pattern: a = b + c
-        match = re.match(r"(\w+)\s*=\s*(\w+)\s*\+\s*(\w+)", segment)
+        # Pattern: a = b + c (supports decimals)
+        match = re.match(r"(\w+)\s*=\s*([\w.]+)\s*\+\s*([\w.]+)", segment)
         if match:
             facts.append(AtomicFact(
                 predicate="Add",
@@ -283,8 +282,8 @@ class SymbolicDecomposer:
             ))
             return facts
 
-        # Pattern: a = b - c
-        match = re.match(r"(\w+)\s*=\s*(\w+)\s*-\s*(\w+)", segment)
+        # Pattern: a = b - c (supports decimals)
+        match = re.match(r"(\w+)\s*=\s*([\w.]+)\s*-\s*([\w.]+)", segment)
         if match:
             facts.append(AtomicFact(
                 predicate="Subtract",
@@ -293,8 +292,8 @@ class SymbolicDecomposer:
             ))
             return facts
 
-        # Pattern: a = b / c
-        match = re.match(r"(\w+)\s*=\s*(\w+)\s*/\s*(\w+)", segment)
+        # Pattern: a = b / c (supports decimals)
+        match = re.match(r"(\w+)\s*=\s*([\w.]+)\s*/\s*([\w.]+)", segment)
         if match:
             facts.append(AtomicFact(
                 predicate="Divide",
@@ -335,8 +334,13 @@ class SymbolicDecomposer:
         prompt = _FEW_SHOT_PROMPT.replace("{text}", segment)
 
         try:
-            response = model.generate_content(prompt)
-            raw_text = response.text.strip()
+            response = model._call_with_fallback(
+                model=model.model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.0,
+                max_tokens=512
+            )
+            raw_text = response.choices[0].message.content.strip()
 
             # Strip markdown code fences if the model wraps in ```json
             raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
@@ -407,11 +411,58 @@ class SymbolicDecomposer:
             )
 
     # ------------------------------------------------------------------
+    # Stage 0: PoT Pre-Processing (NEW)
+    # ------------------------------------------------------------------
+
+    def _try_pot_path(self, text: str) -> List[AtomicFact]:
+        """
+        Try Program-of-Thought conversion before regex/Gemini.
+
+        Converts NL reasoning → structured pseudo-code → regex extraction.
+        Returns facts if successful, empty list otherwise.
+        """
+        try:
+            from core.pot_converter import reasoning_to_program, multi_pass_validate
+        except ImportError:
+            logger.debug("PoT converter not available.")
+            return []
+
+        try:
+            program_lines = reasoning_to_program(text)
+            if not program_lines:
+                return []
+
+            # Multi-pass validation on program lines
+            program_lines = multi_pass_validate(program_lines)
+
+            # Decompose each PoT line via regex
+            pot_facts: List[AtomicFact] = []
+            for line in program_lines:
+                extracted = self._rule_based_extract(line)
+                if extracted:
+                    for fact in extracted:
+                        fact.source_path = "pot"
+                    pot_facts.extend(extracted)
+
+            if pot_facts:
+                logger.info(
+                    f"PoT path: {len(pot_facts)} facts from "
+                    f"{len(program_lines)} program lines"
+                )
+
+            return pot_facts
+
+        except Exception as e:
+            logger.warning(f"PoT conversion failed, falling back: {e}")
+            return []
+
+    # ------------------------------------------------------------------
     # Validation
     # ------------------------------------------------------------------
 
     def _validate_facts(self, facts: List[AtomicFact]) -> None:
-        """Enforce predicate schema validity."""
+        """Enforce predicate schema validity + dependency rules."""
+        validated = []
         for fact in facts:
             if fact.predicate not in SUPPORTED_PREDICATES:
                 raise ValueError(f"Unsupported predicate: {fact.predicate}")
@@ -422,6 +473,68 @@ class SymbolicDecomposer:
                     f"Predicate {fact.predicate} expects {expected_arity} "
                     f"arguments, got {len(fact.arguments)}"
                 )
+
+            # Task 2: Relaxed Enforcement
+            # ONLY reject Assign if: variable ALSO appears as output of an operation AND that operation exists in the facts
+            if fact.predicate == "Assign" and len(fact.arguments) == 2:
+                val_str, var = fact.arguments
+                try:
+                    float(val_str)
+                    is_numeric = True
+                except ValueError:
+                    is_numeric = False
+
+                if is_numeric:
+                    has_op = any(
+                        f.predicate in ("Add", "Subtract", "Multiply", "Divide") 
+                        and len(f.arguments) == 3 and f.arguments[2] == var 
+                        for f in facts
+                    )
+                    if has_op:
+                        continue  # Reject
+
+
+            validated.append(fact)
+
+        # Replace facts in-place
+        facts.clear()
+        facts.extend(validated)
+
+    # ------------------------------------------------------------------
+    # Multi-Pass Dependency Validation (NEW — Task 4)
+    # ------------------------------------------------------------------
+
+    def _multi_pass_validate(self, facts: List[AtomicFact]) -> None:
+        """
+        Multi-pass decomposition validation:
+            Pass 1: Extract all defined variables
+            Pass 2: Extract all operations
+            Pass 3: Validate that operation inputs are defined
+
+        Logs warnings but does not remove facts.
+        """
+        defined_vars: set = set()
+
+        # Pass 1: Collect defined variables
+        for f in facts:
+            if f.predicate == "Assign" and len(f.arguments) >= 2:
+                defined_vars.add(f.arguments[1])
+            elif f.predicate in ("Add", "Subtract", "Multiply", "Divide"):
+                if len(f.arguments) >= 3:
+                    defined_vars.add(f.arguments[2])
+
+        # Pass 2 + 3: Validate operation inputs
+        for f in facts:
+            if f.predicate in ("Add", "Subtract", "Multiply", "Divide"):
+                for arg in f.arguments[:2]:
+                    try:
+                        float(arg)
+                    except ValueError:
+                        if arg not in defined_vars:
+                            logger.warning(
+                                f"Multi-pass: undefined variable '{arg}' "
+                                f"used in {f.predicate}({', '.join(f.arguments)})"
+                            )
 
 
 # ---------------------------------------------------------------------------

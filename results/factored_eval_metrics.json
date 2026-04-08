@@ -1,0 +1,49 @@
+{
+  "system": "LGP (Updated \u2014 Factored Verification)",
+  "timestamp": "2026-04-08 15:48:12",
+  "elapsed_seconds": 224.5,
+  "total_cases": 80,
+  "detection": {
+    "total_drift_cases": 50,
+    "drift_detected": 50,
+    "detection_rate_pct": 100.0
+  },
+  "correction": {
+    "correction_attempted": 50,
+    "correction_succeeded": 50,
+    "correction_success_rate_pct": 100.0
+  },
+  "false_positives": {
+    "total_clean_cases": 10,
+    "false_positives": 0,
+    "false_positive_rate_pct": 0.0
+  },
+  "gsm_accuracy": {
+    "total": 20,
+    "correct": 12,
+    "accuracy_pct": 60.0
+  },
+  "drift_accuracy_after_correction": {
+    "total": 50,
+    "correct": 46,
+    "accuracy_pct": 92.0
+  },
+  "per_drift_type": {
+    "numeric": {
+      "total": 18,
+      "detected": 18,
+      "corrected": 18
+    },
+    "dependency": {
+      "total": 17,
+      "detected": 17,
+      "corrected": 17
+    },
+    "redefinition": {
+      "total": 15,
+      "detected": 15,
+      "corrected": 15
+    }
+  },
+  "signal3_llm_calls": 1
+}

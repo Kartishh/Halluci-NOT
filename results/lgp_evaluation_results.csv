@@ -1,0 +1,1129 @@
+case_id,dataset,baseline_correct,lgp_correct,drift_detected,correction_applied,baseline_answer,lgp_answer,query,logic_type,expected,baseline_reasoning,lgp_reasoning,correction_successful,reflexion_iterations,drift_details
+gsm_01,gsm,True,True,False,False,18.0,18.0,Janet's ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells every remaining egg at the farmers' market for $2. How mu,multistep,18,"Let's break down the problem step-by-step.
+
+Step 1: Calculate the total number of eggs laid by Janet's ducks per day.
+Total_eggs_per_day = 16
+
+Step 2: Calculate the number of eggs Janet eats for breakfast every morning.
+eggs_eaten_for_breakfast = 3
+
+Step 3: Calculate the number of eggs Janet uses to","Let's break down the problem step-by-step.
+
+Step 1: Calculate the total number of eggs laid by Janet's ducks per day.
+Total_eggs_laid = 16
+
+Step 2: Calculate the total number of eggs eaten by Janet for breakfast.
+eggs_eaten_for_breakfast = 3
+
+Step 3: Calculate the total number of eggs used to bake m",False,1,
+gsm_02,gsm,True,True,True,True,3.0,3.0,A robe takes 2 bolts of blue fiber and half that much white fiber. How many bolts in total does it take?,fraction,3,"Let's break down the problem step by step.
+
+1. A robe takes 2 bolts of blue fiber.
+
+Let's assign this value to a variable: blue_fiber = 2
+
+2. It takes half that much white fiber. To find half of blue_fiber, we'll divide it by 2.
+
+white_fiber = blue_fiber / 2
+white_fiber = 2 / 2
+white_fiber = 1
+
+3. N","Let's break down the problem step by step.
+
+1. A robe takes 2 bolts of blue fiber.
+
+Let's assign this value to a variable: blue_fiber = 2
+
+2. It takes half that much white fiber. To find half of blue_fiber, we can divide it by 2.
+
+white_fiber = blue_fiber / 2
+white_fiber = 2 / 2
+white_fiber = 1
+
+3. ",True,1,Variable 'fiber' was previously computed as 2.0 but new dependencies yield 1.0.
+gsm_03,gsm,False,False,True,True,0.0,200000.0,"Josh decides to try flipping a house. He buys a house for $80,000 and then puts in $50,000 in repairs. This increased the value of the house by 150%. How much profit did he make?",percentage,70000,"Let's break down the problem step-by-step.
+
+1. Josh buys a house for $80,000 and then puts in $50,000 in repairs. 
+
+Initial house value = $80,000
+Repairs cost = $50,000
+Total cost = Initial house value + Repairs cost
+Total cost = $80,000 + $50,000
+Total cost = $130,000
+
+2. This increased the value o","Let's break down the problem step-by-step.
+
+1. Josh buys a house for $80,000 and then puts in $50,000 in repairs. 
+
+   Initial house value = $80,000
+   Repairs cost = $50,000
+   Total cost = Initial house value + Repairs cost
+   Total cost = $80,000 + $50,000
+   Total cost = $130,000
+
+2. This increa",True,1,Variable 'cost' changed from 50000.0 to 130000.0 without justification. Fix the reasoning.
+gsm_04,gsm,True,False,True,True,540.0,27.0,James decides to run 3 sprints 3 times a week. He runs 60 meters each sprint. How many total meters does he run a week?,multistep,540,"Let's break down the problem step by step.
+
+1. James runs 3 sprints 3 times a week. To find the total number of sprints per week, we multiply the number of sprints per session by the number of sessions per week.
+
+Number of sprints per session = 3
+Number of sessions per week = 3
+
+Total number of spri","Let's break down the problem step by step.
+
+1. James runs 3 sprints 3 times a week. 
+   To find the total number of sprints per week, we multiply the number of sprints per session by the number of sessions per week.
+   Let's assign the total number of sprints per week to the variable 'total_sprints_",True,1,Variable 'week' was previously computed as 3.0 but new dependencies yield 9.0.
+gsm_05,gsm,False,False,True,True,140.0,40.0,"Every day, Wendi feeds each of her chickens three cups of mixed chicken feed, containing seeds, mealworms and vegetables to help keep them healthy. She gives the chickens their feed in three separate ",multistep,20,"Let's break down the problem step-by-step.
+
+Step 1: Calculate the total number of cups of feed given in the morning and afternoon meals.
+
+Morning feed = 15 cups
+Afternoon feed = 25 cups
+Total feed given in morning and afternoon = Morning feed + Afternoon feed
+Total feed given in morning and afternoo","Let's break down the problem step-by-step.
+
+Step 1: Calculate the total number of cups of feed given in the morning and afternoon meals.
+
+Morning feed = 15 cups
+Afternoon feed = 25 cups
+Total feed given in morning and afternoon = Morning feed + Afternoon feed
+Total feed given in morning and afternoo",True,1,Variable 'feed' was previously computed as 25.0 but new dependencies yield 50.0.
+gsm_06,gsm,True,True,True,True,72.0,72.0,"Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?",fraction,72,"Let's break down the problem step by step.
+
+Step 1: Determine the number of clips Natalia sold in April.
+Let's assign this value to the variable 'april_clips'.
+april_clips = 48
+
+Step 2: Determine the number of clips Natalia sold in May.
+It is given that she sold half as many clips in May as in April","Let's break down the problem step by step.
+
+Step 1: Determine the number of clips Natalia sold in April.
+Let's assign this value to the variable 'april_clips'.
+april_clips = 48
+
+Step 2: Determine the number of clips Natalia sold in May.
+It's given that she sold half as many clips in May as in April.",True,1,Variable 'clips' was previously computed as 48.0 but new dependencies yield 24.0.
+gsm_07,gsm,True,True,True,True,10.0,10.0,"Weng earns $12 an hour for babysitting. Yesterday, she just did 50 minutes of babysitting. How much did she earn?",fraction,10,"To find out how much Weng earned, we need to calculate her earnings based on the time she worked and her hourly wage.
+
+Step 1: Convert the time from minutes to hours.
+Let's call the time in hours 'time_hours'.
+time_hours = 50 minutes / 60 minutes/hour
+time_hours = 50 / 60
+time_hours = 0.833333333333","To find Weng's earnings, we need to calculate the fraction of an hour she worked and then multiply it by her hourly wage.
+
+Step 1: Convert the time from minutes to hours.
+Let's call the time in hours 'time_hours'. 
+
+time_minutes = 50
+time_hours = time_minutes / 60
+
+time_hours = 50 / 60
+time_hours = ",True,1,Variable 'hours' was previously computed as 50.0 but new dependencies yield 0.8333333333333334.
+gsm_08,gsm,True,True,False,False,5.0,5.0,"Betty is saving money for a new wallet which costs $100. Betty has only half of the money she needs. Her parents decided to give her $15 for that purpose, and her grandparents twice as much as her par",multistep,5,"Let's break down the problem step by step.
+
+1. Betty has only half of the money she needs for the wallet.
+   The cost of the wallet is $100.
+   Half of $100 is: 
+   half_needed = $100 / 2
+   half_needed = $50
+
+2. Betty's parents decided to give her $15 for that purpose.
+   Betty now has: 
+   money_f","Let's break down the problem step by step.
+
+1. Betty has only half of the money she needs for the wallet, which costs $100. So, she has:
+   Betty's initial money = 100 / 2 = 50
+
+   Let's assign this value to a variable: Betty's initial money = Initial_Money = 50
+
+2. Her parents decided to give her $",False,1,
+gsm_09,gsm,True,False,True,True,42.0,84.0,"Julie is reading a 120-page book. Yesterday, she was able to read 12 pages and today, she read twice as many pages as yesterday. If she wants to read half of the remaining pages tomorrow, how many pag",multistep,42,"Let's break down the problem step by step.
+
+1. Yesterday, Julie read 12 pages. 
+   Let's assign this value to a variable: `yesterday_pages = 12`
+
+2. Today, Julie read twice as many pages as yesterday. 
+   So, today's pages = 2 * yesterday_pages
+   today_pages = 2 * 12
+   today_pages = 24
+
+3. Total p","Let's break down the problem step by step.
+
+1. Yesterday, Julie read 12 pages. 
+   Let's assign this value to a variable: yesterdays_pages = 12
+
+2. Today, Julie read twice as many pages as yesterday. 
+   So, todays_pages = 2 * yesterdays_pages
+   todays_pages = 2 * 12
+   todays_pages = 24
+
+3. Total ",True,1,Variable 'pages' was previously computed as 12.0 but new dependencies yield 24.0.
+gsm_10,gsm,True,True,True,True,624.0,624.0,James writes a 3-page letter to 2 different friends twice a week. How many pages does he write a year?,multistep,624,"Let's break down the problem step by step.
+
+1. James writes a 3-page letter to 2 different friends twice a week. 
+
+First, we need to find out how many letters James writes in a week. 
+
+Let's assign the number of pages per letter to a variable: 
+pages_per_letter = 3
+
+The number of friends James write","Let's break down the problem step by step.
+
+1. James writes a 3-page letter to 2 different friends twice a week. 
+
+First, we need to find out how many letters he writes in a week. Since he writes to 2 friends twice a week, the number of letters he writes in a week is:
+
+Number of letters per week = 2",True,1,Variable 'week' was previously computed as 2.0 but new dependencies yield 4.0.
+gsm_11,gsm,True,False,True,True,35.0,23.0,"Mark has a garden with flowers. He planted plants of three different colors in it. Ten of them are yellow, and there are 80% more of those that are purple. There are only 25% as many green flowers as ",percentage,35,"To solve this problem, we will break it down into steps.
+
+Step 1: Find the number of purple flowers.
+Let's denote the number of yellow flowers as Y. We are given that Y = 10.
+
+We are also given that there are 80% more purple flowers than yellow flowers. This means the number of purple flowers is 180","Let's break down the problem step by step.
+
+Step 1: Calculate the number of purple flowers.
+There are 80% more purple flowers than yellow flowers. To find 80% of the number of yellow flowers, we multiply the number of yellow flowers by 0.8.
+
+Let y = number of yellow flowers = 10
+Then, 80% of y = 0.8",True,1,Variable '0.8y' changed from 8.0 to 18.0 without justification. Fix the reasoning.
+gsm_12,gsm,True,True,False,False,48.0,48.0,"Albert is wondering how much pizza he can eat in one day. He buys 2 large pizzas and 2 small pizzas. A large pizza has 16 slices and a small pizza has 8 slices. If he eats it all, how many pizza slice",arithmetic,48,"Let's break down the problem step by step.
+
+Step 1: Calculate the total number of slices in the large pizzas.
+
+Let L be the number of slices in one large pizza.
+L = 16
+
+Let N be the number of large pizzas.
+N = 2
+
+Total number of slices in large pizzas = L * N
+Total large pizza slices = L * N = 16 * ","Let's break down the problem step by step.
+
+Step 1: Calculate the total number of slices from large pizzas.
+
+- Number of large pizzas = 2
+- Number of slices per large pizza = 16
+- Total slices from large pizzas = Number of large pizzas * Number of slices per large pizza
+- Total slices from large piz",False,1,
+gsm_13,gsm,True,True,True,True,16.0,16.0,"Ken created a care package to send to his brother, who was away at boarding school. Ken placed a box on a scale, and then he poured in enough jelly beans to bring the weight to 2 pounds. Then, he adde",sequential,16,"Let's break down the problem step by step.
+
+Step 1: Initial weight of the box with jelly beans
+Weight of jelly beans = 2 pounds
+Let's assign this value to a variable: jelly_beans_weight = 2 pounds
+
+Step 2: Adding brownies to triple the weight
+Weight after adding brownies = 3 * jelly_beans_weight
+Wei","Let's break down the problem step by step.
+
+Step 1: Initial weight of the box with jelly beans
+Weight of the box with jelly beans = 2 pounds
+
+Let's assign this value to a variable: 
+Initial_weight = 2 pounds
+
+Step 2: Adding brownies to triple the weight
+Weight after adding brownies = Initial_weight ",True,1,Variable 'weight' was previously computed as 2.0 but new dependencies yield 16.0.
+gsm_14,gsm,True,True,True,True,108.0,108.0,Alexis is applying for a new job and bought a new set of business clothes to wear to the interview. She went to a department store with a budget of $200 and spent $30 on a pair of trousers and $46 on ,arithmetic,108,"Let's break down the problem step-by-step.
+
+Step 1: Calculate the total amount spent on the trousers and blouse.
+
+Let's denote the total amount spent on the trousers and blouse as 'total_spent_on_trousers_and_blouse'.
+
+total_spent_on_trousers_and_blouse = cost_of_trousers + cost_of_blouse
+= $30 + $4","Let's break down the problem step by step.
+
+1. Alexis's initial budget is $200.
+   Let's assign this value to the variable: `initial_budget = 200`
+
+2. She spent $30 on a pair of trousers.
+   Let's assign this value to the variable: `trousers_cost = 30`
+
+3. She spent $46 on a blouse.
+   Let's assign ",True,1,Operation for 'purchases' changed from Subtract to Add unexpectedly. Check your math signs (+/-).
+gsm_15,gsm,True,True,True,True,990.0,990.0,"Tina makes $18.00 an hour. If she works more than 8 hours per shift, she is eligible for overtime, which is paid by your hourly wage + 1/2 your hourly wage. If she works 10 hours every day for 5 days,",multistep,990,"To solve this problem, we need to calculate Tina's earnings for regular hours and overtime hours separately.
+
+Let's define the variables:
+
+- `hourly_wage` = $18.00
+- `regular_hours_per_shift` = 8 hours
+- `overtime_hours_per_shift` = 10 hours - 8 hours = 2 hours
+- `overtime_multiplier` = 1/2 = 0.5
+- ","To solve this problem, we need to calculate Tina's earnings for regular hours and overtime hours separately, then add them together.
+
+Step 1: Calculate Tina's regular hourly wage.
+Tina's regular hourly wage = $18.00
+
+Step 2: Calculate Tina's overtime hourly wage.
+Tina's overtime hourly wage = Tina's",True,1,Variable 'wage' changed from 18.0 to 27.0 without justification. Fix the reasoning.
+gsm_16,gsm,True,True,True,True,125.0,120.96,"A merchant wants to make a choice of purchase between 2 purchase plans: jewelry worth $5,000 or electronic gadgets worth $8,000. His financial advisor speculates that the jewelry market will go up 2.5",percentage,125,"To solve this problem, we need to calculate the future value of each investment option and then compare them to determine the maximum profit.
+
+Let's denote the current price of jewelry as J = $5,000 and the current price of electronic gadgets as E = $8,000.
+
+The future value of an investment can be ","To solve this problem, we need to calculate the future value of each investment option.
+
+Let's denote the current price of jewelry as J = $5,000 and the current price of electronic gadgets as E = $8,000.
+
+The future value of the jewelry market is given by:
+FV_J = J * (1 + r_J)
+where r_J is the rate ",True,1,Variable 'j' was previously computed as 0.025 but new dependencies yield 5125.0.
+gsm_17,gsm,True,True,False,False,230.0,230.0,"Two trains leave San Rafael at the same time. They begin traveling westward, both traveling for 80 miles. The next day, they travel northward, covering 150 miles. What's the distance covered by each t",arithmetic,230,"Let's break down the problem step by step.
+
+**Step 1: Distance covered by each train on the first day**
+
+Since both trains travel the same distance, we can denote the distance as `d1`. We know that `d1` is 80 miles.
+
+`d1 = 80`
+
+**Step 2: Distance covered by each train on the second day**
+
+On the sec","To solve this problem, we need to break it down into two parts: the distance covered by each train on the first day and the distance covered by each train on the second day.
+
+Let's denote the distance covered by the first train as 'd1' and the distance covered by the second train as 'd2'.
+
+**Day 1:*",False,1,
+gsm_18,gsm,True,False,True,True,460.0,552.0,"Eliza's rate per hour for the first 40 hours she works each week is $10. She also receives an overtime pay of 1.2 times her regular hourly rate. If Eliza worked for 45 hours this week, how much are he",multistep,460,"Let's break down the problem step-by-step.
+
+1. Calculate Eliza's earnings for the first 40 hours:
+   Regular hourly rate = $10
+   Number of hours worked at regular rate = 40
+   Earnings for the first 40 hours = Regular hourly rate * Number of hours worked at regular rate
+   Earnings for the first 40","To find Eliza's earnings for this week, we need to calculate her earnings for the first 40 hours and the overtime hours separately, then add them together.
+
+Let's start by calculating her earnings for the first 40 hours.
+
+1. Regular hourly rate: $10/hour
+2. Number of regular hours worked: 40 hours
+
+",True,1,Variable 'rate' was previously computed as 10.0 but new dependencies yield 12.0.
+gsm_19,gsm,True,True,True,True,366.0,366.0,"A new program had 60 downloads in the first month. The number of downloads in the second month was three times more than the downloads in the first month, but then reduced by 30% in the third month. H",percentage,366,"Let's break down the problem step by step.
+
+**Step 1: Calculate the number of downloads in the first month.**
+downloads_first_month = 60
+
+**Step 2: Calculate the number of downloads in the second month.**
+downloads_second_month = 3 * downloads_first_month
+downloads_second_month = 3 * 60
+downloads_se","Let's break down the problem step by step.
+
+**Step 1: Calculate the number of downloads in the first month.**
+downloads_first_month = 60
+
+**Step 2: Calculate the number of downloads in the second month.**
+downloads_second_month = 3 * downloads_first_month
+downloads_second_month = 3 * 60
+downloads_se",True,1,Variable 'month' was previously computed as 60.0 but new dependencies yield 180.0.
+gsm_20,gsm,True,False,True,True,694.0,6.0,"Toula went to the bakery and bought various types of pastries. She bought 3 dozen donuts which cost $68 per dozen, 2 dozen mini cupcakes which cost $80 per dozen, and 6 dozen mini cheesecakes for $55 ",arithmetic,694,"To find the total cost, we need to calculate the cost of each type of pastry and then add them together.
+
+Step 1: Calculate the cost of 3 dozen donuts.
+
+Let's denote the cost of 3 dozen donuts as 'donut_cost'. The cost per dozen is $68.
+
+donut_cost_per_dozen = $68
+number_of_dozen_donuts = 3
+
+donut_c","Let's break down the problem step by step.
+
+**Step 1: Calculate the cost of 3 dozen donuts**
+
+Cost per dozen donuts = $68
+Number of dozens of donuts = 3
+
+Cost of 3 dozen donuts = Cost per dozen donuts * Number of dozens of donuts
+= $68 * 3
+= $204
+
+Let's assign this value to a variable: `donut_cost =",True,1,Variable 'cost' was previously computed as 204.0 but new dependencies yield 4.0.
+drift_01,drift,False,False,True,True,14.0,14.0,"Let x = 8 and y = 4. The total is x plus y. Halfway through, assume x = 12. Calculate the total.",redefinition,12,"To solve this problem, we will follow the given steps.
+
+Step 1: Calculate the initial total of x and y.
+Let's assign the initial total to a variable named 'initial_total'.
+
+initial_total = x + y
+initial_total = 8 + 4
+initial_total = 12
+
+Step 2: At the halfway point, x is assumed to be 12. We need to","To solve this problem, we will follow the given steps.
+
+Step 1: Calculate the initial total of x and y.
+Let's assign the initial total to a variable named 'initial_total'.
+
+initial_total = x + y
+initial_total = 8 + 4
+initial_total = 12
+
+Step 2: At the halfway point, assume x = 12. We need to calcula",True,1,Variable 'total' was previously computed as 16.0 but new dependencies yield 14.0.
+drift_02,drift,False,False,False,False,60.0,60.0,"A price is 50. A discount of 10 is applied to the price. The final cost should be price minus discount, but actually compute cost = price + discount.",sign_flip,40,"Let's break down the problem step-by-step.
+
+Given:
+- Price (P) = 50
+- Discount (D) = 10
+
+Step 1: Compute the final cost using the incorrect formula: cost = price + discount
+
+Intermediate value: price_plus_discount = P + D
+price_plus_discount = 50 + 10
+price_plus_discount = 60
+
+So, the final cost is ","Let's break down the problem step-by-step.
+
+Given:
+- Price (P) = 50
+- Discount (D) = 10
+
+Step 1: Compute the actual cost using the incorrect formula.
+cost = P + D
+
+To find the cost, we need to add the price and the discount.
+cost = 50 + 10
+
+Let's assign the result to a variable named 'actual_cost'.
+",False,1,
+drift_03,drift,False,True,True,True,0.25,4.0,"We have x = 20 and y = 5. Find the value of x divided by y. Then, imagine x and y have swapped values. What is x divided by y initially?",value_swap,4,"Let's break down the problem step-by-step.
+
+Given values:
+x = 20
+y = 5
+
+Step 1: Find the value of x divided by y.
+To do this, we'll divide x by y.
+
+x_divided_by_y = x / y
+x_divided_by_y = 20 / 5
+
+Now, let's calculate the value of x_divided_by_y.
+
+x_divided_by_y = 20 / 5
+x_divided_by_y = 4
+
+So, the v","To solve the problem, we will follow the steps below:
+
+Step 1: Find the value of x divided by y when x = 20 and y = 5.
+
+Let's denote the value of x divided by y as result1.
+
+result1 = x / y
+result1 = 20 / 5
+
+To find the value of result1, we will divide 20 by 5.
+
+result1 = 20 / 5
+result1 = 4
+
+So, the",True,1,Variable 'result1' was previously computed as 1.0 but new dependencies yield 4.0.
+drift_04,drift,False,False,True,True,100.0,100.0,"A total is 100. We subtract 20 to get the new value. Later, we add 10 to the value. But instead of the real value, use value = 90. What is the final total?",multistep_dependency,90,"Let's break down the problem step by step.
+
+1. Initial total = 100 (assign this to variable 'initial_total')
+   initial_total = 100
+
+2. Subtract 20 from the initial total to get the new value.
+   new_value = initial_total - 20
+   new_value = 100 - 20
+   new_value = 80
+
+3. Now, we are given a differe","Let's break down the problem step by step.
+
+1. Initial total = 100 (assign this to variable 'initial_total')
+   initial_total = 100
+
+2. Subtract 20 from the initial total to get the new value.
+   new_value = initial_total - 20
+   new_value = 100 - 20
+   new_value = 80
+
+3. Now, we are given a differe",True,1,Variable 'value' changed from 80.0 to 90.0 without justification. Fix the reasoning.
+drift_05,drift,False,True,True,True,40.0,450.0,Start with cost = 30 and price = 15. The total is cost times price. Now cost becomes 40. What is the original total?,redefinition,450,"Let's break down the problem step-by-step.
+
+Step 1: Calculate the original total.
+Let's assign the original total to the variable 'original_total'.
+
+original_total = cost * price
+original_total = 30 * 15
+original_total = 450
+
+Step 2: Update the cost to 40.
+cost = 40
+
+Step 3: Calculate the new total ","Let's break down the problem step-by-step.
+
+Step 1: Calculate the original total.
+Let's assign the original total to the variable 'original_total'.
+
+original_total = cost * price
+original_total = 30 * 15
+original_total = 450
+
+Step 2: Update the cost to 40.
+cost = 40
+
+Step 3: Calculate the new total ",True,1,Operation for 'total' changed from Add to Subtract unexpectedly. Check your math signs (+/-).
+drift_06,drift,False,False,True,True,80.0,70.0,"x = 100 and y = 25. The value is x minus y. The next step requires adding 5 to value, but the equation uses value - 5. What should the value be before the mistake?",sign_flip,75,"Let's break down the problem step by step.
+
+Given:
+x = 100
+y = 25
+
+Step 1: Calculate the initial value (x - y)
+Let's call this initial value 'initial_value'.
+
+initial_value = x - y
+initial_value = 100 - 25
+initial_value = 75
+
+Now, we need to add 5 to the initial value, but the equation uses the valu","Let's break down the problem step by step.
+
+Given:
+x = 100
+y = 25
+
+Step 1: Calculate the initial value (x - y)
+Let's call this initial value ""initial_value"".
+
+initial_value = x - y
+initial_value = 100 - 25
+initial_value = 75
+
+So, the initial value before any operations is 75.
+
+Now, let's proceed wit",True,1,Operation for 'mistake' changed from Add to Subtract unexpectedly. Check your math signs (+/-).
+drift_07,drift,False,False,False,False,1024.0,10.0,"Set total = 10 and cost = 2. Compute total to the power of cost. Oh wait, it is cost to the power of total. Based on the first instruction, what is the result?",value_swap,100,"Let's break down the problem step by step.
+
+Given:
+- total = 10
+- cost = 2
+
+We need to compute cost to the power of total, which is cost^total.
+
+Step 1: Compute total to the power of cost (this is not what we want, but we'll do it to understand the initial instruction)
+Let's call this intermediate r","Let's break down the problem step by step.
+
+Given:
+- total = 10
+- cost = 2
+
+We need to compute cost to the power of total.
+
+Step 1: Compute total to the power of cost (initially given instruction)
+Let's denote this result as result1.
+result1 = total ^ cost
+= 10 ^ 2
+= 100
+
+Step 2: Now, we need to com",False,1,
+drift_08,drift,False,True,False,False,40.0,90.0,"The price is 40. We add a tax of 5 to get the total. We then multiply the total by 2. If the multiplier incorrectly used a total of 40 instead of 45, what should the correct final value be?",multistep_dependency,90,"Let's break down the problem step by step.
+
+1. The price is 40. We add a tax of 5 to get the total.
+   Let's call the price 'price' and the tax 'tax'. 
+   price = 40
+   tax = 5
+   total = price + tax
+   total = 40 + 5
+   total = 45
+
+2. We then multiply the total by 2.
+   Let's call the multiplier 'm","Let's break down the problem step by step.
+
+1. The price is 40. We add a tax of 5 to get the total.
+   Let's call the price 'price' and the tax 'tax'. 
+   price = 40
+   tax = 5
+   total = price + tax
+   total = 40 + 5
+   total = 45
+
+2. We then multiply the total by 2.
+   Let's call the multiplier 'm",False,1,
+drift_09,drift,False,True,True,True,9.0,3.0,"x = 9, y = 3. Compute x / y. Then, wait, let x = 27. What is x / y now?",redefinition,3,"To solve this problem, we will follow the steps below:
+
+**Step 1: Compute x / y when x = 9 and y = 3**
+
+Let's assign the value of x to a variable 'x_initial' and the value of y to a variable 'y_initial'.
+
+x_initial = 9
+y_initial = 3
+
+Now, we will compute x_initial / y_initial.
+
+x_initial / y_initial","Let's solve the problem step-by-step.
+
+**Step 1: Compute x / y when x = 9 and y = 3**
+
+Given: x = 9, y = 3
+
+To compute x / y, we will divide x by y.
+
+x_divided_by_y = x / y
+x_divided_by_y = 9 / 3
+
+To perform the division, we will divide the numerator (9) by the denominator (3).
+
+numerator = 9
+denomi",True,1,Variable 'y' was previously computed as 3.0 but new dependencies yield 9.0.
+drift_10,drift,False,True,True,True,75.0,45.0,"Value equals 60. Cost equals 15. Determine value minus cost. Suddenly, the minus changes to a plus in the calculation. What is the actual value minus cost?",sign_flip,45,"Let's break down the problem step-by-step.
+
+Given:
+- Value = 60
+- Cost = 15
+
+Initially, we are asked to find the value minus cost. 
+
+Step 1: Value minus cost
+Value_minus_cost = Value - Cost
+Value_minus_cost = 60 - 15
+
+To find the value of Value_minus_cost, we need to subtract 15 from 60.
+
+Value_minu","Let's break down the problem step-by-step.
+
+Given:
+- Value = 60
+- Cost = 15
+
+Initially, we are asked to find the value minus the cost. 
+
+Step 1: Subtract the cost from the value.
+Value_minus_cost = Value - Cost
+Value_minus_cost = 60 - 15
+
+To find the value of Value_minus_cost, we need to subtract 15",True,1,Operation for 'result' changed from Subtract to Add unexpectedly. Check your math signs (+/-).
+drift_11,drift,False,True,True,True,0.2,5.0,"Let cost = 50 and price = 10. The result is cost / price. Now, cost represents 10 and price represents 50. Calculate cost / price using the original assignments.",value_swap,5,"To solve this problem, we will follow the order of operations and use the original assignments for cost and price.
+
+Let's denote the original cost as 'original_cost' and the original price as 'original_price'.
+
+original_cost = 50
+original_price = 10
+
+Now, we are given that cost represents 10 and pri","Let's break down the problem step by step.
+
+Given:
+- Original cost = 50
+- Original price = 10
+
+Step 1: Calculate the result of the first operation (cost / price) using the original assignments.
+Let's call this result 'result1'.
+result1 = cost / price
+result1 = 50 / 10
+result1 = 5
+
+Step 2: Now, the c",True,1,Variable 'cost' changed from 50.0 to 10.0 without justification. Fix the reasoning.
+drift_12,drift,True,True,False,False,25.0,25.0,x = 10. y = 2. value = x * y. Then total = value + 5. Sometimes people forget and say total = value + 5 where value is 10. What is the true result of total?,multistep_dependency,25,"Let's break down the problem step by step.
+
+Given:
+- x = 10
+- y = 2
+
+Step 1: Calculate the value of x * y.
+
+value = x * y
+value = 10 * 2
+value = 20
+
+Now, let's assign this value to the variable 'value'.
+
+value = 20
+
+Step 2: Calculate the total by adding 5 to the value.
+
+total = value + 5
+total = 20 ","Let's break down the problem step by step.
+
+Given:
+- x = 10
+- y = 2
+
+Step 1: Calculate the value of x * y.
+Let's assign the result to a variable named 'value'.
+
+value = x * y
+value = 10 * 2
+value = 20
+
+Now, we have:
+- x = 10
+- y = 2
+- value = 20
+
+Step 2: Calculate the total by adding 5 to the value.",False,1,
+drift_13,drift,False,False,True,True,65.0,50.0,"The total is 50. We deduct a cost of 10. For the next step, the total mysteriously becomes 60 before adding 5. What should the answer be if total didn't change?",redefinition,45,"Let's break down the problem step by step.
+
+1. Initial total: 
+   total_initial = 50
+
+2. Deduct a cost of 10:
+   cost_deducted = 10
+   total_after_deduction = total_initial - cost_deducted
+   total_after_deduction = 50 - 10
+   total_after_deduction = 40
+
+3. The total mysteriously becomes 60 before a","Let's break down the problem step by step.
+
+1. Initial total: 
+   Total = 50
+
+2. Deduct a cost of 10:
+   Cost = 10
+   New Total = Total - Cost
+   New Total = 50 - 10
+   New Total = 40
+
+3. The total mysteriously becomes 60 before adding 5:
+   New Total = 60
+   Added Value = 5
+
+4. If the total didn't ",True,1,Variable 'total' was previously computed as 40.0 but new dependencies yield 45.0.
+drift_14,drift,True,True,True,True,16.0,16.0,x = 12 and y = 4. Find the value of x plus y. The notation was actually intended as x minus y. Compute x plus y.,sign_flip,16,"To solve the problem, we will first compute x minus y as per the intended notation, and then compute x plus y as per the given notation.
+
+Given:
+x = 12
+y = 4
+
+Step 1: Compute x minus y
+x_minus_y = x - y
+x_minus_y = 12 - 4
+x_minus_y = 8
+
+Step 2: Compute x plus y
+x_plus_y = x + y
+x_plus_y = 12 + 4
+x_p","To solve the problem, we will first compute x minus y as per the intended notation, and then compute x plus y as per the actual notation.
+
+Given:
+x = 12
+y = 4
+
+Step 1: Compute x minus y
+x_minus_y = x - y
+x_minus_y = 12 - 4
+x_minus_y = 8
+
+Step 2: Compute x plus y
+x_plus_y = x + y
+x_plus_y = 12 + 4
+x_",True,1,Operation for 'y' changed from Subtract to Add unexpectedly. Check your math signs (+/-).
+drift_15,drift,True,False,False,False,5.0,0.2,"Initial price is 100. The discount cost is 20. The total is price / cost. Mistakenly, the calculation is cost / price. Evaluate price / cost.",value_swap,5,"Let's break down the problem step by step.
+
+Given:
+- Initial price (P) = 100
+- Discount cost (C) = 20
+- Total = P / C (but the calculation is actually C / P)
+
+We need to find the value of P / C.
+
+Step 1: Find the value of C / P (the mistaken calculation)
+C / P = 20 / 100
+
+Let's assign this value to ","Let's break down the problem step by step.
+
+Given:
+- Initial price (P) = 100
+- Discount cost (C) = 20
+- Total = P / C (However, the calculation is actually C / P)
+
+We need to evaluate the correct calculation: P / C
+
+Step 1: Calculate the total using the correct formula.
+P / C = 100 / 20
+
+Let's assig",False,1,
+drift_16,drift,True,True,True,True,24.0,24.0,"Start with x = 3 and y = 4. Compute value = x * y. Then compute total = value * 2. If a mistake uses value = 7, the total is 14. What is the correct total?",multistep_dependency,24,"Let's break down the problem step-by-step.
+
+Step 1: Compute value = x * y
+Given x = 3 and y = 4, we can compute value as follows:
+
+value = x * y
+value = 3 * 4
+value = 12
+
+Let's assign this value to a variable named ""correct_value"".
+
+correct_value = 12
+
+Step 2: Compute total = value * 2
+Using the cor","Let's break down the problem step-by-step.
+
+Step 1: Compute value = x * y
+Given x = 3 and y = 4, we can compute value as follows:
+
+value = x * y
+value = 3 * 4
+value = 12
+
+Let's assign this value to a variable named 'correct_value'.
+
+correct_value = 12
+
+Step 2: Compute total = value * 2
+Using the cor",True,1,Variable 'total' was previously computed as 24.0 but new dependencies yield 14.0.
+drift_17,drift,True,False,True,True,25.0,10.0,"Assume x = 50. Wait, actually x = 20. But if we use the first value, what is x divided by 2?",redefinition,25,"Let's solve the problem step-by-step.
+
+Given: x = 50 (initial value)
+
+We are asked to find x divided by 2.
+
+Step 1: Divide x by 2.
+
+Let's assign the result to a variable named ""x_divided_by_2"".
+
+x_divided_by_2 = x / 2
+x_divided_by_2 = 50 / 2
+x_divided_by_2 = 25
+
+So, if we use the initial value of x,","Let's solve the problem step-by-step.
+
+Given: x = 50 (initial value)
+
+We are asked to find x divided by 2.
+
+Step 1: Divide x by 2.
+
+Let's assign the result to a variable named 'result_1'.
+
+result_1 = x / 2
+result_1 = 50 / 2
+result_1 = 25
+
+So, if we use the initial value of x, x divided by 2 is 25.
+
+",True,1,Variable '1' changed from 25.0 to 1.0 without justification. Fix the reasoning.
+drift_18,drift,True,False,False,False,20.0,15.0,"The total is 15. The cost is 5. We need to add total and cost. However, the system computes total minus cost. Provide the sum of total and cost.",sign_flip,20,"Let's break down the problem step-by-step.
+
+Given:
+- Total = 15
+- Cost = 5
+
+We need to find the sum of Total and Cost, but the system is currently subtracting Cost from Total.
+
+To find the correct sum, we need to add Cost to the result of the system's computation, which is Total minus Cost.
+
+First, ","Let's break down the problem step-by-step.
+
+Given:
+- Total = 15
+- Cost = 5
+
+The system computes total minus cost, but we need to find the sum of total and cost. To do this, we need to add the total and the cost.
+
+First, we need to find the correct operation to perform. Since we want to add the total",False,1,
+drift_19,drift,True,False,True,True,6.0,0.0,"Suppose x = 8 and y = 2. Compute x minus y. If someone mixes them up and computes y minus x, the result is -6. Give the correct value of x minus y.",value_swap,6,"Let's break down the problem step by step.
+
+Given:
+- x = 8
+- y = 2
+
+We are asked to find the value of x - y.
+
+However, we are also given that if someone mixes them up and computes y - x, the result is -6.
+
+Let's first compute y - x:
+y - x = -6
+
+We can substitute the given values of x and y into this","Let's break down the problem step-by-step.
+
+Given:
+- x = 8
+- y = 2
+
+We are asked to find the value of x - y. However, we are also given an additional piece of information: if someone mixes up the values and computes y - x, the result is -6.
+
+First, let's compute y - x using the given information:
+y ",True,1,Variable 'result' was previously computed as -6.0 but new dependencies yield 6.0.
+drift_20,drift,False,False,False,False,20.0,20.0,"Price is 40. Cost is 10. Value equals price minus cost. Total equals value divided by 2. If the intermediate value is recorded as 40 instead of 30, what should total be?",multistep_dependency,15,"Let's break down the problem step by step.
+
+Given:
+- Price = 40
+- Cost = 10
+
+Step 1: Calculate Value
+Value = Price - Cost
+Value = 40 - 10
+Value = 30  // This is the correct value, but we are told it was recorded as 40 instead.
+
+However, to follow the instructions, let's proceed with the incorrect va","Let's break down the problem step-by-step.
+
+1. Price is 40.
+   Let's assign this value to a variable: `price = 40`
+
+2. Cost is 10.
+   Let's assign this value to a variable: `cost = 10`
+
+3. Value equals price minus cost.
+   `value = price - cost`
+   `value = 40 - 10`
+   `value = 30`
+
+However, it's gi",False,1,
+drift_21,drift,True,False,True,True,120.0,270.0,"Given cost = 100. Halfway through the calculation, a new shipment arrives and cost = 150. Based on the initial cost, what is cost plus 20?",redefinition,120,"Let's break down the problem step-by-step.
+
+Given initial cost = 100.
+
+We need to find the cost plus 20.
+
+However, we are given a new cost = 150, which is not directly relevant to the calculation of cost plus 20 based on the initial cost.
+
+To find the cost plus 20, we simply add 20 to the initial co","Let's break down the problem step-by-step.
+
+Given initial cost = 100.
+
+We need to find the cost plus 20.
+
+First, let's find the cost plus 20 based on the initial cost.
+
+cost_plus_20 = initial_cost + 20
+cost_plus_20 = 100 + 20
+cost_plus_20 = 120
+
+However, we are given that a new shipment arrives and ",True,1,Variable '20' was previously computed as 100.0 but new dependencies yield 120.0.
+drift_22,drift,True,False,True,True,3.0,30.0,"x = 90. y = 30. Calculate x / y. A typo changes the calculation to x * y. Ignoring the typo, what is x / y?",sign_flip,3,"To solve the problem, we will first calculate x / y, ignoring the typo.
+
+Step 1: Calculate x / y
+x = 90
+y = 30
+
+x_divided_by_y = x / y
+x_divided_by_y = 90 / 30
+
+To divide 90 by 30, we can divide both the numerator and the denominator by their greatest common divisor, which is 30.
+
+x_divided_by_y = (","To solve the problem, we will first calculate x / y, ignoring the typo.
+
+Step 1: Calculate x / y
+x = 90
+y = 30
+
+x_divided_by_y = x / y
+x_divided_by_y = 90 / 30
+
+To divide 90 by 30, we can divide both the numerator and the denominator by their greatest common divisor, which is 30.
+
+x_divided_by_y = (",True,1,Variable 'y' was previously computed as 90.0 but new dependencies yield 3.0.
+drift_23,drift,True,True,True,True,50.0,50.0,"Let price = 200 and total = 4. The value is price divided by total. In a confusing step, price is treated as 4 and total as 200. Compute the correct value.",value_swap,50,"Let's break down the problem step-by-step.
+
+Given:
+- price = 200
+- total = 4
+
+However, in the confusing step, price and total are swapped:
+- price = 4
+- total = 200
+
+We need to compute the value, which is price divided by total.
+
+Step 1: Compute the value using the swapped values.
+value_swapped = pr","Let's break down the problem step-by-step.
+
+Given:
+- price = 200
+- total = 4
+
+We need to find the value, which is the result of dividing price by total.
+
+Step 1: Divide price by total.
+Let's denote the result of this division as 'value'.
+value = price / total
+
+To find the value, we need to substitut",True,1,Variable 'value' was previously computed as 4.0 but new dependencies yield 50.0.
+drift_24,drift,False,True,True,True,15.0,25.0,"x = 5. y = 3. Find value = x * y. Next, find total = value + 10. An error causes total = 5 + 10 instead of value + 10. What is the real total?",multistep_dependency,25,"Let's break down the problem step-by-step.
+
+Given:
+- x = 5
+- y = 3
+
+Step 1: Find the value of x * y.
+
+value = x * y
+value = 5 * 3
+value = 15
+
+Step 2: Find the real total by adding 10 to the value.
+
+real_total = value + 10
+real_total = 15 + 10
+real_total = 25
+
+However, an error causes the total to be","Let's break down the problem step-by-step.
+
+Given:
+- x = 5
+- y = 3
+
+Step 1: Find value = x * y
+
+value = x * y
+value = 5 * 3
+value = 15
+
+Let's assign this value to a named variable: value = 15
+
+Step 2: Find total = value + 10
+
+However, an error causes total = 5 + 10 instead of value + 10.
+
+To find th",True,1,Variable 'total' was previously computed as 15.0 but new dependencies yield 25.0.
+drift_25,drift,True,True,True,True,10.0,10.0,"Imagine y = 14. Wait, the problem meant y = 18. If we were to follow the first statement, what is y minus 4?",redefinition,10,"To solve this problem, we will follow the initial statement y = 14.
+
+Let's assign the initial value of y to a variable.
+y_initial = 14
+
+Now, we need to find y minus 4. We can do this by subtracting 4 from y_initial.
+
+y_minus_4 = y_initial - 4
+y_minus_4 = 14 - 4
+y_minus_4 = 10
+
+So, if we were to foll","Let's follow the initial statement y = 14.
+
+Given y = 14, we need to find y - 4.
+
+Step 1: Assign the initial value of y to a variable.
+y_initial = 14
+
+Step 2: Subtract 4 from y_initial.
+y_minus_4 = y_initial - 4
+
+y_minus_4 = 14 - 4
+y_minus_4 = 10
+
+So, if we were to follow the first statement y = 14,",True,1,Variable '4' was previously computed as 14.0 but new dependencies yield 10.0.
+drift_26,drift,True,True,False,False,100.0,100.0,"Cost is 75. Value is 25. Compute cost plus value. Sometimes a minus sign appears, making it cost minus value. What is the actual answer for cost plus value?",sign_flip,100,"Let's break down the problem step by step.
+
+Given:
+- Cost = 75
+- Value = 25
+
+We need to compute cost plus value. 
+
+Step 1: Add cost and value.
+Let's assign the result to a variable named 'result'.
+
+result = cost + value
+
+To find the result, we need to add 75 and 25.
+
+result = 75 + 25
+
+Step 2: Perfor","Let's break down the problem step by step.
+
+Given:
+- Cost = 75
+- Value = 25
+
+We need to compute cost plus value. 
+
+Step 1: Add cost and value.
+Let's assign the result to a variable named 'result'.
+result = cost + value
+
+To find the result, we need to add 75 and 25.
+
+result = 75 + 25
+
+Now, let's perf",False,1,
+drift_27,drift,True,True,True,True,4.0,4.0,x = 6 and y = 10. Determine y minus x. The terms might swap so it looks like x minus y. What is y minus x?,value_swap,4,"To solve this problem, we need to substitute the given values of x and y into the expression y - x.
+
+Given values:
+x = 6
+y = 10
+
+We need to find y - x. 
+
+Let's substitute the values of x and y into the expression:
+y - x = 10 - 6
+
+Now, let's perform the subtraction:
+10 - 6 = 4
+
+So, y - x = 4.
+
+To ver","To solve this problem, we need to substitute the given values of x and y into the expression y - x.
+
+Given values:
+x = 6
+y = 10
+
+Expression: y - x
+
+Substitute the values of x and y into the expression:
+y - x = 10 - 6
+
+Now, let's evaluate the expression step by step.
+
+Step 1: Subtract 6 from 10.
+Let'",True,1,Variable '1' changed from 4.0 to 1.0 without justification. Fix the reasoning.
+drift_28,drift,True,False,True,True,35.0,10.0,"Total is 10. Price is 4. Value equals total * price. Then, cost equals value - 5. The recorded value was 14 instead of 40 before subtracting 5. What is the cost correctly computed?",multistep_dependency,35,"Let's break down the problem step by step.
+
+1. Total is 10.
+   Let's assign this value to a variable: total = 10
+
+2. Price is 4.
+   Let's assign this value to a variable: price = 4
+
+3. Value equals total * price.
+   value = total * price
+   value = 10 * 4
+   value = 40
+
+4. The recorded value was 14 ","Let's break down the problem step by step.
+
+1. Total is 10.
+   Let's assign this value to a variable: total = 10
+
+2. Price is 4.
+   Let's assign this value to a variable: price = 4
+
+3. Value equals total * price.
+   value = total * price
+   value = 10 * 4
+   value = 40
+
+4. The recorded value was 14 ",True,1,Variable 'cost' was previously computed as 35.0 but new dependencies yield 9.0.
+drift_29,drift,True,True,True,True,60.0,60.0,"Let x = 30. Then x = 40. Then x = 50. If you assume x remained 30 the whole time, what is x * 2?",redefinition,60,"To solve this problem, we will follow the given sequence of operations and then calculate the result of multiplying x by 2.
+
+Given: x = 30
+
+Then x = 40
+
+Then x = 50
+
+However, we are asked to assume x remained 30 the whole time. So, we will use x = 30 for our calculation.
+
+Step 1: Assign the value of","Let's break down the problem step by step.
+
+Given: x = 30 (initial value)
+x = 40 (second value)
+x = 50 (third value)
+
+However, we are asked to assume x remained 30 the whole time.
+
+Let's assign the initial value of x to a variable named 'initial_x'.
+initial_x = 30
+
+Now, we are asked to find x * 2, a",True,1,Variable 'x' changed from 30.0 to 40.0 without justification. Fix the reasoning.
+drift_30,drift,True,True,False,False,75.0,75.0,The price is 15. The total is 5. We must calculate price times total. Some logic incorrectly adds them together instead. Compute the correct price times total.,sign_flip,75,"Let's break down the problem step-by-step.
+
+Given:
+- Price (P) = 15
+- Total (T) = 5
+
+We need to calculate the product of Price and Total, which is P * T.
+
+Step 1: Multiply Price and Total
+P * T = 15 * 5
+
+To calculate this, we multiply the numbers together.
+
+Step 2: Perform the multiplication
+15 * 5 ","Let's break down the problem step-by-step.
+
+Given:
+- Price (P) = 15
+- Total (T) = 5
+
+We need to calculate the product of Price and Total, which is P * T.
+
+Step 1: Multiply Price and Total
+P * T = 15 * 5
+
+To calculate this, we multiply the numbers together.
+
+Step 2: Perform the multiplication
+15 * 5 ",False,1,

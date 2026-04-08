@@ -1,0 +1,352 @@
+[
+  {
+    "question": "A store sells apples for $3 each. A customer buys 5 apples. What is the total cost?",
+    "correct_reasoning": "price = 3\nquantity = 5\ntotal = price * quantity",
+    "drifted_reasoning": "price = 3\nquantity = 5\ntotal = price * 6",
+    "answer": 15,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A rectangle has length 8 and width 4. What is the area?",
+    "correct_reasoning": "length = 8\nwidth = 4\narea = length * width",
+    "drifted_reasoning": "length = 8\nwidth = 4\narea = length * 5",
+    "answer": 32,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "John earns $12 per hour. He works 8 hours. What are his earnings?",
+    "correct_reasoning": "rate = 12\nhours = 8\nearnings = rate * hours",
+    "drifted_reasoning": "rate = 12\nhours = 8\nearnings = rate * 9",
+    "answer": 96,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A bag has 20 marbles. 7 are removed. How many remain?",
+    "correct_reasoning": "total = 20\nremoved = 7\nremaining = total - removed",
+    "drifted_reasoning": "total = 20\nremoved = 7\nremaining = total - 9",
+    "answer": 13,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A car travels at 60 mph for 3 hours. What is the distance?",
+    "correct_reasoning": "speed = 60\ntime = 3\ndistance = speed * time",
+    "drifted_reasoning": "speed = 60\ntime = 3\ndistance = speed * 4",
+    "answer": 180,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A pizza costs $14. Tax is $2. What is the total?",
+    "correct_reasoning": "pizza = 14\ntax = 2\ntotal = pizza + tax",
+    "drifted_reasoning": "pizza = 14\ntax = 2\ntotal = pizza + 3",
+    "answer": 16,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A farmer has 50 chickens. 12 are sold. How many are left?",
+    "correct_reasoning": "chickens = 50\nsold = 12\nleft = chickens - sold",
+    "drifted_reasoning": "chickens = 50\nsold = 12\nleft = chickens - 15",
+    "answer": 38,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A book costs $25. A discount of $5 is applied. What is the sale price?",
+    "correct_reasoning": "price = 25\ndiscount = 5\nsale_price = price - discount",
+    "drifted_reasoning": "price = 25\ndiscount = 5\nsale_price = price - 8",
+    "answer": 20,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A baker makes 6 cakes per day for 5 days. How many cakes total?",
+    "correct_reasoning": "per_day = 6\ndays = 5\ntotal = per_day * days",
+    "drifted_reasoning": "per_day = 6\ndays = 5\ntotal = per_day * 7",
+    "answer": 30,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A tank has 100 liters. 35 liters are drained. How many liters remain?",
+    "correct_reasoning": "tank = 100\ndrained = 35\nremain = tank - drained",
+    "drifted_reasoning": "tank = 100\ndrained = 35\nremain = tank - 40",
+    "answer": 65,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A pencil costs $2. An eraser costs $1. What is the total?",
+    "correct_reasoning": "pencil = 2\neraser = 1\ntotal = pencil + eraser",
+    "drifted_reasoning": "pencil = 2\neraser = 1\ntotal = pencil + 4",
+    "answer": 3,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A runner runs 10 km in 2 hours. What is the speed?",
+    "correct_reasoning": "distance = 10\ntime = 2\nspeed = distance / time",
+    "drifted_reasoning": "distance = 10\ntime = 2\nspeed = distance / 3",
+    "answer": 5,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A garden has 40 flowers. 15 wilt. How many survive?",
+    "correct_reasoning": "flowers = 40\nwilted = 15\nsurvived = flowers - wilted",
+    "drifted_reasoning": "flowers = 40\nwilted = 15\nsurvived = flowers - 20",
+    "answer": 25,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A bottle holds 2 liters. 8 bottles are filled. What is the total volume?",
+    "correct_reasoning": "per_bottle = 2\nbottles = 8\ntotal = per_bottle * bottles",
+    "drifted_reasoning": "per_bottle = 2\nbottles = 8\ntotal = per_bottle * 10",
+    "answer": 16,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A shirt costs $30. Shipping is $5. What is the total?",
+    "correct_reasoning": "shirt = 30\nshipping = 5\ntotal = shirt + shipping",
+    "drifted_reasoning": "shirt = 30\nshipping = 5\ntotal = shirt + 8",
+    "answer": 35,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A basket has 18 oranges. 6 are eaten. How many are left?",
+    "correct_reasoning": "oranges = 18\neaten = 6\nleft = oranges - eaten",
+    "drifted_reasoning": "oranges = 18\neaten = 6\nleft = oranges - 10",
+    "answer": 12,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "Let x = 10. Let y = 4. Compute z = x + y. What is z?",
+    "correct_reasoning": "x = 10\ny = 4\nz = x + y",
+    "drifted_reasoning": "x = 10\ny = 4\nz = x + x",
+    "answer": 14,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let a = 6. Let b = 3. Compute c = a * b. What is c?",
+    "correct_reasoning": "a = 6\nb = 3\nc = a * b",
+    "drifted_reasoning": "a = 6\nb = 3\nc = a * a",
+    "answer": 18,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let price = 50. Let tax = 5. Compute total = price + tax. What is total?",
+    "correct_reasoning": "price = 50\ntax = 5\ntotal = price + tax",
+    "drifted_reasoning": "price = 50\ntax = 5\ntotal = price + price",
+    "answer": 55,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let base = 100. Let bonus = 20. Compute salary = base + bonus. What is salary?",
+    "correct_reasoning": "base = 100\nbonus = 20\nsalary = base + bonus",
+    "drifted_reasoning": "base = 100\nbonus = 20\nsalary = base + base",
+    "answer": 120,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let width = 5. Let height = 10. Compute area = width * height. What is area?",
+    "correct_reasoning": "width = 5\nheight = 10\narea = width * height",
+    "drifted_reasoning": "width = 5\nheight = 10\narea = width * width",
+    "answer": 50,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let cost = 40. Let quantity = 3. Compute total = cost * quantity. What is total?",
+    "correct_reasoning": "cost = 40\nquantity = 3\ntotal = cost * quantity",
+    "drifted_reasoning": "cost = 40\nquantity = 3\ntotal = cost * cost",
+    "answer": 120,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let income = 500. Let expense = 200. Compute savings = income - expense. What is savings?",
+    "correct_reasoning": "income = 500\nexpense = 200\nsavings = income - expense",
+    "drifted_reasoning": "income = 500\nexpense = 200\nsavings = income - income",
+    "answer": 300,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let speed = 80. Let time = 2. Compute distance = speed * time. What is distance?",
+    "correct_reasoning": "speed = 80\ntime = 2\ndistance = speed * time",
+    "drifted_reasoning": "speed = 80\ntime = 2\ndistance = speed * speed",
+    "answer": 160,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let apples = 12. Let oranges = 8. Compute fruit = apples + oranges. What is fruit?",
+    "correct_reasoning": "apples = 12\noranges = 8\nfruit = apples + oranges",
+    "drifted_reasoning": "apples = 12\noranges = 8\nfruit = apples + apples",
+    "answer": 20,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let total = 90. Let discount = 15. Compute final = total - discount. What is final?",
+    "correct_reasoning": "total = 90\ndiscount = 15\nfinal = total - discount",
+    "drifted_reasoning": "total = 90\ndiscount = 15\nfinal = total - total",
+    "answer": 75,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let weight = 25. Let count = 4. Compute total_weight = weight * count. What is total_weight?",
+    "correct_reasoning": "weight = 25\ncount = 4\ntotal_weight = weight * count",
+    "drifted_reasoning": "weight = 25\ncount = 4\ntotal_weight = weight * weight",
+    "answer": 100,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let score1 = 85. Let score2 = 90. Compute average = score1 + score2. What is average?",
+    "correct_reasoning": "score1 = 85\nscore2 = 90\naverage = score1 + score2",
+    "drifted_reasoning": "score1 = 85\nscore2 = 90\naverage = score1 + score1",
+    "answer": 175,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let radius = 7. Let pi_approx = 3. Compute circumference = radius * pi_approx. What is circumference?",
+    "correct_reasoning": "radius = 7\npi_approx = 3\ncircumference = radius * pi_approx",
+    "drifted_reasoning": "radius = 7\npi_approx = 3\ncircumference = pi_approx * pi_approx",
+    "answer": 21,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let eggs = 24. Let eaten = 6. Compute remaining = eggs - eaten. What is remaining?",
+    "correct_reasoning": "eggs = 24\neaten = 6\nremaining = eggs - eaten",
+    "drifted_reasoning": "eggs = 24\neaten = 6\nremaining = eaten - eaten",
+    "answer": 18,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let miles = 60. Let gallons = 3. Compute mpg = miles / gallons. What is mpg?",
+    "correct_reasoning": "miles = 60\ngallons = 3\nmpg = miles / gallons",
+    "drifted_reasoning": "miles = 60\ngallons = 3\nmpg = gallons / gallons",
+    "answer": 20,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let rent = 800. Let utilities = 150. Compute expenses = rent + utilities. What is expenses?",
+    "correct_reasoning": "rent = 800\nutilities = 150\nexpenses = rent + utilities",
+    "drifted_reasoning": "rent = 800\nutilities = 150\nexpenses = rent + rent",
+    "answer": 950,
+    "drift_type": "dependency"
+  },
+  {
+    "question": "Let x = 5. Let y = 3. Compute z = x * y. Then x = 8. What is z?",
+    "correct_reasoning": "x = 5\ny = 3\nz = x * y\nx = 8",
+    "drifted_reasoning": "x = 5\ny = 3\nz = x * y\nx = 8\nz = x * y",
+    "answer": 15,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let price = 20. Let qty = 4. Compute total = price * qty. Then price = 30. What is total?",
+    "correct_reasoning": "price = 20\nqty = 4\ntotal = price * qty\nprice = 30",
+    "drifted_reasoning": "price = 20\nqty = 4\ntotal = price * qty\nprice = 30\ntotal = price * qty",
+    "answer": 80,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let a = 10. Let b = 2. Compute c = a + b. Then a = 15. What is c?",
+    "correct_reasoning": "a = 10\nb = 2\nc = a + b\na = 15",
+    "drifted_reasoning": "a = 10\nb = 2\nc = a + b\na = 15\nc = a + b",
+    "answer": 12,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let cost = 100. Let tax = 10. Compute bill = cost + tax. Then cost = 200. What is bill?",
+    "correct_reasoning": "cost = 100\ntax = 10\nbill = cost + tax\ncost = 200",
+    "drifted_reasoning": "cost = 100\ntax = 10\nbill = cost + tax\ncost = 200\nbill = cost + tax",
+    "answer": 110,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let base = 50. Let rate = 2. Compute result = base * rate. Then base = 60. What is result?",
+    "correct_reasoning": "base = 50\nrate = 2\nresult = base * rate\nbase = 60",
+    "drifted_reasoning": "base = 50\nrate = 2\nresult = base * rate\nbase = 60\nresult = base * rate",
+    "answer": 100,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let wage = 15. Let hours = 8. Compute pay = wage * hours. Then wage = 20. What is pay?",
+    "correct_reasoning": "wage = 15\nhours = 8\npay = wage * hours\nwage = 20",
+    "drifted_reasoning": "wage = 15\nhours = 8\npay = wage * hours\nwage = 20\npay = wage * hours",
+    "answer": 120,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let items = 30. Let price = 5. Compute revenue = items * price. Then items = 40. What is revenue?",
+    "correct_reasoning": "items = 30\nprice = 5\nrevenue = items * price\nitems = 40",
+    "drifted_reasoning": "items = 30\nprice = 5\nrevenue = items * price\nitems = 40\nrevenue = items * price",
+    "answer": 150,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let length = 12. Let width = 5. Compute area = length * width. Then length = 20. What is area?",
+    "correct_reasoning": "length = 12\nwidth = 5\narea = length * width\nlength = 20",
+    "drifted_reasoning": "length = 12\nwidth = 5\narea = length * width\nlength = 20\narea = length * width",
+    "answer": 60,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let students = 25. Let groups = 5. Compute per_group = students / groups. Then students = 30. What is per_group?",
+    "correct_reasoning": "students = 25\ngroups = 5\nper_group = students / groups\nstudents = 30",
+    "drifted_reasoning": "students = 25\ngroups = 5\nper_group = students / groups\nstudents = 30\nper_group = students / groups",
+    "answer": 5,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let tickets = 10. Let price = 8. Compute cost = tickets * price. Then tickets = 15. What is cost?",
+    "correct_reasoning": "tickets = 10\nprice = 8\ncost = tickets * price\ntickets = 15",
+    "drifted_reasoning": "tickets = 10\nprice = 8\ncost = tickets * price\ntickets = 15\ncost = tickets * price",
+    "answer": 80,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let gallons = 10. Let mpg = 30. Compute range = gallons * mpg. Then gallons = 15. What is range?",
+    "correct_reasoning": "gallons = 10\nmpg = 30\nrange = gallons * mpg\ngallons = 15",
+    "drifted_reasoning": "gallons = 10\nmpg = 30\nrange = gallons * mpg\ngallons = 15\nrange = gallons * mpg",
+    "answer": 300,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let deposit = 500. Let interest = 50. Compute balance = deposit + interest. Then deposit = 800. What is balance?",
+    "correct_reasoning": "deposit = 500\ninterest = 50\nbalance = deposit + interest\ndeposit = 800",
+    "drifted_reasoning": "deposit = 500\ninterest = 50\nbalance = deposit + interest\ndeposit = 800\nbalance = deposit + interest",
+    "answer": 550,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let apples = 20. Let eaten = 5. Compute left = apples - eaten. Then apples = 30. What is left?",
+    "correct_reasoning": "apples = 20\neaten = 5\nleft = apples - eaten\napples = 30",
+    "drifted_reasoning": "apples = 20\neaten = 5\nleft = apples - eaten\napples = 30\nleft = apples - eaten",
+    "answer": 15,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let weight = 200. Let lost = 30. Compute current = weight - lost. Then weight = 180. What is current?",
+    "correct_reasoning": "weight = 200\nlost = 30\ncurrent = weight - lost\nweight = 180",
+    "drifted_reasoning": "weight = 200\nlost = 30\ncurrent = weight - lost\nweight = 180\ncurrent = weight - lost",
+    "answer": 170,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "Let workers = 8. Let rate = 25. Compute daily_cost = workers * rate. Then workers = 12. What is daily_cost?",
+    "correct_reasoning": "workers = 8\nrate = 25\ndaily_cost = workers * rate\nworkers = 12",
+    "drifted_reasoning": "workers = 8\nrate = 25\ndaily_cost = workers * rate\nworkers = 12\ndaily_cost = workers * rate",
+    "answer": 200,
+    "drift_type": "redefinition"
+  },
+  {
+    "question": "A box has 36 items. 9 are defective. How many are good?",
+    "correct_reasoning": "items = 36\ndefective = 9\ngood = items - defective",
+    "drifted_reasoning": "items = 36\ndefective = 9\ngood = items - 12",
+    "answer": 27,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "A truck carries 15 crates. Each crate has 4 boxes. How many boxes total?",
+    "correct_reasoning": "crates = 15\nboxes_per_crate = 4\ntotal_boxes = crates * boxes_per_crate",
+    "drifted_reasoning": "crates = 15\nboxes_per_crate = 4\ntotal_boxes = crates * 6",
+    "answer": 60,
+    "drift_type": "numeric"
+  },
+  {
+    "question": "Let m = 14. Let n = 6. Compute diff = m - n. What is diff?",
+    "correct_reasoning": "m = 14\nn = 6\ndiff = m - n",
+    "drifted_reasoning": "m = 14\nn = 6\ndiff = m - m",
+    "answer": 8,
+    "drift_type": "dependency"
+  }
+]

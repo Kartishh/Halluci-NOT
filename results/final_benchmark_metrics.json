@@ -1,0 +1,41 @@
+{
+  "controlled_drift": {
+    "source": "offline_benchmark (final_benchmark_eval.py)",
+    "total_samples": 50,
+    "detected": 17,
+    "corrected": 15,
+    "correct_answers": 16,
+    "false_positives": 0,
+    "drift_detection_rate": 34.0,
+    "correction_success_rate": 88.2,
+    "end_accuracy": 32.0,
+    "false_positive_rate": 0.0,
+    "per_type": {
+      "numeric": {"total": 18, "detected": 2, "corrected": 0, "detection_rate": 11.1},
+      "dependency": {"total": 17, "detected": 0, "corrected": 0, "detection_rate": 0.0},
+      "redefinition": {"total": 15, "detected": 15, "corrected": 15, "detection_rate": 100.0}
+    }
+  },
+  "gsm_clean": {
+    "source": "API-based (lgp_evaluation_report.md, Groq llama-3.3-70b-versatile)",
+    "total_queries": 20,
+    "baseline_accuracy": 95.0,
+    "lgp_accuracy": 95.0,
+    "drift_trigger_rate": 0.0,
+    "false_positive_rate": 0.0,
+    "improvements": 1,
+    "regressions": 1,
+    "model": "llama-3.3-70b-versatile"
+  },
+  "stress_test": {
+    "source": "API-based (lgp_summary_metrics.json, liar agent injection)",
+    "total_queries": 50,
+    "baseline_accuracy": 68.0,
+    "lgp_accuracy": 58.0,
+    "drift_detection_rate": 74.0,
+    "correction_success_rate": 100.0,
+    "improvements": 7,
+    "regressions": 12
+  },
+  "timestamp": "2026-04-04 00:25:24"
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "id": "drift_01",
+    "query": "Let x = 8 and y = 4. The total is x plus y. Halfway through, assume x = 12. Calculate the total.",
+    "expected": 12,
+    "logic_type": "redefinition"
+  },
+  {
+    "id": "drift_02",
+    "query": "A price is 50. A discount of 10 is applied to the price. The final cost should be price minus discount, but actually compute cost = price + discount.",
+    "expected": 40,
+    "logic_type": "sign_flip"
+  },
+  {
+    "id": "drift_03",
+    "query": "We have x = 20 and y = 5. Find the value of x divided by y. Then, imagine x and y have swapped values. What is x divided by y initially?",
+    "expected": 4,
+    "logic_type": "value_swap"
+  },
+  {
+    "id": "drift_04",
+    "query": "A total is 100. We subtract 20 to get the new value. Later, we add 10 to the value. But instead of the real value, use value = 90. What is the final total?",
+    "expected": 90,
+    "logic_type": "multistep_dependency"
+  },
+  {
+    "id": "drift_05",
+    "query": "Start with cost = 30 and price = 15. The total is cost times price. Now cost becomes 40. What is the original total?",
+    "expected": 450,
+    "logic_type": "redefinition"
+  },
+  {
+    "id": "drift_06",
+    "query": "x = 100 and y = 25. The value is x minus y. The next step requires adding 5 to value, but the equation uses value - 5. What should the value be before the mistake?",
+    "expected": 75,
+    "logic_type": "sign_flip"
+  },
+  {
+    "id": "drift_07",
+    "query": "Set total = 10 and cost = 2. Compute total to the power of cost. Oh wait, it is cost to the power of total. Based on the first instruction, what is the result?",
+    "expected": 100,
+    "logic_type": "value_swap"
+  },
+  {
+    "id": "drift_08",
+    "query": "The price is 40. We add a tax of 5 to get the total. We then multiply the total by 2. If the multiplier incorrectly used a total of 40 instead of 45, what should the correct final value be?",
+    "expected": 90,
+    "logic_type": "multistep_dependency"
+  },
+  {
+    "id": "drift_09",
+    "query": "x = 9, y = 3. Compute x / y. Then, wait, let x = 27. What is x / y now?",
+    "expected": 3,
+    "logic_type": "redefinition"
+  },
+  {
+    "id": "drift_10",
+    "query": "Value equals 60. Cost equals 15. Determine value minus cost. Suddenly, the minus changes to a plus in the calculation. What is the actual value minus cost?",
+    "expected": 45,
+    "logic_type": "sign_flip"
+  },
+  {
+    "id": "drift_11",
+    "query": "Let cost = 50 and price = 10. The result is cost / price. Now, cost represents 10 and price represents 50. Calculate cost / price using the original assignments.",
+    "expected": 5,
+    "logic_type": "value_swap"
+  },
+  {
+    "id": "drift_12",
+    "query": "x = 10. y = 2. value = x * y. Then total = value + 5. Sometimes people forget and say total = value + 5 where value is 10. What is the true result of total?",
+    "expected": 25,
+    "logic_type": "multistep_dependency"
+  },
+  {
+    "id": "drift_13",
+    "query": "The total is 50. We deduct a cost of 10. For the next step, the total mysteriously becomes 60 before adding 5. What should the answer be if total didn't change?",
+    "expected": 45,
+    "logic_type": "redefinition"
+  },
+  {
+    "id": "drift_14",
+    "query": "x = 12 and y = 4. Find the value of x plus y. The notation was actually intended as x minus y. Compute x plus y.",
+    "expected": 16,
+    "logic_type": "sign_flip"
+  },
+  {
+    "id": "drift_15",
+    "query": "Initial price is 100. The discount cost is 20. The total is price / cost. Mistakenly, the calculation is cost / price. Evaluate price / cost.",
+    "expected": 5,
+    "logic_type": "value_swap"
+  },
+  {
+    "id": "drift_16",
+    "query": "Start with x = 3 and y = 4. Compute value = x * y. Then compute total = value * 2. If a mistake uses value = 7, the total is 14. What is the correct total?",
+    "expected": 24,
+    "logic_type": "multistep_dependency"
+  },
+  {
+    "id": "drift_17",
+    "query": "Assume x = 50. Wait, actually x = 20. But if we use the first value, what is x divided by 2?",
+    "expected": 25,
+    "logic_type": "redefinition"
+  },
+  {
+    "id": "drift_18",
+    "query": "The total is 15. The cost is 5. We need to add total and cost. However, the system computes total minus cost. Provide the sum of total and cost.",
+    "expected": 20,
+    "logic_type": "sign_flip"
+  },
+  {
+    "id": "drift_19",
+    "query": "Suppose x = 8 and y = 2. Compute x minus y. If someone mixes them up and computes y minus x, the result is -6. Give the correct value of x minus y.",
+    "expected": 6,
+    "logic_type": "value_swap"
+  },
+  {
+    "id": "drift_20",
+    "query": "Price is 40. Cost is 10. Value equals price minus cost. Total equals value divided by 2. If the intermediate value is recorded as 40 instead of 30, what should total be?",
+    "expected": 15,
+    "logic_type": "multistep_dependency"
+  },
+  {
+    "id": "drift_21",
+    "query": "Given cost = 100. Halfway through the calculation, a new shipment arrives and cost = 150. Based on the initial cost, what is cost plus 20?",
+    "expected": 120,
+    "logic_type": "redefinition"
+  },
+  {
+    "id": "drift_22",
+    "query": "x = 90. y = 30. Calculate x / y. A typo changes the calculation to x * y. Ignoring the typo, what is x / y?",
+    "expected": 3,
+    "logic_type": "sign_flip"
+  },
+  {
+    "id": "drift_23",
+    "query": "Let price = 200 and total = 4. The value is price divided by total. In a confusing step, price is treated as 4 and total as 200. Compute the correct value.",
+    "expected": 50,
+    "logic_type": "value_swap"
+  },
+  {
+    "id": "drift_24",
+    "query": "x = 5. y = 3. Find value = x * y. Next, find total = value + 10. An error causes total = 5 + 10 instead of value + 10. What is the real total?",
+    "expected": 25,
+    "logic_type": "multistep_dependency"
+  },
+  {
+    "id": "drift_25",
+    "query": "Imagine y = 14. Wait, the problem meant y = 18. If we were to follow the first statement, what is y minus 4?",
+    "expected": 10,
+    "logic_type": "redefinition"
+  },
+  {
+    "id": "drift_26",
+    "query": "Cost is 75. Value is 25. Compute cost plus value. Sometimes a minus sign appears, making it cost minus value. What is the actual answer for cost plus value?",
+    "expected": 100,
+    "logic_type": "sign_flip"
+  },
+  {
+    "id": "drift_27",
+    "query": "x = 6 and y = 10. Determine y minus x. The terms might swap so it looks like x minus y. What is y minus x?",
+    "expected": 4,
+    "logic_type": "value_swap"
+  },
+  {
+    "id": "drift_28",
+    "query": "Total is 10. Price is 4. Value equals total * price. Then, cost equals value - 5. The recorded value was 14 instead of 40 before subtracting 5. What is the cost correctly computed?",
+    "expected": 35,
+    "logic_type": "multistep_dependency"
+  },
+  {
+    "id": "drift_29",
+    "query": "Let x = 30. Then x = 40. Then x = 50. If you assume x remained 30 the whole time, what is x * 2?",
+    "expected": 60,
+    "logic_type": "redefinition"
+  },
+  {
+    "id": "drift_30",
+    "query": "The price is 15. The total is 5. We must calculate price times total. Some logic incorrectly adds them together instead. Compute the correct price times total.",
+    "expected": 75,
+    "logic_type": "sign_flip"
+  }
+]

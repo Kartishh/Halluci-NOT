@@ -37,54 +37,26 @@ logger.setLevel(logging.INFO)
 # Gemini API Client
 # ---------------------------------------------------------------------------
 
+from core.groq_llm import get_groq_llm
+
 class GeminiClient:
-    """
-    Lightweight wrapper for Google Gemini API.
-
-    Uses gemini-2.0-flash (free tier) by default.
-    """
-
     def __init__(self, model_name: Optional[str] = None):
-        self.model_name = model_name or os.getenv("LLM_MODEL", "gemini-2.0-flash")
-        self._model = None
-        self._initialized = False
-
-    def _initialize(self):
-        if self._initialized:
-            return
-
-        import google.generativeai as genai
-
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key:
-            raise RuntimeError(
-                "GEMINI_API_KEY environment variable is required for baseline evaluation. "
-                "Get a free key at: https://aistudio.google.com/apikey"
-            )
-
-        genai.configure(api_key=api_key)
-        self._model = genai.GenerativeModel(self.model_name)
-        self._initialized = True
-        logger.info(f"Gemini client initialized with model: {self.model_name}")
+        self.client = get_groq_llm()
 
     def generate(self, prompt: str) -> str:
-        """Generate a response from the LLM."""
-        self._initialize()
-
         try:
-            response = self._model.generate_content(prompt)
-            return response.text.strip()
+            response = self.client._call_with_fallback(
+                model=self.client.model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.0,
+                max_tokens=256
+            )
+            return response.choices[0].message.content.strip()
         except Exception as e:
-            logger.error(f"Gemini API error: {e}")
+            logger.error(f"Groq API error: {e}")
             raise
 
-
-# ---------------------------------------------------------------------------
-# Shared Gemini Client Instance
-# ---------------------------------------------------------------------------
-
 _gemini_client: Optional[GeminiClient] = None
-
 
 def _get_gemini_client() -> GeminiClient:
     global _gemini_client

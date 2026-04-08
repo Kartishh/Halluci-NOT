@@ -31,8 +31,7 @@ import logging
 from dataclasses import dataclass
 from typing import List, Tuple, Optional
 
-import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+# torch and transformers imports moved to _load_model() for lazy loading
 
 
 # ---------------------------------------------------------------------------
@@ -84,6 +83,8 @@ class NLIGate:
     def _load_model(self):
         if self._model is None or self._tokenizer is None:
             logger.info(f"Loading NLI model: {self.model_name}")
+            import torch
+            from transformers import AutoTokenizer, AutoModelForSequenceClassification
             self._tokenizer = AutoTokenizer.from_pretrained(self.model_name)
             self._model = AutoModelForSequenceClassification.from_pretrained(
                 self.model_name
@@ -110,6 +111,7 @@ class NLIGate:
             truncation=True,
         )
 
+        import torch
         with torch.no_grad():
             outputs = self._model(**inputs)
             logits = outputs.logits
@@ -165,6 +167,7 @@ class NLIGate:
             padding=True,
         )
 
+        import torch
         with torch.no_grad():
             outputs = self._model(**inputs)
             logits = outputs.logits

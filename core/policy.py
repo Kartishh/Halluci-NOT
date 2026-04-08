@@ -36,7 +36,6 @@ from verifier.pot_engine import get_pot_engine
 from verifier.sandbox import get_sandbox_executor
 from verifier.nli_gate import get_nli_gate
 from verifier.numeric_nli import get_numeric_consistency_gate
-from data.popqa_loader import PopQALoader
 from data.logger import get_semantic_logger
 from core.state_manager import StateManager
 
@@ -60,6 +59,7 @@ class AdaptivePolicyManager:
 
         self.retriever = None
         if corpus_path:
+            from data.popqa_loader import PopQALoader
             self.retriever = PopQALoader(corpus_path=corpus_path)
 
         self._max_reflexion_trials = int(

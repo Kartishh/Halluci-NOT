@@ -1,0 +1,26 @@
+============================================================
+  RESEARCH SUMMARY — HalluciNOT (LGP)
+============================================================
+
+PROBLEM: LLMs exhibit symbolic drift — variables change
+value silently across multi-step reasoning.
+
+METHOD: Deterministic symbolic enforcement pipeline:
+  1. Symbolic Decomposer → atomic facts
+  2. Program-of-Thought → sandbox execution
+  3. SSCE → detects unjustified redefinitions
+  4. Numeric Consistency Gate → claim vs computation
+
+RESULTS:
+  Dataset               Base     LGP       Δ
+  ----------------------------------------
+  GSM (n=50)            6.0%    6.0%   +0.0pp
+  Synthetic (n=30)     70.0%   70.0%   +0.0pp
+  Overall (N=80)       30.0%   30.0%   +0.0pp
+
+  Drift Detection: 28/80 (35.0%)
+  Net: 0 improvements - 0 regressions = 0 net
+
+CONCLUSION:
+  HalluciNOT detects symbolic drift in 35.0% of queries.
+  LGP achieves 30.0% vs 30.0% baseline (+0.0pp).

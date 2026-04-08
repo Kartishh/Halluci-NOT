@@ -1,0 +1,7 @@
+| Metric              | Baseline | LGP |
+| ------------------- | -------- | --- |
+| Accuracy            | 12.9%    | 2.9% |
+| Gain                | —        | -10.0% |
+| Drift Trigger Rate  | —        | 32.9% |
+| Correction Success  | —        | 0.0% |
+| False Positive Rate | —        | 33.3% |

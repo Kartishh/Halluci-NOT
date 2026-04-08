@@ -72,18 +72,13 @@ class EvalResult:
 
 def run_lgp_pipeline(sample: EvalSample) -> EvalResult:
     """
-    Run a single sample through the full LGP pipeline.
-    Imports LGP lazily to avoid circular imports.
+    Run a single sample through the full LGP pipeline with Reflexion.
     """
-    from core.policy import get_policy_manager
-    from symbolic.table import get_symbolic_table
+    from core.groq_llm import get_groq_llm
+    from core.reflexion import get_reflexion_engine
 
-    pm = get_policy_manager()
-
-    # Reset state
-    pm.state_manager.reset()
-    pm.logger.reset()
-    get_symbolic_table().clear()
+    llm = get_groq_llm()
+    engine = get_reflexion_engine(llm)
 
     start_time = time.time()
     error_msg = None
@@ -93,28 +88,19 @@ def run_lgp_pipeline(sample: EvalSample) -> EvalResult:
     audit = {}
 
     try:
-        result = pm.process_query(sample.query)
+        # Get baseline reasoning to force it via forced_reasoning? No, ReflexionEngine will generate it.
+        # But we want a direct comparison. Let's just use engine.run(query) so it generates reasoning normally.
+        res = engine.run(sample.query)
 
-        response = result.get("response", None)
-        audit = result.get("audit", {})
-
-        # Extract predicted answer
-        if isinstance(response, dict):
-            predicted = response
-        elif isinstance(response, str):
-            predicted = response
-        else:
-            predicted = response
-
-        # Check drift
-        drift_reports = audit.get("drift_reports", [])
-        drift_detected = len(drift_reports) > 0
-
-        # Check NLI usage
-        agreement_scores = audit.get("agreement_scores", [])
-        nli_triggered = len(agreement_scores) > 0 and any(
-            s != 1.0 for s in agreement_scores
-        )
+        predicted = res.final_answer
+        drift_detected = res.drift_detected
+        audit = {
+            "drift_reports": res.drift_reports,
+            "correction_applied": res.correction_applied,
+            "correction_successful": res.correction_successful,
+            "iterations_used": res.iterations_used,
+            "execution_trace": res.execution_trace,
+        }
 
     except Exception as e:
         error_msg = str(e)

@@ -1,0 +1,78 @@
+======================================================================
+  HalluciNOT (LGP) — FINAL DEMO TRACE
+======================================================================
+
+  Question:      Let x = 5. Let y = 3. Compute z = x * y. Then x = 8. What is z?
+  Expected:      15
+  Drift Type:    redefinition
+
+──────────────────────────────────────────────────────────────────────
+  STEP 1: CORRECT REASONING
+──────────────────────────────────────────────────────────────────────
+    x = 5
+    y = 3
+    z = x * y
+    x = 8
+
+──────────────────────────────────────────────────────────────────────
+  STEP 2: DRIFTED REASONING (injected)
+──────────────────────────────────────────────────────────────────────
+    x = 5
+    y = 3
+    z = x * y
+    x = 8
+    z = x * y  ← DRIFT (extra step)
+
+──────────────────────────────────────────────────────────────────────
+  STEP 3: NORMALIZATION & DECOMPOSITION
+──────────────────────────────────────────────────────────────────────
+    Normalized:
+      x = 5
+      y = 3
+      z = x * y
+      x = 8
+      z = x * y
+
+    Decomposed predicates:
+      Step 0: Assign(5, x)  — x = 5
+      Step 1: Assign(3, y)  — y = 3
+      Step 2: Multiply(x, y, z)  — z = x * y
+      Step 3: Assign(8, x)  — x = 8
+      Step 4: Multiply(x, y, z)  — z = x * y
+
+──────────────────────────────────────────────────────────────────────
+  STEP 4: SSCE DRIFT DETECTION (step-level)
+──────────────────────────────────────────────────────────────────────
+    Drift Detected:     True
+    Drift Type:         inconsistent_dependency
+    Confidence:         0.85
+    Variable:           z
+    Old Value:          15.0
+    New Value:          24.0
+    Source Step:         2
+    Error Step:         4
+    Dependency Graph:   {'x': [], 'y': [], 'z': ['x', 'y']}
+
+    All detected drifts (2):
+      - redefinition: x = 5.0 → 8.0 (conf=0.8, step 3 → 3)
+      - inconsistent_dependency: z = 15.0 → 24.0 (conf=0.85, step 2 → 4)
+
+──────────────────────────────────────────────────────────────────────
+  STEP 5: LGP EXECUTION RESULT
+──────────────────────────────────────────────────────────────────────
+    LGP Output:         {'x': 5, 'y': 3, 'z': 15}
+    Final Answer:       15.0
+    Expected:           15
+    Correct:            True
+    Drift Detected:     True
+
+──────────────────────────────────────────────────────────────────────
+  STEP 6: CORRECTION ANALYSIS
+──────────────────────────────────────────────────────────────────────
+    ✓ Drift was detected AND answer was corrected successfully.
+    ✓ Detection type: inconsistent_dependency
+    ✓ Localized to step 4 (originally set at step 2)
+
+======================================================================
+  END OF DEMO TRACE
+======================================================================
