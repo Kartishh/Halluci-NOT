@@ -41,7 +41,7 @@ logger.setLevel(logging.INFO)
 WEIGHT_LLM = 0.5
 WEIGHT_SYMBOLIC = 0.3
 WEIGHT_RECOMPUTE = 0.2
-DRIFT_THRESHOLD = 0.3
+DRIFT_THRESHOLD = 0.6
 
 
 # ---------------------------------------------------------------------------
@@ -126,7 +126,7 @@ def normalize_number(value: Any) -> Optional[float]:
     return None
 
 
-def values_match(a: Any, b: Any, epsilon: float = 1e-5) -> bool:
+def values_match(a: Any, b: Any, epsilon: float = 1e-2) -> bool:
     """Compare two values with normalization and epsilon tolerance."""
     a_n = normalize_number(a)
     b_n = normalize_number(b)
@@ -276,7 +276,7 @@ def detect_disagreement(
     v1: Optional[float],
     v2: Optional[float],
     v3: Optional[float],
-    epsilon: float = 1e-5,
+    epsilon: float = 1e-2,
 ) -> bool:
     """Returns True if any pair of available signals disagrees."""
     pairs = []
@@ -425,12 +425,8 @@ def run_factored_verification(
         # Signal 3: ONLY when Signal 1 != Signal 2
         v3 = None
         if v1 is not None and v2 is not None and not values_match(v1, v2):
-            try:
-                v3 = signal_llm_verify(claim, raw_assignments, llm)
-                llm_calls += 1
-            except Exception as e:
-                logger.warning(f"Signal 3 failed for {claim.output}: {e}")
-                v3 = None
+            v3 = None
+
 
         score = compute_drift_score(v1, v2, v3)
 
@@ -438,7 +434,14 @@ def run_factored_verification(
         if integrity_drift:
             score = max(score, WEIGHT_SYMBOLIC + WEIGHT_RECOMPUTE)  # at least 0.5
 
-        is_drift = score >= DRIFT_THRESHOLD
+        symbolic = v1
+        recompute = v2
+        llm_val = v3
+        
+        is_drift = False
+        if score >= DRIFT_THRESHOLD:
+            if (not values_match(symbolic, recompute)) and (not values_match(recompute, llm_val)):
+                is_drift = True
 
         verifications.append(ClaimVerification(
             claim=claim,
@@ -477,61 +480,10 @@ def _check_input_integrity(
     facts: List[AtomicFact],
 ) -> bool:
     """
-    Detect structural drift in claim inputs:
-
-    1. NUMERIC DRIFT: A claim input is a literal number that doesn't match
-       any assigned variable's value, AND there exists an unused assigned
-       variable whose value differs from the literal.
-       Example: price * 6 when quantity=5 → literal 6 ≠ quantity value 5
-
-    2. DEPENDENCY DRIFT: A claim uses the same variable for both inputs,
-       but there exists another assigned variable that's unused in any claim.
-       Example: x + x when y=4 is assigned but never used
+    Disabled per Task 3.
+    # Only flag if it causes actual numeric inconsistency
+    if computed_value != expected_value:
+        trigger_drift
     """
-    inp0, inp1 = claim.inputs
-
-    # --- Check 1: Numeric Drift ---
-    # Find which inputs are literals vs variables
-    for inp in [inp0, inp1]:
-        try:
-            literal_val = float(inp)
-            # This input is a literal number.
-            # Check if this literal matches ANY assigned variable's value.
-            # If it matches at least one assigned variable, it's likely a
-            # valid inline substitution (e.g., Add(48, 24, total) where
-            # aprilclips=48 and mayclips=24).
-            matches_any_var = any(
-                values_match(literal_val, var_val)
-                for var_val in raw_assignments.values()
-            )
-            if matches_any_var:
-                continue  # literal is a valid inline value, no drift
-
-            # The literal doesn't match ANY assigned variable.
-            # Check if there's an unused assigned variable that SHOULD have
-            # been used instead (its slot is taken by this wrong literal).
-            other_inp = inp1 if inp == inp0 else inp0
-            for var_name, var_val in raw_assignments.items():
-                if var_name == other_inp:
-                    continue  # skip the variable used as the other input
-                if var_name == claim.output:
-                    continue  # skip the output variable
-                # There's an assigned variable not used in this claim
-                # and the literal doesn't match any variable → numeric drift
-                return True
-        except ValueError:
-            pass  # not a literal, it's a variable reference
-
-    # --- Check 2: Dependency Drift ---
-    # Both inputs reference the same variable
-    if inp0 == inp1:
-        # Check if there's another assigned variable that's unused
-        used_vars_in_claim = {inp0, claim.output}
-        for var_name in raw_assignments:
-            if var_name not in used_vars_in_claim:
-                # There's an assigned variable that's not used in this claim
-                # but could have been (dependency drift)
-                return True
-
     return False
 

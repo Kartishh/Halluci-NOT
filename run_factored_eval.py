@@ -55,7 +55,7 @@ logging.getLogger("LGP").setLevel(logging.WARNING)
 logging.getLogger("httpx").setLevel(logging.WARNING)
 logging.getLogger("openai").setLevel(logging.WARNING)
 
-from core.groq_llm import get_groq_llm, GroqLLM
+from core.gemini_llm import get_gemini_llm, GeminiLLM
 from core.reflexion import get_reflexion_engine, ReflexionEngine
 
 
@@ -161,7 +161,7 @@ def main():
 
     t0 = time.time()
 
-    llm = get_groq_llm()
+    llm = get_gemini_llm()
     engine = get_reflexion_engine(llm)
 
     # ------------------------------------------------------------------

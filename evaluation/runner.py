@@ -74,10 +74,10 @@ def run_lgp_pipeline(sample: EvalSample) -> EvalResult:
     """
     Run a single sample through the full LGP pipeline with Reflexion.
     """
-    from core.groq_llm import get_groq_llm
+    from core.gemini_llm import get_gemini_llm
     from core.reflexion import get_reflexion_engine
 
-    llm = get_groq_llm()
+    llm = get_gemini_llm()
     engine = get_reflexion_engine(llm)
 
     start_time = time.time()

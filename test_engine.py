@@ -1,9 +1,9 @@
-from core.groq_llm import get_groq_llm
+from core.gemini_llm import get_gemini_llm
 from core.reflexion import get_reflexion_engine
 
 print("Running test...")
 
-llm = get_groq_llm()
+llm = get_gemini_llm()
 engine = get_reflexion_engine(llm)
 
 query = "If x = 5 and y = 3, what is x * y?"

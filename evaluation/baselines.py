@@ -37,23 +37,22 @@ logger.setLevel(logging.INFO)
 # Gemini API Client
 # ---------------------------------------------------------------------------
 
-from core.groq_llm import get_groq_llm
+from core.gemini_llm import get_gemini_llm
 
 class GeminiClient:
     def __init__(self, model_name: Optional[str] = None):
-        self.client = get_groq_llm()
+        self.client = get_gemini_llm()
 
     def generate(self, prompt: str) -> str:
         try:
-            response = self.client._call_with_fallback(
-                model=self.client.model,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.0,
-                max_tokens=256
+            response = self.client._call_gemini_with_fallback(
+                prompt=prompt,
+                system_prompt="Provide a direct answer.",
+                temperature=0.0
             )
-            return response.choices[0].message.content.strip()
+            return response
         except Exception as e:
-            logger.error(f"Groq API error: {e}")
+            logger.error(f"Gemini API error: {e}")
             raise
 
 _gemini_client: Optional[GeminiClient] = None

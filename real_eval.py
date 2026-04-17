@@ -1,7 +1,10 @@
 import json
 import os
+from dotenv import load_dotenv
+load_dotenv()
 import time
 import logging
+import argparse
 from datasets import load_dataset
 from typing import List, Dict, Any
 
@@ -162,6 +165,10 @@ def is_correct(expected, predicted) -> bool:
         return False
 
 def main():
+    parser = argparse.ArgumentParser(description="HalluciNOT Real Evaluation")
+    parser.add_argument("--delay", type=float, default=12.0, help="Delay between requests in seconds")
+    args = parser.parse_args()
+    
     samples = ensure_data()
     logger.info(f"Using {len(samples)} total samples.")
     
@@ -191,8 +198,9 @@ def main():
                 
             break
             
-        # Add slight delay to avoid hitting limits as fast
-        time.sleep(0.5)
+        # Add configurable delay to respect rate limits
+        logger.info(f"Sleeping for {args.delay}s to respect rate limits...")
+        time.sleep(args.delay)
         
         baseline_ans = base_res.predicted_answer
         lgp_ans = lgp_res.predicted_answer

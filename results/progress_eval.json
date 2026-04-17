@@ -1,0 +1,702 @@
+[
+  {
+    "question_id": "gsm8k_0",
+    "expected": 18.0,
+    "baseline": 18.0,
+    "lgp": 18.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_1",
+    "expected": 3.0,
+    "baseline": 3.0,
+    "lgp": 3.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_2",
+    "expected": 70000.0,
+    "baseline": 70000.0,
+    "lgp": 70000.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_3",
+    "expected": 540.0,
+    "baseline": 540.0,
+    "lgp": 540.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_4",
+    "expected": 20.0,
+    "baseline": 20.0,
+    "lgp": 20.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_5",
+    "expected": 64.0,
+    "baseline": 64.0,
+    "lgp": 64.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_6",
+    "expected": 260.0,
+    "baseline": 260.0,
+    "lgp": 260.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_7",
+    "expected": 160.0,
+    "baseline": 160.0,
+    "lgp": 160.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_8",
+    "expected": 45.0,
+    "baseline": 45.0,
+    "lgp": 45.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_9",
+    "expected": 460.0,
+    "baseline": 460.0,
+    "lgp": 460.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_10",
+    "expected": 366.0,
+    "baseline": 366.0,
+    "lgp": 366.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_11",
+    "expected": 694.0,
+    "baseline": 694.0,
+    "lgp": 694.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_12",
+    "expected": 13.0,
+    "baseline": 13.0,
+    "lgp": 13.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": true
+  },
+  {
+    "question_id": "gsm8k_13",
+    "expected": 18.0,
+    "baseline": 18.0,
+    "lgp": 18.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_14",
+    "expected": 60.0,
+    "baseline": 60.0,
+    "lgp": 60.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_15",
+    "expected": 125.0,
+    "baseline": 125.0,
+    "lgp": 125.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_16",
+    "expected": 230.0,
+    "baseline": 230.0,
+    "lgp": 230.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_17",
+    "expected": 57500.0,
+    "baseline": 57500.0,
+    "lgp": 57500.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_18",
+    "expected": 7.0,
+    "baseline": 7.0,
+    "lgp": 7.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_19",
+    "expected": 6.0,
+    "baseline": 6.0,
+    "lgp": 6.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_20",
+    "expected": 15.0,
+    "baseline": 15.0,
+    "lgp": 15.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": true
+  },
+  {
+    "question_id": "gsm8k_21",
+    "expected": 14.0,
+    "baseline": 14.0,
+    "lgp": 14.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_22",
+    "expected": 7.0,
+    "baseline": 7.0,
+    "lgp": 7.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_23",
+    "expected": 8.0,
+    "baseline": 8.0,
+    "lgp": 8.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_24",
+    "expected": 26.0,
+    "baseline": 26.0,
+    "lgp": 26.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_25",
+    "expected": 2.0,
+    "baseline": 2.0,
+    "lgp": 2.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_26",
+    "expected": 243.0,
+    "baseline": 243.0,
+    "lgp": 243.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_27",
+    "expected": 16.0,
+    "baseline": 16.0,
+    "lgp": 16.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_28",
+    "expected": 25.0,
+    "baseline": 25.0,
+    "lgp": 25.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_29",
+    "expected": 104.0,
+    "baseline": 104.0,
+    "lgp": 104.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_30",
+    "expected": 109.0,
+    "baseline": 109.0,
+    "lgp": 109.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_31",
+    "expected": 80.0,
+    "baseline": 80.0,
+    "lgp": 80.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_32",
+    "expected": 35.0,
+    "baseline": 35.0,
+    "lgp": 35.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_33",
+    "expected": 70.0,
+    "baseline": 70.0,
+    "lgp": 70.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_34",
+    "expected": 23.0,
+    "baseline": 23.0,
+    "lgp": 23.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_35",
+    "expected": 9.0,
+    "baseline": 9.0,
+    "lgp": 9.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_36",
+    "expected": 75.0,
+    "baseline": 75.0,
+    "lgp": 75.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_37",
+    "expected": 2.0,
+    "baseline": 2.0,
+    "lgp": 2.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": true
+  },
+  {
+    "question_id": "gsm8k_38",
+    "expected": 10.0,
+    "baseline": 10.0,
+    "lgp": 10.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_39",
+    "expected": 18.0,
+    "baseline": 18.0,
+    "lgp": 18.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_40",
+    "expected": 8.0,
+    "baseline": 8.0,
+    "lgp": 8.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_41",
+    "expected": 200.0,
+    "baseline": 200.0,
+    "lgp": 200.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_42",
+    "expected": 26.0,
+    "baseline": 26.0,
+    "lgp": 26.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_43",
+    "expected": 48.0,
+    "baseline": 48.0,
+    "lgp": 48.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_44",
+    "expected": 20.0,
+    "baseline": 20.0,
+    "lgp": 20.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_45",
+    "expected": 104.0,
+    "baseline": 104.0,
+    "lgp": 104.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_46",
+    "expected": 163.0,
+    "baseline": 163.0,
+    "lgp": 163.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_47",
+    "expected": 800.0,
+    "baseline": 800.0,
+    "lgp": 800.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_48",
+    "expected": 8.0,
+    "baseline": 8.0,
+    "lgp": 8.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsm8k_49",
+    "expected": 30.0,
+    "baseline": 30.0,
+    "lgp": 30.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_0",
+    "expected": 0.0,
+    "baseline": 26.0,
+    "lgp": 26.0,
+    "baseline_correct": false,
+    "lgp_correct": false,
+    "correct": false,
+    "drift": true
+  },
+  {
+    "question_id": "gsmhard_1",
+    "expected": 3431580.0,
+    "baseline": 3431580.0,
+    "lgp": 3431580.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_2",
+    "expected": 322886700.0,
+    "baseline": null,
+    "lgp": 107628900.0,
+    "baseline_correct": false,
+    "lgp_correct": false,
+    "correct": false,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_3",
+    "expected": 0.0,
+    "baseline": -6887448.0,
+    "lgp": 60.0,
+    "baseline_correct": false,
+    "lgp_correct": false,
+    "correct": false,
+    "drift": true
+  },
+  {
+    "question_id": "gsmhard_4",
+    "expected": 21459061.0,
+    "baseline": 21459061.0,
+    "lgp": 21459061.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_5",
+    "expected": 82085198.0,
+    "baseline": 82085198.0,
+    "lgp": 82085198.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": true
+  },
+  {
+    "question_id": "gsmhard_6",
+    "expected": 74363508.0,
+    "baseline": 74363508.0,
+    "lgp": 74363508.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_7",
+    "expected": 3244047.0999999996,
+    "baseline": 3244047.0,
+    "lgp": 3244047.1,
+    "baseline_correct": false,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": true
+  },
+  {
+    "question_id": "gsmhard_8",
+    "expected": 17414074.0,
+    "baseline": 17414074.0,
+    "lgp": 17414074.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_9",
+    "expected": 1.0,
+    "baseline": 1.0,
+    "lgp": 1.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_10",
+    "expected": 125.0,
+    "baseline": 125.0,
+    "lgp": 125.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_11",
+    "expected": 6277334000.0,
+    "baseline": 8404732.0,
+    "lgp": 8404732.0,
+    "baseline_correct": false,
+    "lgp_correct": false,
+    "correct": false,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_12",
+    "expected": 14053029.666666666,
+    "baseline": 3.0,
+    "lgp": 14053029.6666667,
+    "baseline_correct": false,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": true
+  },
+  {
+    "question_id": "gsmhard_13",
+    "expected": 0.0,
+    "baseline": 15.0,
+    "lgp": null,
+    "baseline_correct": false,
+    "lgp_correct": false,
+    "correct": false,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_14",
+    "expected": 1379135.0,
+    "baseline": 475501268359.0,
+    "lgp": 475501268359.0,
+    "baseline_correct": false,
+    "lgp_correct": false,
+    "correct": false,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_15",
+    "expected": 8.0,
+    "baseline": 8.0,
+    "lgp": 8.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_16",
+    "expected": 388147.4117647059,
+    "baseline": null,
+    "lgp": null,
+    "baseline_correct": false,
+    "lgp_correct": false,
+    "correct": false,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_17",
+    "expected": 25124292.0,
+    "baseline": 25124292.0,
+    "lgp": 25124292.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_18",
+    "expected": 18286416.0,
+    "baseline": 18286416.0,
+    "lgp": 18286416.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  },
+  {
+    "question_id": "gsmhard_19",
+    "expected": 25.0,
+    "baseline": 25.0,
+    "lgp": 25.0,
+    "baseline_correct": true,
+    "lgp_correct": true,
+    "correct": true,
+    "drift": false
+  }
+]

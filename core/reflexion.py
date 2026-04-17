@@ -26,7 +26,7 @@ import re
 from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass, field
 
-from symbolic.decomposer import AtomicFact
+from symbolic.decomposer import extract_equations
 from symbolic.ssce_algorithm import (
     SSCEEngine,
     SSCEEnforcementError,
@@ -35,7 +35,7 @@ from symbolic.ssce_algorithm import (
 )
 from symbolic.table import get_symbolic_table
 from verifier.pot_engine import get_pot_engine, PoTScript
-from core.groq_llm import GroqLLM, ReasoningResult, DecompositionResult
+from core.gemini_llm import GeminiLLM, ReasoningResult, DecompositionResult
 
 logger = logging.getLogger("LGP.Reflexion")
 logger.setLevel(logging.INFO)
@@ -77,6 +77,7 @@ def _safe_execute(script: str) -> Tuple[bool, Optional[Dict[str, Any]], str]:
     """Execute a PoT script in-process with restricted builtins."""
     import math as _math
     import re as _re
+    import ast
 
     # Strip import lines — math is pre-injected
     lines = script.split("\n")
@@ -87,9 +88,30 @@ def _safe_execute(script: str) -> Tuple[bool, Optional[Dict[str, Any]], str]:
         "abs": abs, "round": round, "int": int, "float": float,
         "str": str, "len": len, "min": min, "max": max,
         "True": True, "False": False, "None": None,
-        "print": lambda *a, **kw: None,
+        "isinstance": isinstance, "print": lambda *a, **kw: None,
     }
     restricted_globals = {"__builtins__": safe_builtins, "math": _math}
+    
+    # Task 6: Safe execution guard (abort on undefined variable, return empty result)
+    try:
+        tree = ast.parse(script)
+        defined = set(safe_builtins.keys()) | {'math', '__result__'}
+        # Assuming simple linear PoT script without complex control flow
+        for node in tree.body:
+            # Check all loaded names in this statement
+            for subnode in ast.walk(node):
+                if isinstance(subnode, ast.Name) and isinstance(subnode.ctx, ast.Load):
+                    if subnode.id not in defined:
+                        return True, {}, f"Undefined variable: {subnode.id}"
+            
+            # Add assigned variables to defined set for subsequent statements
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name):
+                        defined.add(target.id)
+    except Exception as e:
+        return False, {}, f"Execution failed: {e}"
+
     local_ns: Dict[str, Any] = {}
 
     try:
@@ -97,43 +119,29 @@ def _safe_execute(script: str) -> Tuple[bool, Optional[Dict[str, Any]], str]:
         result = local_ns.get("__result__", {})
         if not isinstance(result, dict):
             return False, None, "No __result__ dict in output"
+        if not result:
+            return False, {}, "Empty execution result"
         return True, result, ""
     except Exception as e:
-        return False, None, str(e)[:300]
+        return False, {}, str(e)[:300]
 
 
 # ---------------------------------------------------------------------------
 # Target Variable Extraction
 # ---------------------------------------------------------------------------
 
-def extract_target_variable(question: str) -> Optional[str]:
+def extract_target_variable(question: str, computed_vars=None) -> Optional[str]:
     """
-    Extract the target variable from a question using simple heuristics.
-    Returns None if no target can be determined (safe fallback).
+    Extract the target variable from a question.
+    PRIMARY: use last computed variable from execution results.
+    FALLBACK: return None (disable broken heuristic).
     """
-    q = question.lower().strip()
+    # PRIMARY: use last computed variable
+    if computed_vars:
+        return list(computed_vars.keys())[-1]
 
-    # Pattern: "how much profit" → profit
-    m = re.search(r'how (?:much|many) (\w+)', q)
-    if m:
-        return m.group(1).replace(' ', '_')
-
-    # Pattern: "what is the total cost" → total_cost
-    m = re.search(r'what (?:is|are) (?:the )?((?:\w+ )*\w+?)\??$', q)
-    if m:
-        return m.group(1).strip().replace(' ', '_')
-
-    # Pattern: "what is X" at end of sentence
-    m = re.search(r'what is (\w+)', q)
-    if m:
-        return m.group(1).replace(' ', '_')
-
-    # Pattern: "find the X"
-    m = re.search(r'find (?:the )?(\w+)', q)
-    if m:
-        return m.group(1).replace(' ', '_')
-
-    return None  # Safe fallback — skip validation if unknown
+    # fallback: None (disable broken heuristic)
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -243,13 +251,13 @@ def detect_drift_from_facts(facts: List[AtomicFact]):
                 source_step = formulas[var]["step"] if var in formulas else step_index
                 if var in formulas:
                     # Variable was computed — Assign overwrites a computed var
-                    if abs(values[var] - val) > 1e-5:
+                    if abs(values[var] - val) > 1e-2:
                         add_drift("dependency_mutation", 0.85, var,
                                   values[var], val,
                                   source_step=source_step,
                                   error_step=step_index)
                 else:
-                    if abs(values[var] - val) > 1e-5:
+                    if abs(values[var] - val) > 1e-2:
                         add_drift("redefinition", 0.8, var,
                                   values[var], val,
                                   source_step=source_step,
@@ -289,10 +297,24 @@ def detect_drift_from_facts(facts: List[AtomicFact]):
                     add_drift("sign_flip", 0.95, res, old_pred, pred,
                               source_step=old_step, error_step=step_index)
                 elif old_inputs != new_inputs:
-                    # Task 5: set comparison — always flag
-                    add_drift("dependency_mutation", 0.90, res,
-                              f"{old_pred}({o1},{o2})", f"{pred}({arg1},{arg2})",
-                              source_step=old_step, error_step=step_index)
+                    # Task 4: Relax dependency mutation
+                    v1_val = resolve(arg1)
+                    v2_val = resolve(arg2)
+                    values_differ = True
+                    if res in values and v1_val is not None and v2_val is not None:
+                        expected_new = None
+                        if pred == "Add": expected_new = v1_val + v2_val
+                        elif pred == "Subtract": expected_new = v1_val - v2_val
+                        elif pred == "Multiply": expected_new = v1_val * v2_val
+                        elif pred == "Divide" and v2_val != 0: expected_new = v1_val / v2_val
+                        
+                        if expected_new is not None:
+                            values_differ = abs(values[res] - expected_new) > 1e-2
+
+                    if values_differ:
+                        add_drift("dependency_mutation", 0.90, res,
+                                  f"{old_pred}({o1},{o2})", f"{pred}({arg1},{arg2})",
+                                  source_step=old_step, error_step=step_index)
 
             v1 = resolve(arg1)
             v2 = resolve(arg2)
@@ -314,7 +336,7 @@ def detect_drift_from_facts(facts: List[AtomicFact]):
                         expected = v1 / v2
 
                 if expected is not None:
-                    if res in values and abs(values[res] - expected) > 1e-5:
+                    if res in values and abs(values[res] - expected) > 1e-2:
                         src = formulas[res]["step"] if res in formulas else step_index
                         add_drift("numeric_inconsistency", 0.90, res,
                                   values[res], expected,
@@ -331,7 +353,7 @@ def detect_drift_from_facts(facts: List[AtomicFact]):
             if len(history) > 1:
                 first = history[0]
                 for curr in history[1:]:
-                    if abs(curr["value"] - first["value"]) > 1e-5:
+                    if abs(curr["value"] - first["value"]) > 1e-2:
                         add_drift("redefinition", 0.8, var, first["value"], curr["value"], 
                                   source_step=first["step"], error_step=curr["step"])
 
@@ -339,7 +361,7 @@ def detect_drift_from_facts(facts: List[AtomicFact]):
     # Recompute ALL formula outputs from current variable values.
     # Catches numeric drift that inline checks may miss when
     # upstream values changed after the formula was first evaluated.
-    NUMERIC_TOLERANCE = 1e-5
+    NUMERIC_TOLERANCE = 1e-2
     for var, formula in formulas.items():
         op = formula["op"]
         inp = formula["inputs"]
@@ -396,49 +418,82 @@ def build_reflexion_prompt(
     target_variable: Optional[str] = None,
     source_step: Optional[int] = None,
     error_step: Optional[int] = None,
+    result_mismatch: bool = False,
+    computed_value: Optional[float] = None,
+    llm_claimed: Optional[float] = None,
 ) -> str:
     """
     Build a TARGETED reflexion prompt that cites the exact step
     where the error occurred and instructs LLM to fix only that step
     and steps after it.
     """
-    lines = [
-        "An error was detected in your reasoning.",
-        "",
-    ]
+    lines = []
+    
+    # Handle result mismatch case - regenerate COMPLETE solution
+    if result_mismatch and computed_value is not None and llm_claimed is not None:
+        lines = [
+            "You previously produced incorrect equations.",
+            "",
+            f"Expected: {computed_value}",
+            f"Your answer: {llm_claimed}",
+            "",
+            "Re-generate the FULL solution from scratch using equations.",
+            "",
+            "Rules:",
+            "1. Output ONLY equations",
+            "2. Include ALL steps from start to final result",
+            "3. Every variable must be defined before use",
+            "4. Do NOT skip intermediate steps",
+            "5. Final line must compute the result",
+            "",
+            "Example:",
+            "a = 10",
+            "b = 20",
+            "c = a + b",
+            "result = c",
+            "",
+            "Do NOT output partial fixes.",
+        ]
+        if target_variable:
+            lines.append(f"Final answer must compute: {target_variable}")
+    else:
+        lines = [
+            "An error was detected in your reasoning.",
+            "",
+        ]
 
-    for i, report in enumerate(drift_reports, 1):
-        # Handle both DriftReport objects and dict entries
-        if isinstance(report, dict):
-            var = report.get("var", report.get("variable", "unknown"))
-            d_type = report.get("type", report.get("drift_type", "redefinition"))
-            old = report.get("old", report.get("old_value", "?"))
-            new = report.get("new", report.get("new_value", "?"))
-            src = report.get("source_step", source_step)
-            err = report.get("error_step", error_step)
-        else:
-            var = getattr(report, 'variable', 'unknown')
-            d_type = getattr(report, 'drift_type', 'redefinition')
-            old = getattr(report, 'old_value', '?')
-            new = getattr(report, 'new_value', '?')
-            src = source_step
-            err = error_step
+        for i, report in enumerate(drift_reports, 1):
+            # Handle both DriftReport objects and dict entries
+            if isinstance(report, dict):
+                var = report.get("var", report.get("variable", "unknown"))
+                d_type = report.get("type", report.get("drift_type", "redefinition"))
+                old = report.get("old", report.get("old_value", "?"))
+                new = report.get("new", report.get("new_value", "?"))
+                src = report.get("source_step", source_step)
+                err = report.get("error_step", error_step)
+            else:
+                var = getattr(report, 'variable', 'unknown')
+                d_type = getattr(report, 'drift_type', 'redefinition')
+                old = getattr(report, 'old_value', '?')
+                new = getattr(report, 'new_value', '?')
+                src = source_step
+                err = error_step
 
-        lines.append(f"  Variable: {var}")
-        lines.append(f"  Error type: {d_type}")
-        if err is not None:
-            lines.append(f"  Incorrect step: Step {err}")
-        if src is not None:
-            lines.append(f"  Originally defined at: Step {src}")
-        lines.append(f"  Issue: Expected {old} but got {new}")
-        lines.append("")
+            lines.append(f"  Variable: {var}")
+            lines.append(f"  Error type: {d_type}")
+            if err is not None:
+                lines.append(f"  Incorrect step: Step {err}")
+            if src is not None:
+                lines.append(f"  Originally defined at: Step {src}")
+            lines.append(f"  Issue: Expected {old} but got {new}")
+            lines.append("")
 
-    lines.extend([
-        "INSTRUCTIONS:",
-        "- Prefer minimal correction.",
-        "- Avoid rewriting correct earlier steps unless necessary.",
-        "- Maintain consistency of earlier variables.",
-    ])
+        lines.extend([
+            "INSTRUCTIONS:",
+            "- Prefer minimal correction.",
+            "- Avoid rewriting correct earlier steps unless necessary.",
+            "- Maintain consistency of earlier variables.",
+        ])
 
     if target_variable:
         lines.append(
@@ -453,7 +508,7 @@ def build_reflexion_prompt(
 # ---------------------------------------------------------------------------
 
 def partial_repair(
-    llm: GroqLLM,
+    llm: GeminiLLM,
     query: str,
     reasoning: str,
     error_step_idx: int,
@@ -461,49 +516,27 @@ def partial_repair(
     target_variable: Optional[str] = None,
 ) -> str:
     """
-    Split reasoning into steps, keep correct steps, only rewrite from error onward.
-    Returns the fully reconstructed reasoning.
+    Simple repair for equation-based reasoning.
+    Ask LLM to regenerate complete solution given the critique.
     """
-    steps = split_into_steps(reasoning)
-
-    # Clamp error_step_idx
-    if error_step_idx < 0:
-        error_step_idx = 0
-    if error_step_idx >= len(steps):
-        error_step_idx = max(0, len(steps) - 1)
-
-    correct_prefix = steps[:error_step_idx]
-    broken_suffix = steps[error_step_idx:]
-
-    # Build context for LLM — show correct steps and ask to fix the rest
-    prefix_text = "\n".join(correct_prefix) if correct_prefix else "(beginning of reasoning)"
-    suffix_text = "\n".join(broken_suffix)
-
     fix_prompt = (
-        f"You previously solved this problem, but made an error starting at step {error_step_idx + 1}.\n\n"
         f"Problem: {query}\n\n"
-        f"CORRECT earlier steps (DO NOT CHANGE THESE):\n{prefix_text}\n\n"
-        f"INCORRECT steps that need fixing:\n{suffix_text}\n\n"
-        f"Error: {critique}\n\n"
-        f"Rewrite ONLY the incorrect steps. Keep the same format."
+        f"Your previous solution had an error: {critique}\n\n"
+        f"Generate a new solution using ONLY equations.\n"
+        f"Each line: variable = expression\n"
+        f"Define all variables before use.\n"
+        f"Final line must compute the result.\n"
+        f"Do NOT include any text or explanation.\n"
     )
     if target_variable:
-        fix_prompt += f"\nEnsure the final answer computes: {target_variable}"
+        fix_prompt += f"The final answer should be in a variable called '{target_variable}' or 'result'.\n"
 
     try:
-        fixed_result = llm.generate_reasoning(query, reflexion_feedback=fix_prompt)
-        # Reconstruct: correct prefix + fixed suffix
-        if correct_prefix:
-            return "\n".join(correct_prefix) + "\n" + fixed_result.reasoning
-        else:
-            return fixed_result.reasoning
+        result = llm.generate_reasoning(query, reflexion_feedback=fix_prompt)
+        return result.reasoning
     except Exception as e:
-        logger.warning(f"Partial repair failed: {e}. Falling back to full rewrite.")
-        try:
-            result = llm.generate_reasoning(query, reflexion_feedback=critique)
-            return result.reasoning
-        except Exception:
-            return reasoning  # Ultimate safety: return original
+        logger.warning(f"Repair failed: {e}. Returning original.")
+        return reasoning
 
 
 # ---------------------------------------------------------------------------
@@ -531,44 +564,26 @@ def _build_raw_assignments(facts: List[AtomicFact]) -> Dict[str, float]:
 
 
 def constraint_guided_repair(
-    llm: GroqLLM,
+    llm: GeminiLLM,
     query: str,
     reasoning: str,
     error_step_idx: int,
     critique: str,
-    facts: List[AtomicFact],
     drift_info: Dict[str, Any],
     target_variable: Optional[str] = None,
 ) -> str:
     """
-    Constraint-guided, step-level surgical repair.
-
-    Three-tier strategy:
-        Tier 1: Deterministic repair — direct string-level fix based on drift type
-        Tier 2: Constrained LLM repair — minimal prompt, return only fixed lines
-        Tier 3: Original partial_repair fallback
-
-    Returns:
-        (corrected_reasoning, deterministic_repair_used)
-        deterministic_repair_used is True only for Tier 1.
+    Simple repair: ask LLM to regenerate reasoning given the critique.
     """
-    # Tier 1: Deterministic repair
-    det_result = _try_deterministic_repair(reasoning, facts, drift_info)
-    if det_result is not None:
-        print("[REPAIR] Tier 1: Deterministic surgical fix applied")
-        return det_result, True
-
-    # Tier 2: Constrained LLM repair
-    constr_result = _try_constrained_llm_repair(
-        llm, query, reasoning, error_step_idx, critique, drift_info, target_variable
-    )
-    if constr_result is not None:
-        print("[REPAIR] Tier 2: Constrained LLM fix applied")
-        return constr_result, False
-
-    # Tier 3: Fallback
-    print("[REPAIR] Tier 3: Fallback to original partial repair")
-    return partial_repair(llm, query, reasoning, error_step_idx, critique, target_variable), False
+    try:
+        print("[REPAIR] Using LLM to regenerate reasoning")
+        corrected = partial_repair(
+            llm, query, reasoning, 0, critique, target_variable
+        )
+        return corrected
+    except Exception as e:
+        logger.warning(f"Repair failed: {e}. Returning original reasoning.")
+        return reasoning
 
 
 def _try_deterministic_repair(
@@ -726,7 +741,7 @@ def _fix_redefinition_drift(
 
 
 def _try_constrained_llm_repair(
-    llm: GroqLLM,
+    llm: GeminiLLM,
     query: str,
     reasoning: str,
     error_step_idx: int,
@@ -798,7 +813,8 @@ def _try_constrained_llm_repair(
             temperature=0.0,
             max_tokens=256,
         )
-        fixed_text = response.choices[0].message.content.strip()
+        from core.nvidia_llm import _safe_extract_text
+        fixed_text = _safe_extract_text(response)
 
         if not fixed_text:
             return None
@@ -839,7 +855,7 @@ class ReflexionEngine:
     simple LLM baseline.
     """
 
-    def __init__(self, llm: GroqLLM):
+    def __init__(self, llm: GeminiLLM):
         self.llm = llm
         from symbolic.decomposer import get_symbolic_decomposer
         self.decomposer = get_symbolic_decomposer()
@@ -866,58 +882,40 @@ class ReflexionEngine:
         for iteration in range(MAX_REFLEXION_ITERATIONS + 1):
             iter_label = f"iter_{iteration}"
 
-            # ----- Step 1: Generate Reasoning -----
+            # ----- Step 1: Generate Independent Answer FIRST -----
             if forced_reasoning is not None and iteration == 0:
                 reasoning_result = ReasoningResult(
                     reasoning=forced_reasoning,
                     final_answer=float("nan"),
                     raw_response=forced_reasoning
                 )
+                original_llm_answer = float("nan")
             else:
+                # Get independent answer BEFORE generating reasoning
+                original_llm_answer = self.llm.generate_answer_only(query)
+                # Then generate reasoning
                 reasoning_result = self.llm.generate_reasoning(
                     query, reflexion_feedback=reflexion_feedback
                 )
 
-            # ----- Step 2: Decompose to Predicates -----
+            # ----- Step 2: Extract Equations -----
+            force_drift = False
+            equations = []
             try:
-                facts = self.decomposer.to_atomic_facts(reasoning_result.reasoning)
+                equations = self.decomposer(reasoning_result.reasoning)
             except Exception as e:
-                print(f"⚠️ SymbolicDecomposer completely failed ({e.__class__.__name__}) — falling back to GroqLLM")
-                decomp_result = self.llm.decompose_to_predicates(reasoning_result.reasoning)
-                from symbolic.decomposer import AtomicFact
-                facts = [
-                    AtomicFact(
-                        predicate=p["predicate"],
-                        arguments=p["arguments"],
-                        raw_text="groq_fallback",
-                        source_path="groq"
-                    )
-                    for p in decomp_result.predicates
-                ]
+                print(f"⚠️ Equation extraction failed ({e.__class__.__name__}) — forcing drift")
+                force_drift = True
 
-            # Normalize variables
-            from symbolic.decomposer import AtomicFact
-            normalized_facts = []
-            for f in facts:
-                norm_args = [normalize_var(arg) for arg in f.arguments]
-                normalized_facts.append(
-                    AtomicFact(
-                        predicate=f.predicate,
-                        arguments=norm_args,
-                        raw_text=f.raw_text,
-                        source_path=f.source_path
-                    )
-                )
-            facts = normalized_facts
-
-            print("\n===== DEBUG DECOMPOSITION =====")
-            print("REASONING:\n", reasoning_result.reasoning[:300])
-            print("VALID: True")
-            print("PREDICATES:", [(f.predicate, f.arguments) for f in facts])
-            print("================================\n")
-
-            if not facts:
-                print("⚠️ Decomposition yielded no facts")
+            if not equations:
+                print("⚠️ No equations extracted — triggering drift repair")
+                drift = True
+                drift_reason = "decomposition_failure"
+                if not all_reports:
+                    all_reports = [{"variable": target_var or "result",
+                      "old_value": None,
+                      "new_value": None,
+                      "reason": "decomposition_failure"}]
                 trace.append({
                     "iteration": iteration,
                     "status": "decomposition_failed_total",
@@ -935,329 +933,190 @@ class ReflexionEngine:
                     dependency_graph=last_dependency_graph,
                 )
 
-            # ----- Step 3: Check Drift (with step-level tracking) -----
-            print("\nDEBUG FACTS:", [(f.predicate, f.arguments) for f in facts])
+            print("\n===== DEBUG EQUATIONS =====")
+            print("REASONING:\n", reasoning_result.reasoning[:300])
+            print("EQUATIONS:", equations)
+            print("==========================\n")
+
+            # ----- Step 3: Execute Equations and Check Result Mismatch -----
+            print("\nDEBUG EQUATIONS:", equations)
 
             # Extract target variable
             target_var = extract_target_variable(query)
             if target_var:
                 print(f"[TARGET VARIABLE] {target_var}")
 
-            (drift, d_type, conf, var, old, new, all_drifts,
-             formulas, value_history, dep_graph,
-             source_step, error_step) = detect_drift_from_facts(facts)
+            # Execute equations directly
+            temp_table = get_symbolic_table()
+            temp_table.clear()
+            temp_exec_res, _, exec_ok = self._execute_predicates(equations, temp_table, get_ssce_engine())
+            computed_value = self._extract_computed_value(temp_exec_res)
 
-            last_dependency_graph = dep_graph
+            # DRIFT CHECK: Compare computed value vs INDEPENDENT original answer
+            disagreement = False
+            if computed_value is not None and original_llm_answer is not None:
+                try:
+                    if not math.isnan(computed_value) and not math.isnan(original_llm_answer):
+                        disagreement = abs(float(computed_value) - float(original_llm_answer)) > 1e-2
+                except (ValueError, TypeError):
+                    pass
 
-            if all_drifts:
-                print(f"[MULTI-DRIFT] {len(all_drifts)} drift(s) detected: {all_drifts}")
-            print("SSCE DRIFT:", drift)
+            print(f"[DRIFT DEBUG] computed={computed_value}, original={original_llm_answer}, disagreement={disagreement}, exec_ok={exec_ok}")
 
-            # --- Factored Verification (NEW) ---
-            from verifier.factored_verifier import run_factored_verification
-            factored_result = run_factored_verification(facts, self.llm)
-            factored_drift_detected = factored_result.drift_detected
-            factored_llm_calls_total = factored_result.llm_calls_made
-
-            if factored_drift_detected:
-                print(f"[FACTORED DRIFT] score={factored_result.total_drift_score:.2f}, "
-                      f"llm_calls={factored_result.llm_calls_made}")
-                for cv in factored_result.claims:
-                    if cv.is_drift:
-                        print(f"  → {cv.claim.output}: v1={cv.v1_symbolic}, "
-                              f"v2={cv.v2_recompute}, v3={cv.v3_llm}, "
-                              f"score={cv.drift_score:.2f}")
-
-            # Task 5: Combined drift decision (SSCE OR factored)
-            ssce_drift = drift and conf >= 0.75
-            combined_drift = ssce_drift or factored_drift_detected
+            # Force drift on execution failure or result mismatch
+            combined_drift = False
+            if not exec_ok or (computed_value is None):
+                print("[FORCE DRIFT] Execution failed")
+                combined_drift = True
+            elif disagreement:
+                print(f"[RESULT MISMATCH] computed={computed_value}, original={original_llm_answer}")
+                combined_drift = True
 
             if combined_drift:
                 drift_detected = True
-                print(f"[COMBINED DRIFT] ssce={ssce_drift}, factored={factored_drift_detected}")
-                if ssce_drift:
-                    print(f"  Source step: {source_step}, Error step: {error_step}")
+                print(f"[COMBINED DRIFT] result_mismatch={disagreement}, exec_failed={not exec_ok}")
 
-                # Build critique with step-level info
-                if ssce_drift:
-                    # Use SSCE drift details for critique
-                    if d_type == "sign_flip":
-                        critique = (f"Operation for '{var}' changed from {old} to {new} unexpectedly. "
-                                    f"Error at step {error_step}, originally defined at step {source_step}.")
-                    elif d_type == "inconsistent_dependency":
-                        critique = (f"Variable '{var}' was previously computed as {old} but new dependencies yield {new}. "
-                                    f"Error at step {error_step}, originally defined at step {source_step}.")
-                    elif d_type == "invalid_operation":
-                        critique = f"Variable '{var}' caused {old} error at step {error_step}."
-                    else:
-                        critique = (f"Variable '{var}' changed from {old} to {new} without justification. "
-                                    f"Error at step {error_step}, originally defined at step {source_step}.")
-                elif factored_drift_detected:
-                    # Use factored verification details for critique
-                    drifted_claims = [cv for cv in factored_result.claims if cv.is_drift]
-                    parts = []
-                    for cv in drifted_claims:
-                        parts.append(
-                            f"Variable '{cv.claim.output}' has inconsistent values: "
-                            f"symbolic={cv.v1_symbolic}, recomputed={cv.v2_recompute}"
-                            f"{f', llm={cv.v3_llm}' if cv.v3_llm is not None else ''}"
-                            f" (drift_score={cv.drift_score:.2f})"
-                        )
-                    critique = "; ".join(parts) if parts else "Factored verification detected drift."
-                    # Use first drifted claim for report
-                    if drifted_claims:
-                        var = drifted_claims[0].claim.output
-                        old = drifted_claims[0].v2_recompute
-                        new = drifted_claims[0].v1_symbolic
-                        d_type = "factored_drift"
-                        error_step = drifted_claims[0].claim.step
-                        source_step = drifted_claims[0].claim.step
-                else:
-                    critique = "Drift detected."
-
-                # Build drift report with step info
-                r = DriftReport(variable=var or "unknown", old_value=old, new_value=new, reason=critique)
+                # Simple drift report for result mismatch
+                critique = f"Result mismatch: computed={computed_value}, LLM original={original_llm_answer}"
                 report_dict = {
-                    "variable": r.variable,
-                    "old_value": r.old_value,
-                    "new_value": r.new_value,
-                    "reason": r.reason,
-                    "type": d_type if d_type else "unknown",
-                    "source_step": source_step,
-                    "error_step": error_step,
+                    "variable": target_var or "result",
+                    "old_value": original_llm_answer,
+                    "new_value": computed_value,
+                    "reason": critique,
+                    "type": "result_mismatch",
                 }
                 all_reports.append(report_dict)
 
-                # Task 4: Constraint-Guided Surgical Repair
-                error_step_for_repair = error_step if error_step is not None else 0
-                drift_info = {
-                    "variable": var or "unknown",
-                    "type": d_type if d_type else "unknown",
-                    "old": old,
-                    "new": new,
-                    "source_step": source_step,
-                    "error_step": error_step,
-                }
-                corrected_reasoning, deterministic_repair = constraint_guided_repair(
+                # Build reflexion prompt
+                reflexion_feedback = build_reflexion_prompt(
+                    [report_dict],
+                    target_variable=target_var,
+                    result_mismatch=True,
+                    computed_value=computed_value,
+                    llm_claimed=original_llm_answer,
+                )
+
+                # Call repair to regenerate reasoning
+                corrected_reasoning = constraint_guided_repair(
                     self.llm, query,
                     reasoning_result.reasoning,
-                    error_step_for_repair,
+                    0,
                     critique,
-                    facts=facts,
-                    drift_info=drift_info,
+                    drift_info={"variable": target_var or "result", "type": "result_mismatch"},
                     target_variable=target_var,
                 )
 
+                # Handle empty repair output
+                if not corrected_reasoning or len(corrected_reasoning.strip()) == 0:
+                    print("[WARNING] Empty repair output — falling back to original reasoning")
+                    corrected_reasoning = reasoning_result.reasoning
+
                 print("\n[REFLEXION OUTPUT (PARTIAL REPAIR)]:\n", corrected_reasoning[:500])
 
-                # Re-decompose the corrected reasoning
+                # Re-extract equations from corrected reasoning
                 try:
-                    facts = self.decomposer.to_atomic_facts(corrected_reasoning)
+                    equations = self.decomposer(corrected_reasoning)
                 except Exception as e:
-                    print(f"⚠️ SymbolicDecomposer completely failed ({e.__class__.__name__}) — falling back to GroqLLM")
-                    new_decomp = self.llm.decompose_to_predicates(corrected_reasoning)
-                    facts = [
-                        AtomicFact(
-                            predicate=p["predicate"],
-                            arguments=p["arguments"],
-                            raw_text="groq_fallback",
-                            source_path="groq"
-                        )
-                        for p in new_decomp.predicates
-                    ]
+                    print(f"⚠️ Equation extraction failed ({e.__class__.__name__})")
+                    equations = []
 
-                # Re-normalize
-                normalized_facts = []
-                for f in facts:
-                    norm_args = [normalize_var(arg) for arg in f.arguments]
-                    normalized_facts.append(
-                        AtomicFact(
-                            predicate=f.predicate,
-                            arguments=norm_args,
-                            raw_text=f.raw_text,
-                            source_path=f.source_path
-                        )
-                    )
-                facts = normalized_facts
-
-                print("\n[CORRECTED FACTS]:", [(f.predicate, f.arguments) for f in facts])
+                print("\n[CORRECTED EQUATIONS]:", equations)
 
                 correction_applied = True
 
-                # Update reasoning_result with corrected reasoning
+# Update reasoning_result with corrected reasoning
                 reasoning_result = ReasoningResult(
                     reasoning=corrected_reasoning,
                     final_answer=reasoning_result.final_answer,
                     raw_response=corrected_reasoning
                 )
 
-                # Re-check drift on corrected facts
-                (c_drift, _, _, _, _, _, _, _, _, c_dep_graph, _, _) = detect_drift_from_facts(facts)
-                last_dependency_graph = c_dep_graph
-
-                # If deterministic repair was applied, trust it:
-                # Redefinition cases will still show x=5→x=8 drift (intentional),
-                # but the re-computation has been surgically removed.
-                if deterministic_repair and c_drift:
-                    print("[REPAIR] Deterministic fix applied — trusting repair over SSCE re-check")
-                    c_drift = False
-                elif c_drift:
-                    print("[WARNING] Drift still present after correction")
-
-                # Execute corrected facts
+                # Execute corrected equations
                 table = get_symbolic_table()
                 table.clear()
                 ssce = get_ssce_engine()
-                exec_result, exec_reports = self._execute_predicates(facts, table, ssce)
+                exec_result, exec_reports, exec_ok = self._execute_predicates(equations, table, ssce)
 
-                # If deterministic repair was applied, ignore SSCE execution drift
-                # (redefinition-type drift is expected and intentional)
-                if deterministic_repair and exec_reports:
-                    print("[REPAIR] Deterministic fix — clearing SSCE exec reports")
-                    exec_reports = []
+                # Re-check result mismatch vs original
+                new_computed = self._extract_computed_value(exec_result)
+                if new_computed is not None and original_llm_answer is not None:
+                    try:
+                        if not math.isnan(new_computed) and not math.isnan(original_llm_answer):
+                            if abs(float(new_computed) - float(original_llm_answer)) > 1e-2:
+                                print(f"[WARNING] Drift still present after correction: computed={new_computed}, original={original_llm_answer}")
+                    except (ValueError, TypeError):
+                        pass
             else:
-                if drift:
-                    print(f"[DRIFT IGNORED] {var}: low confidence ({conf})")
-
                 # ----- Step 4: Execute via PoT Sandbox -----
                 table = get_symbolic_table()
                 table.clear()
                 ssce = get_ssce_engine()
-                exec_result, exec_reports = self._execute_predicates(facts, table, ssce)
+                exec_result, exec_reports, exec_ok = self._execute_predicates(equations, table, ssce)
 
-            # ----- Step 5: SSCE Check -----
-            if exec_reports:
-                drift_detected = True
-                all_reports.extend(
-                    [{"variable": r.variable,
-                      "old_value": r.old_value,
-                      "new_value": r.new_value,
-                      "reason": r.reason}
-                     for r in exec_reports]
-                )
+            # ----- Step 5: Extract Final Answer -----
+            final_computed_value = self._extract_computed_value(exec_result)
 
-                trace.append({
-                    "iteration": iteration,
-                    "status": "drift_detected",
-                    "drifts": [r.reason for r in exec_reports],
-                    "answer": reasoning_result.final_answer,
-                })
-
-                # Build targeted Reflexion prompt with step info
-                if iteration < MAX_REFLEXION_ITERATIONS:
-                    reflexion_feedback = build_reflexion_prompt(
-                        exec_reports,
-                        target_variable=target_var,
-                        source_step=source_step,
-                        error_step=error_step,
-                    )
-                    correction_applied = True
-                    logger.info(
-                        f"Reflexion iteration {iteration + 1}: "
-                        f"detected {len(exec_reports)} drift(s), "
-                        f"re-generating reasoning..."
-                    )
-                    continue
-                else:
-                    trace.append({
-                        "iteration": iteration,
-                        "status": "max_iterations_reached",
-                    })
-                    return ReflexionResult(
-                        final_answer=reasoning_result.final_answer,
-                        reasoning=reasoning_result.reasoning,
-                        iterations_used=iteration + 1,
-                        drift_detected=True,
-                        drift_reports=all_reports,
-                        correction_applied=correction_applied,
-                        correction_successful=False,
-                        execution_trace=trace,
-                        dependency_graph=last_dependency_graph,
-                    )
-
-            # ----- No Drift → Success -----
-            final = self._extract_sandbox_answer(exec_result, table)
-            if final is None or math.isnan(final):
-                final = reasoning_result.final_answer
-
-            # Soft final answer validation
-            if target_var and exec_result and isinstance(exec_result, dict):
-                if target_var not in exec_result:
-                    logger.warning(
-                        f"Target variable '{target_var}' not found in result. "
-                        f"Available: {list(exec_result.keys())}. Using best numeric."
-                    )
+            # Use computed value if available, otherwise use original LLM answer
+            final_answer = final_computed_value if final_computed_value is not None else original_llm_answer
 
             trace.append({
                 "iteration": iteration,
                 "status": "clean" if not correction_applied else "corrected",
-                "answer": final,
+                "answer": final_answer,
             })
 
             return ReflexionResult(
-                final_answer=final,
+                final_answer=final_answer,
                 reasoning=reasoning_result.reasoning,
                 iterations_used=iteration + 1,
                 drift_detected=drift_detected,
                 drift_reports=all_reports,
                 correction_applied=correction_applied,
-                correction_successful=correction_applied and not exec_reports and not c_drift,
+                correction_successful=correction_applied and not exec_reports,
                 execution_trace=trace,
                 dependency_graph=last_dependency_graph,
-                factored_drift=factored_drift_detected if 'factored_drift_detected' in dir() else False,
-                factored_reports=[{"claim": cv.claim.output, "v1": cv.v1_symbolic, "v2": cv.v2_recompute, "v3": cv.v3_llm, "score": cv.drift_score, "is_drift": cv.is_drift} for cv in factored_result.claims] if 'factored_result' in dir() else [],
-                factored_llm_calls=factored_llm_calls_total if 'factored_llm_calls_total' in dir() else 0,
             )
-
-        # Should not reach here, but safety
-        return ReflexionResult(
-            final_answer=float('nan'),
-            reasoning="",
-            iterations_used=MAX_REFLEXION_ITERATIONS + 1,
-            drift_detected=drift_detected,
-            drift_reports=all_reports,
-            correction_applied=correction_applied,
-            correction_successful=False,
-            execution_trace=trace,
-            dependency_graph=last_dependency_graph,
-            factored_drift=False,
-            factored_reports=[],
-            factored_llm_calls=0,
-        )
 
     def _execute_predicates(
         self,
-        predicates: List[Dict[str, Any]],
+        equations_or_facts,
         table,
         ssce: SSCEEngine,
-    ) -> Tuple[Optional[Dict], List[DriftReport]]:
-        from symbolic.decomposer import AtomicFact
+    ) -> Tuple[Optional[Dict], List[DriftReport], bool]:
         all_reports: List[DriftReport] = []
         final_result: Dict[str, Any] = {}
 
-        facts = []
-        for p in predicates:
-            if isinstance(p, AtomicFact):
-                facts.append(p)
-            else:
-                facts.append(
-                    AtomicFact(
-                        predicate=p["predicate"],
-                        arguments=p["arguments"],
-                        raw_text="llm_generated",
-                        source_path="groq"
-                    )
-                )
+        # Handle both equation strings and AtomicFacts
+        if equations_or_facts and isinstance(equations_or_facts[0], str):
+            equations = equations_or_facts
+        else:
+            facts = equations_or_facts
+            from symbolic.decomposer import AtomicFact
+            equations = []
+            for f in facts:
+                if isinstance(f, AtomicFact):
+                    pred = f.predicate
+                    args = f.arguments
+                    if pred == "Assign":
+                        equations.append(f"{args[1]} = {args[0]}")
+                    elif pred == "Add":
+                        equations.append(f"{args[2]} = {args[0]} + {args[1]}")
+                    elif pred == "Subtract":
+                        equations.append(f"{args[2]} = {args[0]} - {args[1]}")
+                    elif pred == "Multiply":
+                        equations.append(f"{args[2]} = {args[0]} * {args[1]}")
+                    elif pred == "Divide":
+                        equations.append(f"{args[2]} = {args[0]} / {args[1]}")
 
-        print("\nDEBUG FACTS:")
-        for f in facts:
-            print(f.predicate, f.arguments)
+        print("\nDEBUG EQUATIONS:")
+        for eq in equations:
+            print(eq)
 
         try:
-            pot = self.pot_engine.generate_script(facts)
+            pot = self.pot_engine.generate_script(equations)
         except Exception as e:
             logger.warning(f"PoT generation failed: {e}")
-            return {}, []
+            return {}, [], False
 
         print("\nDEBUG SCRIPT:\n", pot.script)
 
@@ -1277,29 +1136,76 @@ class ReflexionEngine:
         sandbox_result = MockSandboxResult(result if result else {})
         print("\nDEBUG OUTPUT:", sandbox_result.output)
 
-        if ok and result:
+        if ok and result is not None:
             reports = ssce.check_step(result)
             if reports:
                 all_reports.extend(reports)
-            return result, all_reports
-        return final_result, all_reports
+            return result, all_reports, ok
+        return final_result, all_reports, ok
 
     def _extract_sandbox_answer(
         self,
         result: Optional[Dict],
         table,
+        target_variable: Optional[str] = None,
     ) -> Optional[float]:
         """Extract the final numeric answer from sandbox results."""
         if not result:
             return None
 
-        # Priority: 'result', 'answer', 'total', then last numeric value
-        for key in ['result', 'answer', 'total', 'final',
-                     'final_answer', 'output']:
-            if key in result and isinstance(result[key], (int, float)):
-                return float(result[key])
+        # Fallback if no target given
+        if not target_variable:
+            for key in ['result', 'answer', 'total', 'final', 'final_answer', 'output']:
+                if key in result and isinstance(result[key], (int, float)):
+                    return float(result[key])
+            nums = [v for v in result.values() if isinstance(v, (int, float))]
+            return float(nums[-1]) if nums else None
 
-        # Last numeric value
+        # 1. Exact match
+        if target_variable in result and isinstance(result[target_variable], (int, float)):
+            return float(result[target_variable])
+
+        # 2. Fuzzy match
+        norm_target = target_variable.lower().replace("_", "")
+        candidates = []
+        for k, v in result.items():
+            if isinstance(v, (int, float)):
+                norm_k = k.lower().replace("_", "")
+                if norm_target in norm_k or norm_k in norm_target:
+                    candidates.append(k)
+
+        if not candidates:
+            # Fallback: use last computed value
+            if result:
+                nums = [v for v in result.values() if isinstance(v, (int, float))]
+                return float(nums[-1]) if nums else None
+            return None
+
+        if len(candidates) == 1:
+            return float(result[candidates[0]])
+
+        # 3. If multiple candidates: choose variable used in final step
+        # Since result is an ordered dict, the last matching key is from the final step
+        for k in reversed(list(result.keys())):
+            if k in candidates:
+                return float(result[k])
+
+        # Ultimate fallback: last numeric value
+        if result:
+            nums = [v for v in result.values() if isinstance(v, (int, float))]
+            return float(nums[-1]) if nums else None
+        return None
+
+    def _extract_computed_value(self, result: Optional[Dict]) -> Optional[float]:
+        """Extract computed value from execution result - simple version."""
+        if not result:
+            return None
+        
+        # If 'result' key exists, use it
+        if 'result' in result and isinstance(result['result'], (int, float)):
+            return float(result['result'])
+        
+        # Fallback: last numeric value
         nums = [v for v in result.values() if isinstance(v, (int, float))]
         return float(nums[-1]) if nums else None
 
@@ -1308,5 +1214,5 @@ class ReflexionEngine:
 # Convenience
 # ---------------------------------------------------------------------------
 
-def get_reflexion_engine(llm: GroqLLM) -> ReflexionEngine:
+def get_reflexion_engine(llm: GeminiLLM) -> ReflexionEngine:
     return ReflexionEngine(llm=llm)

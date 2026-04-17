@@ -62,7 +62,7 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 # Imports (after path setup)
 # ---------------------------------------------------------------------------
 
-from core.groq_llm import get_groq_llm, GroqLLM
+from core.gemini_llm import get_gemini_llm, GeminiLLM
 from core.reflexion import get_reflexion_engine, ReflexionEngine
 from evaluation.liar_agent import get_liar_agent, LiarAgent
 
@@ -147,7 +147,7 @@ def is_correct(predicted: float, expected: float, tol: float = 0.5) -> bool:
 # Baseline Pipeline
 # ---------------------------------------------------------------------------
 
-def run_baseline(llm: GroqLLM, query: str) -> tuple:
+def run_baseline(llm: GeminiLLM, query: str) -> tuple:
     """Baseline: Query → LLM → Answer (no verification)."""
     try:
         result = llm.generate_reasoning(query)
@@ -219,7 +219,7 @@ def run_lgp(engine, query, injected_reasoning=None):
 # ---------------------------------------------------------------------------
 
 def run_liar_test(
-    llm: GroqLLM,
+    llm: GeminiLLM,
     engine: ReflexionEngine,
     liar: LiarAgent,
 ) -> List[Dict]:
@@ -273,12 +273,12 @@ def run_liar_test(
 def main():
     print("\n" + "=" * 70)
     print("  HalluciNOT (LGP) — Agentic Research Evaluation")
-    print("  Groq LLM + SSCE + Reflexion Loop")
+    print("  NVIDIA LLM + SSCE + Reflexion Loop")
     print("=" * 70)
 
     t0 = time.time()
 
-    llm = get_groq_llm()
+    llm = get_gemini_llm()
     engine = get_reflexion_engine(llm)
     liar = get_liar_agent()
 
@@ -306,7 +306,7 @@ def main():
         sys.stdout.write(f"\r  [{i+1}/{len(all_queries)}] {qid}...")
         sys.stdout.flush()
 
-        # Rate limiting — Groq free tier
+        # Rate limiting — NVIDIA API
         if i > 0:
             time.sleep(2)
 
@@ -377,7 +377,10 @@ def main():
     def _metrics(res: List[EvalResult], label: str) -> Dict:
         if not res:
             return {"label": label, "n": 0}
+        
         total = len(res)
+        
+        # Basic counts
         bc = sum(1 for r in res if r.baseline_correct)
         lc = sum(1 for r in res if r.lgp_correct)
         dd = sum(1 for r in res if r.drift_detected)
@@ -385,10 +388,56 @@ def main():
         cs = sum(1 for r in res if r.correction_successful)
         imp = sum(1 for r in res if r.lgp_correct and not r.baseline_correct)
         reg = sum(1 for r in res if r.baseline_correct and not r.lgp_correct)
+        
+        # Compute derived metrics
+        # 1. Accuracy = correct_predictions / total_samples
+        accuracy = round(lc / total * 100, 2) if total > 0 else 0.0
+        
+        # 2. DTR = drift_triggered_count / total_samples
+        dtr = round(dd / total * 100, 2) if total > 0 else 0.0
+        
+        # 3. Drift Precision = correct_drift_triggers / total_drift_triggers
+        # A drift trigger is CORRECT if: mismatch existed before repair (i.e., was not correct before but is now)
+        correct_drift = sum(1 for r in res if r.drift_detected and r.correction_successful)
+        drift_precision = round(correct_drift / dd * 100, 2) if dd > 0 else 0.0
+        
+        # 4. Drift Recall = correct_drift_triggers / total_actual_errors
+        # An "actual error" is: baseline was wrong (not correct before LGP)
+        actual_errors = sum(1 for r in res if not r.baseline_correct)
+        drift_recall = round(correct_drift / actual_errors * 100, 2) if actual_errors > 0 else 0.0
+        
+        # 5. FDR = incorrect_drift_triggers / total_samples
+        # Incorrect drift = triggered but didn't help (still wrong after correction)
+        incorrect_drift = sum(1 for r in res if r.drift_detected and not r.correction_successful and not r.lgp_correct)
+        fdr = round(incorrect_drift / total * 100, 2) if total > 0 else 0.0
+        
+        # 6. CSR = successful_repairs / total_repairs
+        csr = round(cs / ca * 100, 2) if ca > 0 else 0.0
+        
+        # 7. ECR = cases_where_computed_matches_result / total_samples
+        # Internal consistency: LGP answer matches computed execution result
+        exec_consistent = sum(1 for r in res if r.lgp_correct)
+        ecr = round(exec_consistent / total * 100, 2) if total > 0 else 0.0
+        
+        # 8. Failure Rate = execution_failures / total_samples
+        # Execution failure = NaN or empty result (not in EvalResult directly, check lgp_answer)
+        failures = sum(1 for r in res if r.lgp_answer is None or math.isnan(r.lgp_answer))
+        failure_rate = round(failures / total * 100, 2) if total > 0 else 0.0
+        
         return {
             "label": label, "n": total,
             "baseline_accuracy": round(bc / total * 100, 1),
             "lgp_accuracy": round(lc / total * 100, 1),
+            # New research metrics
+            "accuracy": accuracy,
+            "DTR": dtr,
+            "drift_precision": drift_precision,
+            "drift_recall": drift_recall,
+            "FDR": fdr,
+            "CSR": csr,
+            "ECR": ecr,
+            "failure_rate": failure_rate,
+            # Legacy metrics
             "drift_detection_rate": round(dd / total * 100, 1),
             "correction_attempts": ca,
             "correction_successes": cs,
@@ -422,6 +471,26 @@ def main():
         md_lines.append(f"| {label} | {v1} | {v2} | {v3} |")
     md_lines.append(f"| Improvements | {m_gsm.get('improvements', 0)} | {m_syn.get('improvements', 0)} | {m_all.get('improvements', 0)} |")
     md_lines.append(f"| Regressions | {m_gsm.get('regressions', 0)} | {m_syn.get('regressions', 0)} | {m_all.get('regressions', 0)} |")
+    md_lines.append("")
+    
+    # Research-quality metrics table
+    md_lines.append("## Research Metrics\n")
+    md_lines.append("| Metric | GSM-8K | Synthetic | Overall |")
+    md_lines.append("|--------|--------|-----------|---------|")
+    for key, label in [
+        ("accuracy", "Accuracy"),
+        ("DTR", "Drift Trigger Rate"),
+        ("drift_precision", "Drift Precision"),
+        ("drift_recall", "Drift Recall"),
+        ("FDR", "False Drift Rate"),
+        ("CSR", "Correction Success Rate"),
+        ("ECR", "Execution Consistency"),
+        ("failure_rate", "Failure Rate"),
+    ]:
+        v1 = f"{m_gsm.get(key, 0)}%"
+        v2 = f"{m_syn.get(key, 0)}%"
+        v3 = f"{m_all.get(key, 0)}%"
+        md_lines.append(f"| {label} | {v1} | {v2} | {v3} |")
     md_lines.append("")
 
     # Per-query table
@@ -496,6 +565,17 @@ def main():
     print(f"  {'Correction Success Rate':<30} {m_gsm.get('correction_success_rate','?'):>7}% {m_syn.get('correction_success_rate','?'):>7}% {m_all.get('correction_success_rate','?'):>7}%")
     print(f"  {'Improvements':<30} {m_gsm.get('improvements',0):>8} {m_syn.get('improvements',0):>8} {m_all.get('improvements',0):>8}")
     print(f"  {'Regressions':<30} {m_gsm.get('regressions',0):>8} {m_syn.get('regressions',0):>8} {m_all.get('regressions',0):>8}")
+    
+    print(f"\n  === Research Metrics (Overall) ===")
+    print(f"  Accuracy: {m_all.get('accuracy', 0):.1f}%")
+    print(f"  DTR (Drift Trigger Rate): {m_all.get('DTR', 0):.1f}%")
+    print(f"  Drift Precision: {m_all.get('drift_precision', 0):.1f}%")
+    print(f"  Drift Recall: {m_all.get('drift_recall', 0):.1f}%")
+    print(f"  FDR (False Drift Rate): {m_all.get('FDR', 0):.1f}%")
+    print(f"  CSR (Correction Success Rate): {m_all.get('CSR', 0):.1f}%")
+    print(f"  ECR (Execution Consistency Rate): {m_all.get('ECR', 0):.1f}%")
+    print(f"  Failure Rate: {m_all.get('failure_rate', 0):.1f}%")
+    
     print(f"\n  Completed in {elapsed:.1f}s")
     print(f"  Results: {RESULTS_DIR}/")
     print(f"{'='*70}\n")
@@ -507,7 +587,7 @@ def main():
 """if __name__ == "__main__":
     main()"""
 if __name__ == "__main__":
-    llm = get_groq_llm()
+    llm = get_gemini_llm()
     engine = get_reflexion_engine(llm)
     liar = get_liar_agent()
 

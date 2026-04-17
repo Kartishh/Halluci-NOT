@@ -7,7 +7,7 @@ from dataclasses import asdict
 
 # Import necessary components from the existing codebase
 from lgp_eval import (
-    get_groq_llm, 
+    get_gemini_llm, 
     get_reflexion_engine,
     run_baseline,
     run_lgp,
@@ -25,7 +25,7 @@ def main():
 
     t0 = time.time()
 
-    llm = get_groq_llm()
+    llm = get_gemini_llm()
     engine = get_reflexion_engine(llm)
 
     # Combine datasets

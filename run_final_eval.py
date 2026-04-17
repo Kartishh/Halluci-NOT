@@ -49,7 +49,7 @@ import logging
 logging.getLogger("LGP").setLevel(logging.WARNING)
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
-from core.groq_llm import get_groq_llm, GroqLLM
+from core.gemini_llm import get_gemini_llm, GeminiLLM
 from core.reflexion import (
     get_reflexion_engine, ReflexionEngine,
     split_into_steps, detect_drift_from_facts,
@@ -357,12 +357,12 @@ def generate_demo_trace(llm, engine, query_item, results_dir):
 def main():
     print("\n" + "=" * 70)
     print("  HalluciNOT (LGP) — Final Evaluation Pipeline")
-    print("  Groq LLM + SSCE + Reflexion Loop (v2: Step-Level Repair)")
+    print("  NVIDIA LLM + SSCE + Reflexion Loop (v2: Step-Level Repair)")
     print("=" * 70)
 
     t0 = time.time()
 
-    llm = get_groq_llm()
+    llm = get_gemini_llm()
     engine = get_reflexion_engine(llm)
 
     # Combine datasets

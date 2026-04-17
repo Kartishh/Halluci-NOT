@@ -65,22 +65,30 @@ _OP_KEYWORDS = {
 # Variable Name Normalization
 # ---------------------------------------------------------------------------
 
+def _canonicalize(name: str) -> str:
+    """Remove underscores and spaces, convert to lowercase. PRESERVED for compatibility."""
+    return name.replace('_', '').replace(' ', '').lower()
+
+
 def _normalize_var_name(name: str) -> str:
-    """Convert a natural language entity name to snake_case."""
-    name = name.strip().lower()
-    # Remove possessives
+    """Convert a natural language entity name to snake_case. PRESERVES variable identity (including digits)."""
+    original = name.strip()
+    name = original.lower()
+    
+    name = re.sub(r'^(?:step\s+)?\d+[\.):\s]+\s*', '', name, flags=re.IGNORECASE)
     name = re.sub(r"'s\b", "", name)
-    # Remove articles and prepositions
-    name = re.sub(r"\b(the|a|an|of|for|to|in|at|by|on|with|from|is|are|was|were)\b", " ", name)
-    # Remove non-alphanumeric (keep spaces)
-    name = re.sub(r"[^a-z0-9\s]", "", name)
-    # Collapse whitespace → underscore
+    # Do NOT remove digits - preserve variable identity like p1, p2, x2, etc.
+    name = re.sub(r"[^a-z0-9\s]", "", name)  # Keep digits!
     name = re.sub(r"\s+", "_", name.strip())
-    # Remove leading/trailing underscores
     name = name.strip("_")
-    # Collapse repeated underscores
     name = re.sub(r"_+", "_", name)
-    return name if name else "var"
+    parts = name.split('_')
+    if len(parts) > 3:
+        name = '_'.join(parts[:3])
+    # Preserve single letter/digit variables
+    if not name and original:
+        return original
+    return name if name else ""
 
 
 def _word_to_number(word: str) -> Optional[float]:
@@ -123,20 +131,38 @@ def _extract_number(text: str) -> Optional[str]:
 
 def _try_explicit_assignment(sentence: str) -> Optional[str]:
     """
-    Match: "X = NUMBER" or "let X = NUMBER"
-    Output: "x = NUMBER"
-    Only matches pure assignments (no arithmetic operators on RHS).
+    Match: "X = NUMBER" or "X = VARIABLE" or "X = NUMBER with extra text"
+    Output: "x = NUMBER" or "x = variable"
+    Extracts first numeric value from RHS, ignores trailing words.
+    REJECTS if multiple numbers present (e.g., "60 miles in 2 hours").
     """
     s = sentence.strip()
-    # Pattern: let X = NUMBER or X = NUMBER (no operator after the number)
     m = re.match(
-        r"(?:let\s+)?(\w[\w\s]*?)\s*=\s*([-+]?\$?\d[\d,]*\.?\d*)\s*$",
+        r"(?:let\s+)?(\w[\w\s]*?)\s*=\s*(.+)$",
         s, re.IGNORECASE
     )
     if m:
         var = _normalize_var_name(m.group(1))
-        val = m.group(2).replace(",", "").replace("$", "")
-        return f"{var} = {val}"
+        if not var:
+            return None
+        rhs = m.group(2).strip()
+        numbers = re.findall(r'\d[\d,]*\.?\d*', rhs)
+        
+        # Allow: either exactly one number OR no numbers (variable = variable)
+        if len(numbers) > 1:
+            return None
+        
+        if len(numbers) == 1:
+            num_match = re.search(r'([-+]?\$?\d[\d,]*\.?\d*)', rhs)
+            if num_match:
+                val = num_match.group(1).replace(",", "").replace("$", "")
+                return f"{var} = {val}"
+        else:
+            # No numbers - variable = variable case
+            # Check if RHS is a valid variable name
+            rhs_var = rhs.strip()
+            if re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', rhs_var):
+                return f"{var} = {rhs_var}"
     return None
 
 
@@ -190,13 +216,19 @@ def _try_nl_assignment(sentence: str) -> Optional[str]:
     """
     Match: "The ENTITY is/costs/equals NUMBER"
     Output: "entity = NUMBER"
+    Extracts first numeric value, ignores trailing words.
+    REJECTS if multiple numbers present in sentence.
     """
+    if re.search(r'\b(has|have|had)\s+\d+\s+times\b', sentence.lower()):
+        return None
+    
+    all_numbers = re.findall(r'\d[\d,]*\.?\d*', sentence)
+    if len(all_numbers) != 1:
+        return None
+        
     patterns = [
-        # "X is NUMBER" / "X costs NUMBER" / "X equals NUMBER"
-        r"(?:the\s+)?(.+?)\s+(?:is|are|was|were|costs?|equals?|=)\s+\$?([-+]?\d[\d,]*\.?\d*)",
-        # "X has NUMBER" / "X earns NUMBER"
+        r"(?:the\s+)?(.+?)\s+(?:is|are|was|were|has|have|had|costs?|equals?|=)\s+\$?([-+]?\d[\d,]*\.?\d*)",
         r"(?:he|she|it|they|there)\s+(?:has|have|had|earns?|makes?|gets?|pays?)\s+\$?([-+]?\d[\d,]*\.?\d*)",
-        # "NUMBER ENTITY" at start
         r"^([-+]?\$?\d[\d,]*\.?\d*)\s+([\w\s]+?)(?:\.|$)",
     ]
 
@@ -213,7 +245,6 @@ def _try_nl_assignment(sentence: str) -> Optional[str]:
                 except ValueError:
                     pass
 
-    # Pattern 3: "NUMBER entity"
     m = re.search(patterns[2], sentence, re.IGNORECASE)
     if m:
         val = m.group(1).replace(",", "").replace("$", "")
@@ -226,11 +257,53 @@ def _try_nl_assignment(sentence: str) -> Optional[str]:
             except ValueError:
                 pass
 
-    # Word-number assignment: "She eats three for breakfast"
     for word, num in _WORD_NUMBERS.items():
         pat = rf"\b{word}\b"
         if re.search(pat, sentence, re.IGNORECASE):
-            # Try to find what entity the number refers to
+            m = re.search(
+                rf"(.+?)\s+(?:is|are|was|were|costs?|equals?)\s+{word}\b",
+                sentence, re.IGNORECASE
+            )
+            if m:
+                var = _normalize_var_name(m.group(1))
+                if var and len(var) > 1:
+                    return f"{var} = {num}"
+
+    return None
+    patterns = [
+        r"(?:the\s+)?(.+?)\s+(?:is|are|was|were|has|have|had|costs?|equals?|=)\s+\$?([-+]?\d[\d,]*\.?\d*)",
+        r"(?:he|she|it|they|there)\s+(?:has|have|had|earns?|makes?|gets?|pays?)\s+\$?([-+]?\d[\d,]*\.?\d*)",
+        r"^([-+]?\$?\d[\d,]*\.?\d*)\s+([\w\s]+?)(?:\.|$)",
+    ]
+
+    for pat in patterns[:2]:
+        m = re.search(pat, sentence, re.IGNORECASE)
+        if m:
+            entity = m.group(1)
+            val = m.group(2).replace(",", "").replace("$", "")
+            var = _normalize_var_name(entity)
+            if var and len(var) > 1:
+                try:
+                    float(val)
+                    return f"{var} = {val}"
+                except ValueError:
+                    pass
+
+    m = re.search(patterns[2], sentence, re.IGNORECASE)
+    if m:
+        val = m.group(1).replace(",", "").replace("$", "")
+        entity = m.group(2)
+        var = _normalize_var_name(entity)
+        if var and len(var) > 1:
+            try:
+                float(val)
+                return f"{var} = {val}"
+            except ValueError:
+                pass
+
+    for word, num in _WORD_NUMBERS.items():
+        pat = rf"\b{word}\b"
+        if re.search(pat, sentence, re.IGNORECASE):
             m = re.search(
                 rf"(.+?)\s+(?:is|are|was|were|costs?|equals?)\s+{word}\b",
                 sentence, re.IGNORECASE
@@ -308,8 +381,169 @@ def _try_percentage_assignment(sentence: str) -> Optional[str]:
 
 
 # ---------------------------------------------------------------------------
+# Strict Filtering (Structural Validation Only)
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# Unit and Noise Removal
+# ---------------------------------------------------------------------------
+
+_UNIT_WORDS = {
+    'mph', 'kmh', 'km', 'm', 'cm', 'mm',
+    'mile', 'miles', 'mi',
+    'hour', 'hours', 'hr', 'h',
+    'minute', 'minutes', 'min',
+    'second', 'seconds', 'sec',
+    'kg', 'g', 'mg',
+    'liter', 'liters', 'l',
+    'dollar', 'dollars', 'usd',
+    'percent', 'pct',
+}
+
+_STRIP_CHARS = r'[;`→|\\$]+'
+
+_LET_PREFIX = re.compile(r'^let\s+', re.IGNORECASE)
+
+
+def _preprocess_line(line: str) -> str:
+    """Remove units, stray symbols, and 'let' prefix from a line."""
+    line = line.strip()
+    
+    line = _LET_PREFIX.sub('', line)
+    
+    line = re.sub(_STRIP_CHARS, '', line)
+    
+    tokens = line.split()
+    cleaned_tokens = []
+    for token in tokens:
+        if token.lower() not in _UNIT_WORDS:
+            cleaned_tokens.append(token)
+        else:
+            pass
+    
+    result = ' '.join(cleaned_tokens)
+    
+    result = re.sub(r'\s+', ' ', result).strip()
+    
+    return result
+
+
+def _strict_filter(line: str) -> str | None:
+    """
+    Apply strict structural rules to validate a single assignment line.
+    Returns the valid line or None if it fails any rule.
+    
+    PRESERVES exact variable names - no canonicalization.
+    """
+    if not line or "=" not in line:
+        return None
+
+    var_name, rhs = line.split("=", 1)
+    var_name = var_name.strip()
+    rhs = rhs.strip()
+
+    if not var_name or not rhs:
+        return None
+
+    # Validate variable name - preserve EXACT case and characters
+    if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', var_name):
+        return None
+
+    has_operator = bool(re.search(r'[+\-*/()]', rhs))
+
+    if has_operator:
+        # Validate RHS - preserve variable names exactly
+        if not re.match(r'^[0-9a-zA-Z_+\-*/().\s]+$', rhs):
+            return None
+        has_number = bool(re.search(r'\d', rhs))
+        if not has_number and not has_operator:
+            return None
+        # Preserve exact variable names in expression
+        return f"{var_name} = {rhs}"
+    else:
+        # Allow: variable = number OR variable = variable
+        numbers = re.findall(r'\d[\d,]*\.?\d*', rhs)
+        variables = re.findall(r'[a-zA-Z_][a-zA-Z0-9_]*', rhs)
+        
+        # Must have either numbers or valid variables
+        if len(numbers) > 1:
+            return None
+        if not numbers and not variables:
+            return None
+            
+        if numbers:
+            num_match = re.search(r'([-+]?\$?\d[\d,]*\.?\d*)', rhs)
+            if not num_match:
+                return None
+            val = num_match.group(1).replace(",", "").replace("$", "")
+            return f"{var_name} = {val}"
+        else:
+            # variable = variable case - preserve exact variable name
+            return f"{var_name} = {rhs}"
+
+
+# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
+
+def sanitize_variable(var: str) -> str:
+    """
+    Sanitize variable names to be safe and robust.
+    """
+    var = var.lower().strip()
+
+    # Keep underscores, remove only invalid chars
+    var = re.sub(r'[^a-z0-9_]', '_', var)
+
+    # Collapse multiple underscores
+    var = re.sub(r'_+', '_', var).strip('_')
+
+    # FIX: ensure valid Python identifier
+    if not var or var[0].isdigit():
+        var = f"v_{var}"
+
+    # Avoid empty or generic names
+    if var in ["", "var", "value"]:
+        return "INVALID"
+
+    return var[:30]
+
+
+def _preprocess_sentence(sentence: str) -> str:
+    """Normalize a sentence before conversion: Unicode operators, step prefixes, chained equals, unit removal."""
+    s = sentence.strip()
+    
+    s = re.sub(r'^let\s+', '', s, flags=re.IGNORECASE)
+    
+    s = re.sub(r'[;`→|\\$]+', '', s)
+    
+    tokens = s.split()
+    cleaned_tokens = []
+    i = 0
+    while i < len(tokens):
+        token = tokens[i]
+        token_lower = token.lower()
+        
+        if token == '+' or token == '-' or token == '*' or token == '/':
+            cleaned_tokens.append(token)
+        elif token_lower in _UNIT_WORDS:
+            pass
+        else:
+            cleaned_tokens.append(token)
+        i += 1
+    
+    s = ' '.join(cleaned_tokens)
+    
+    s = re.sub(r'\s+', ' ', s).strip()
+    
+    s = s.replace('\u00d7', '*').replace('\u00f7', '/').replace('\u2212', '-')
+    s = s.replace('\u2013', '-').replace('\u2014', '-')
+    s = re.sub(r'^(?:step\s+)?\d+[\.):\s]+\s*', '', s, flags=re.IGNORECASE)
+    equals_positions = [m.start() for m in re.finditer(r'\s*=\s*', s)]
+    if len(equals_positions) >= 2:
+        s = s[:equals_positions[1]].strip()
+    return s
+
 
 def reasoning_to_program(reasoning: str) -> List[str]:
     """
@@ -335,14 +569,18 @@ def reasoning_to_program(reasoning: str) -> List[str]:
     if not reasoning or not reasoning.strip():
         return []
 
-    # Split reasoning into sentences/steps
-    sentences = re.split(r"(?:\. |\n|; |\.\n)", reasoning)
+    # Split reasoning into sentences/steps (include comma before capital letter)
+    sentences = re.split(r'(?:\. |\n|; |\.\n|,\s+(?=[A-Z]))', reasoning)
     sentences = [s.strip().rstrip(".") for s in sentences if s.strip()]
 
-    program_lines: List[str] = []
-    seen_vars: Dict[str, str] = {}  # var_name → last line (dedup)
+    valid_lines: List[str] = []
 
     for sentence in sentences:
+        # Preprocess: Unicode operators, step prefixes, chained equals
+        sentence = _preprocess_sentence(sentence)
+        if not sentence:
+            continue
+
         line = None
 
         # Try converters in order of specificity
@@ -357,20 +595,20 @@ def reasoning_to_program(reasoning: str) -> List[str]:
             line = _try_nl_assignment(sentence)
 
         if line is not None:
-            # Validate: must be a valid assignment
-            if "=" in line:
-                var_name = line.split("=")[0].strip()
-                # Track for dedup — keep last definition
-                seen_vars[var_name] = line
-                program_lines.append(line)
+            filtered = _strict_filter(line)
+            if filtered is not None:
+                valid_lines.append(filtered)
 
-    if program_lines:
+    if len(valid_lines) > 15:
+        valid_lines = valid_lines[-15:]
+
+    if valid_lines:
         logger.info(
-            f"PoT converter: {len(program_lines)} lines from "
+            f"PoT converter: {len(valid_lines)} lines from "
             f"{len(sentences)} sentences"
         )
 
-    return program_lines
+    return valid_lines
 
 
 # ---------------------------------------------------------------------------
