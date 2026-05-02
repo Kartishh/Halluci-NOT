@@ -7,3 +7,4 @@ venv/
 env/
 .DS_Store
 codebase_bundle.txt
+results/
