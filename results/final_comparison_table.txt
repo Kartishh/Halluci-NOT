@@ -1,34 +1,39 @@
 ======================================================================
-  HalluciNOT (LGP) — Final Comparison Table
-  Generated: 2026-04-08 15:48:12
+  HalluciNOT (LGP) — FINAL COMPARISON TABLE
 ======================================================================
 
-  Total Cases: 80
-  (Drift: 50, GSM: 20, Clean: 10)
-  Elapsed: 224.5s
+TABLE A: LGP SYSTEM METRICS
+--------------------------------------------------
+| Metric                                   |    Value |
+|------------------------------------------|----------|
+| Controlled Drift Detection               |    62.0% |
+| Controlled Correction Success            |    48.4% |
+| Controlled End Accuracy                  |    32.0% |
+| False Positive Rate (Controlled)         |     0.0% |
+| GSM Accuracy (Baseline)                  |     0.0% |
+| GSM Accuracy (LGP)                       |     6.0% |
+| GSM Drift Trigger Rate                   |     4.0% |
+| GSM Correction Success                   |    50.0% |
+| GSM False Positive Rate                  |       0% |
 
-  ┌─────────────────────┬────────────┬─────────────┬──────────┐
-  │ System              │ Detection  │ Correction  │ FP       │
-  ├─────────────────────┼────────────┼─────────────┼──────────┤
-  │ LGP (Updated)       │    100.0%  │     100.0%  │   0.0%  │
-  └─────────────────────┴────────────┴─────────────┴──────────┘
+CONTROLLED DRIFT: PER-TYPE BREAKDOWN
+------------------------------------------------------------
+| Drift Type           | Total | Detected | Corrected |   Rate |
+|----------------------|-------|----------|-----------|--------|
+| numeric              |    18 |       16 |         0 |  88.9% |
+| dependency           |    17 |        0 |         0 |   0.0% |
+| redefinition         |    15 |       15 |        15 | 100.0% |
 
 
-  Per-Drift-Type Breakdown:
-  ┌────────────────┬───────┬──────────┬───────────┐
-  │ Drift Type     │ Total │ Detected │ Corrected │
-  ├────────────────┼───────┼──────────┼───────────┤
-  │ dependency     │    17 │  17 (100.0%)│  17 (100.0%)│
-  │ numeric        │    18 │  18 (100.0%)│  18 (100.0%)│
-  │ redefinition   │    15 │  15 (100.0%)│  15 (100.0%)│
-  └────────────────┴───────┴──────────┴───────────┘
+TABLE B: COMPARISON WITH REFERENCED METHODS
+----------------------------------------------------------------------
+| Method          |  Detection | Correction | Notes                          |
+|-----------------|------------|------------|--------------------------------|
+| Reflexion       |        Low |     Medium | implicit correction            |
+| Self-Refine     |        Low |     Medium | no explicit detection          |
+| CoVe            |     Medium |        Low | verification-based             |
+| SelfCheck       |     Medium |        Low | heuristic detection            |
+| LGP (Ours)      |       High |     Medium | explicit symbolic detection    |
 
-
-  GSM-8K Accuracy: 60.0% (12/20)
-  Drift Accuracy (after correction): 92.0% (46/50)
-  Signal 3 (LLM) calls: 1
-
-  Key Metrics:
-    detection_rate      = 100.0%
-    correction_success  = 100.0%
-    false_positive_rate = 0.0%
+NOTE: Literature values are qualitative (Low/Medium/High).
+      Exact numeric comparison not possible due to different benchmarks.

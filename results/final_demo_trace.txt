@@ -44,8 +44,8 @@
   STEP 4: SSCE DRIFT DETECTION (step-level)
 ──────────────────────────────────────────────────────────────────────
     Drift Detected:     True
-    Drift Type:         inconsistent_dependency
-    Confidence:         0.85
+    Drift Type:         numeric_inconsistency
+    Confidence:         0.9
     Variable:           z
     Old Value:          15.0
     New Value:          24.0
@@ -55,7 +55,7 @@
 
     All detected drifts (2):
       - redefinition: x = 5.0 → 8.0 (conf=0.8, step 3 → 3)
-      - inconsistent_dependency: z = 15.0 → 24.0 (conf=0.85, step 2 → 4)
+      - numeric_inconsistency: z = 15.0 → 24.0 (conf=0.9, step 2 → 4)
 
 ──────────────────────────────────────────────────────────────────────
   STEP 5: LGP EXECUTION RESULT
@@ -70,7 +70,7 @@
   STEP 6: CORRECTION ANALYSIS
 ──────────────────────────────────────────────────────────────────────
     ✓ Drift was detected AND answer was corrected successfully.
-    ✓ Detection type: inconsistent_dependency
+    ✓ Detection type: numeric_inconsistency
     ✓ Localized to step 4 (originally set at step 2)
 
 ======================================================================

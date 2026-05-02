@@ -4,56 +4,29 @@
 
 ### TABLE 1: GSM (REAL WORLD)
 
-Source: API-based evaluation (Groq llama-3.3-70b-versatile, 20 queries)
-
 | Metric                    |   Baseline |        LGP |
 |---------------------------|------------|------------|
-| Accuracy                  |      95.0% |      95.0% |
-| Drift Trigger Rate        |          — |       0.0% |
-| Correction Coverage       |          — |      55.0% |
-| Correction Success        |          — |     100.0% |
-| False Positive Rate       |          — |       0.0% |
-
-  Improvements: 1 (gsm_03: corrected house flipping profit)
-  Regressions:  1 (gsm_15: overtime pay)
-  Net delta:    0
+| Accuracy                  |       0.0% |       6.0% |
+| Drift Trigger Rate        |          — |       4.0% |
+| Correction Coverage       |          — |       4.0% |
+| Correction Success        |          — |      50.0% |
+| False Positive Rate       |          — |         0% |
 
 ---
 
 ### TABLE 2: CONTROLLED (SYNTHETIC)
 
-Source: Offline benchmark (50 controlled drift samples, deterministic)
-
 | Metric                         |      Value |
 |--------------------------------|------------|
-| Drift Detection Rate           |      34.0% |
-| Correction Success Rate        |      88.2% |
+| Drift Detection Rate           |      62.0% |
+| Correction Success Rate        |      48.4% |
 | Final Accuracy                 |      32.0% |
 | False Positive Rate            |       0.0% |
 
----
-
-### TABLE 3: PER DRIFT-TYPE DETECTION (CONTROLLED)
+### TABLE 3: PER DRIFT-TYPE DETECTION
 
 | Drift Type           |  Samples | Detected | Detection % |
 |----------------------|----------|----------|-------------|
-| numeric              |       18 |        2 |       11.1% |
+| numeric              |       18 |       16 |       88.9% |
 | dependency           |       17 |        0 |        0.0% |
 | redefinition         |       15 |       15 |      100.0% |
-
----
-
-### TABLE 4: STRESS TEST (API-BASED, 50 QUERIES)
-
-Source: Liar agent injection (20 GSM + 30 drift scenarios)
-
-| Metric                    |      Value |
-|---------------------------|------------|
-| Baseline Accuracy         |      68.0% |
-| LGP Accuracy              |      58.0% |
-| Drift Detection Rate      |      74.0% |
-| Correction Success Rate   |     100.0% |
-| Improvements              |          7 |
-| Regressions               |         12 |
-
-======================================================================

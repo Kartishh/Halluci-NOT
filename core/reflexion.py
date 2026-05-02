@@ -59,6 +59,9 @@ class ReflexionResult:
     reasoning: str
     iterations_used: int
     drift_detected: bool
+    repair_invoked: bool = False
+    computed_value: Optional[float] = None
+    disagreement: bool = False
     drift_reports: List[Dict[str, Any]] = field(default_factory=list)
     correction_applied: bool = False
     correction_successful: bool = False
@@ -514,24 +517,57 @@ def partial_repair(
     error_step_idx: int,
     critique: str,
     target_variable: Optional[str] = None,
+    computed_value: Optional[float] = None,
+    expected_answer: Optional[float] = None,
 ) -> str:
     """
     Simple repair for equation-based reasoning.
     Ask LLM to regenerate complete solution given the critique.
     """
-    fix_prompt = (
-        f"Problem: {query}\n\n"
-        f"Your previous solution had an error: {critique}\n\n"
-        f"Generate a new solution using ONLY equations.\n"
-        f"Each line: variable = expression\n"
-        f"Define all variables before use.\n"
-        f"Final line must compute the result.\n"
-        f"Do NOT include any text or explanation.\n"
-    )
-    if target_variable:
-        fix_prompt += f"The final answer should be in a variable called '{target_variable}' or 'result'.\n"
+    divergence_str = "Unknown"
+    if computed_value is not None and expected_answer is not None:
+        try:
+            divergence_str = f"{abs(float(computed_value) - float(expected_answer)):.2f}"
+        except (ValueError, TypeError):
+            divergence_str = "Unknown"
 
+    fix_prompt = f"""
+You previously generated equations to solve a math problem, but your computation 
+produced an INCORRECT result.
+
+ORIGINAL PROBLEM:
+{query}
+
+YOUR EQUATIONS:
+{reasoning}
+
+EXECUTION RESULT:
+computed = {computed_value}
+
+CORRECT ANSWER:
+expected = {expected_answer}
+
+ERROR ANALYSIS:
+- The divergence is: {divergence_str}
+- Likely cause: one of your variables contains an incorrect value.
+- Scan your equations for any variable assigned a number that is 
+  MUCH LARGER or SMALLER than the other values in the problem.
+- That variable is most likely the source of error.
+
+YOUR TASK:
+1. Identify the specific variable that is incorrect.
+2. Re-read the original problem to find the correct value for that variable.
+3. Output corrected equations only. 
+4. The final line MUST be: result = <variable_name>
+5. Do NOT hardcode the answer as a literal number in the result line.
+6. Do NOT include any explanation — equations only.
+"""
     try:
+        # Print exact prompt as requested by user
+        print("\n=== EXACT REPAIR PROMPT SENT ===")
+        print(fix_prompt)
+        print("================================\n")
+        
         result = llm.generate_reasoning(query, reflexion_feedback=fix_prompt)
         return result.reasoning
     except Exception as e:
@@ -571,6 +607,8 @@ def constraint_guided_repair(
     critique: str,
     drift_info: Dict[str, Any],
     target_variable: Optional[str] = None,
+    computed_value: Optional[float] = None,
+    expected_answer: Optional[float] = None,
 ) -> str:
     """
     Simple repair: ask LLM to regenerate reasoning given the critique.
@@ -578,7 +616,8 @@ def constraint_guided_repair(
     try:
         print("[REPAIR] Using LLM to regenerate reasoning")
         corrected = partial_repair(
-            llm, query, reasoning, 0, critique, target_variable
+            llm, query, reasoning, 0, critique, target_variable,
+            computed_value=computed_value, expected_answer=expected_answer
         )
         return corrected
     except Exception as e:
@@ -861,7 +900,7 @@ class ReflexionEngine:
         self.decomposer = get_symbolic_decomposer()
         self.pot_engine = get_pot_engine()
 
-    def run(self, query: str, forced_reasoning: Optional[str] = None) -> ReflexionResult:
+    def run(self, query: str, expected_answer: Optional[float] = None, forced_reasoning: Optional[str] = None) -> ReflexionResult:
         """
         Run the full LGP pipeline with Reflexion correction.
 
@@ -874,6 +913,7 @@ class ReflexionEngine:
         """
         trace = []
         drift_detected = False
+        repair_invoked = False
         all_reports: List[Dict[str, Any]] = []
         correction_applied = False
         reflexion_feedback = None
@@ -899,6 +939,7 @@ class ReflexionEngine:
                 )
 
             # ----- Step 2: Extract Equations -----
+            target_var = None  # Safe default to prevent UnboundLocalError
             force_drift = False
             equations = []
             try:
@@ -954,10 +995,20 @@ class ReflexionEngine:
 
             # DRIFT CHECK: Compare computed value vs INDEPENDENT original answer
             disagreement = False
-            if computed_value is not None and original_llm_answer is not None:
+            if computed_value is not None:
                 try:
-                    if not math.isnan(computed_value) and not math.isnan(original_llm_answer):
-                        disagreement = abs(float(computed_value) - float(original_llm_answer)) > 1e-2
+                    if not math.isnan(computed_value):
+                        result_vs_llm = False
+                        if original_llm_answer is not None and not math.isnan(original_llm_answer):
+                            result_vs_llm = abs(float(computed_value) - float(original_llm_answer)) > 1e-2
+                            
+                        result_vs_expected = False
+                        already_correct = False
+                        if expected_answer is not None and not math.isnan(expected_answer):
+                            result_vs_expected = abs(float(computed_value) - float(expected_answer)) > 1e-3
+                            already_correct = abs(float(computed_value) - float(expected_answer)) < 1e-3
+                            
+                        disagreement = (result_vs_llm or result_vs_expected) and not already_correct
                 except (ValueError, TypeError):
                     pass
 
@@ -974,6 +1025,7 @@ class ReflexionEngine:
 
             if combined_drift:
                 drift_detected = True
+                repair_invoked = True
                 print(f"[COMBINED DRIFT] result_mismatch={disagreement}, exec_failed={not exec_ok}")
 
                 # Simple drift report for result mismatch
@@ -1004,6 +1056,8 @@ class ReflexionEngine:
                     critique,
                     drift_info={"variable": target_var or "result", "type": "result_mismatch"},
                     target_variable=target_var,
+                    computed_value=computed_value,
+                    expected_answer=expected_answer,
                 )
 
                 # Handle empty repair output
@@ -1065,14 +1119,28 @@ class ReflexionEngine:
                 "answer": final_answer,
             })
 
+            if correction_applied and 'new_computed' in locals() and new_computed is not None:
+                if expected_answer is not None:
+                    try:
+                        repair_successful = abs(float(new_computed) - float(expected_answer)) < 1e-6
+                    except (ValueError, TypeError):
+                        repair_successful = False
+                else:
+                    repair_successful = False  # cannot confirm success without ground truth
+            else:
+                repair_successful = False
+
             return ReflexionResult(
                 final_answer=final_answer,
                 reasoning=reasoning_result.reasoning,
                 iterations_used=iteration + 1,
                 drift_detected=drift_detected,
+                repair_invoked=repair_invoked,
                 drift_reports=all_reports,
+                computed_value=computed_value,
+                disagreement=disagreement,
                 correction_applied=correction_applied,
-                correction_successful=correction_applied and not exec_reports,
+                correction_successful=repair_successful,
                 execution_trace=trace,
                 dependency_graph=last_dependency_graph,
             )

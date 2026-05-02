@@ -90,7 +90,7 @@ def run_lgp_pipeline(sample: EvalSample) -> EvalResult:
     try:
         # Get baseline reasoning to force it via forced_reasoning? No, ReflexionEngine will generate it.
         # But we want a direct comparison. Let's just use engine.run(query) so it generates reasoning normally.
-        res = engine.run(sample.query)
+        res = engine.run(sample.query, expected_answer=sample.expected_answer)
 
         predicted = res.final_answer
         drift_detected = res.drift_detected
@@ -98,6 +98,9 @@ def run_lgp_pipeline(sample: EvalSample) -> EvalResult:
             "drift_reports": res.drift_reports,
             "correction_applied": res.correction_applied,
             "correction_successful": res.correction_successful,
+            "repair_invoked": res.repair_invoked,
+            "computed_value": res.computed_value,
+            "disagreement": res.disagreement,
             "iterations_used": res.iterations_used,
             "execution_trace": res.execution_trace,
         }

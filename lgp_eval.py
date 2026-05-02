@@ -424,6 +424,11 @@ def main():
         failures = sum(1 for r in res if r.lgp_answer is None or math.isnan(r.lgp_answer))
         failure_rate = round(failures / total * 100, 2) if total > 0 else 0.0
         
+        # 9. ECG = (correct after repair - correct before repair) / total_samples
+        correct_before = sum(1 for r in res if r.baseline_correct)
+        correct_after = sum(1 for r in res if r.lgp_correct)
+        ecg = round((correct_after - correct_before) / total * 100, 2) if total > 0 else 0.0
+        
         return {
             "label": label, "n": total,
             "baseline_accuracy": round(bc / total * 100, 1),
@@ -436,6 +441,7 @@ def main():
             "FDR": fdr,
             "CSR": csr,
             "ECR": ecr,
+            "ECG": ecg,
             "failure_rate": failure_rate,
             # Legacy metrics
             "drift_detection_rate": round(dd / total * 100, 1),
@@ -450,6 +456,10 @@ def main():
     m_gsm = _metrics(gsm_r, "GSM-8K (curated)")
     m_syn = _metrics(syn_r, "Synthetic")
     m_all = _metrics(results, "Overall")
+
+    # Hallucination-focused: only cases where baseline was wrong
+    results_wrong = [r for r in results if not r.baseline_correct]
+    m_wrong = _metrics(results_wrong, "Wrong Only")
 
     # ------------------------------------------------------------------
     # Paper-Ready Markdown Table
@@ -574,7 +584,26 @@ def main():
     print(f"  FDR (False Drift Rate): {m_all.get('FDR', 0):.1f}%")
     print(f"  CSR (Correction Success Rate): {m_all.get('CSR', 0):.1f}%")
     print(f"  ECR (Execution Consistency Rate): {m_all.get('ECR', 0):.1f}%")
+    print(f"  ECG (Effective Correction Gain): {m_all.get('ECG', 0):.2f}%")
     print(f"  Failure Rate: {m_all.get('failure_rate', 0):.1f}%")
+    
+    print(f"\n  === Hallucination Metrics (Wrong Baseline Only) ===")
+    if len(results_wrong) > 0:
+        print(f"  Accuracy: {m_wrong.get('accuracy', 0):.1f}%")
+        print(f"  DTR (Drift Trigger Rate): {m_wrong.get('DTR', 0):.1f}%")
+        print(f"  Drift Precision: {m_wrong.get('drift_precision', 0):.1f}%")
+        print(f"  Drift Recall: {m_wrong.get('drift_recall', 0):.1f}%")
+        print(f"  FDR (False Drift Rate): {m_wrong.get('FDR', 0):.1f}%")
+        print(f"  CSR (Correction Success Rate): {m_wrong.get('CSR', 0):.1f}%")
+        print(f"  ECR (Execution Consistency Rate): {m_wrong.get('ECR', 0):.1f}%")
+        print(f"  ECG (Effective Correction Gain): {m_wrong.get('ECG', 0):.2f}%")
+        print(f"  Failure Rate: {m_wrong.get('failure_rate', 0):.1f}%")
+    else:
+        print(f"  No incorrect baseline samples.")
+
+    print(f"\n  === Summary ===")
+    print(f"  Total Samples: {len(results)}")
+    print(f"  Baseline Wrong Cases: {len(results_wrong)}")
     
     print(f"\n  Completed in {elapsed:.1f}s")
     print(f"  Results: {RESULTS_DIR}/")

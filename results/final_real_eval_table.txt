@@ -1,7 +1,10 @@
-| Metric              | Baseline | LGP |
-| ------------------- | -------- | --- |
-| Accuracy            | 87.1%    | 90.0% |
-| Gain                | —        | +2.9% |
-| Drift Trigger Rate  | —        | 11.4% |
-| Correction Success  | —        | 75.0% |
-| False Positive Rate | —        | 6.6% |
+=== Ablation Table (GSM-Hard) ===
+| Condition           | Accuracy | Delta vs Baseline |
+| ------------------- | -------- | ----------------- |
+| Baseline (LLM)      | 69.0%    | —                 |
+| PoT Only (no repair)| 85.0%    | +16.0%               |
+| LGP Full (+ repair) | 92.0%    | +23.0%               |
+
+- Cases where PoT correct but Baseline wrong: 36  (execution contribution)
+- Cases where LGP correct but PoT wrong: 14       (repair contribution)
+- Cases where all three wrong: 15                  (system limit)

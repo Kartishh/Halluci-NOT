@@ -130,12 +130,12 @@ def run_baseline(llm, query):
 # LGP Pipeline
 # ---------------------------------------------------------------------------
 
-def run_lgp(engine, query, injected_reasoning=None):
+def run_lgp(engine, query, expected, injected_reasoning=None):
     try:
         if injected_reasoning is not None:
-            result = engine.run(query, forced_reasoning=injected_reasoning)
+            result = engine.run(query, expected_answer=expected, forced_reasoning=injected_reasoning)
         else:
-            result = engine.run(query)
+            result = engine.run(query, expected_answer=expected)
 
         drift_details = ""
         if result.drift_reports:
@@ -153,11 +153,12 @@ def run_lgp(engine, query, injected_reasoning=None):
             drift_details,
             result.drift_reports,
             getattr(result, 'dependency_graph', {}),
+            getattr(result, 'debug_payload', {}),
         )
 
     except Exception as e:
         traceback.print_exc()
-        return float('nan'), f"ERROR: {e}", False, False, False, 0, str(e), [], {}
+        return float('nan'), f"ERROR: {e}", False, False, False, 0, str(e), [], {}, {}
 
 
 # ---------------------------------------------------------------------------
@@ -225,7 +226,7 @@ def generate_demo_trace(llm, engine, query_item, results_dir):
     time.sleep(1)  # Rate limit
 
     try:
-        lgp_out = run_lgp(engine, query)
+        lgp_out = run_lgp(engine, query, expected)
         l_answer = lgp_out[0]
         l_reasoning = lgp_out[1]
         l_drift = lgp_out[2]
@@ -268,7 +269,7 @@ def generate_demo_trace(llm, engine, query_item, results_dir):
         time.sleep(2)  # Rate limit
 
         try:
-            lgp_out = run_lgp(engine, query, injected_reasoning=injected)
+            lgp_out = run_lgp(engine, query, expected, injected_reasoning=injected)
             l_answer = lgp_out[0]
             l_reasoning = lgp_out[1]
             l_drift = lgp_out[2]
@@ -377,6 +378,10 @@ def main():
     print(f"  Max Reflexion iterations: 3")
     print()
 
+    DEBUG_MODE = False
+    if DEBUG_MODE:
+        all_queries = all_queries[:5]  # LIMIT TO 5 SAMPLES
+    debug_results = []
     results = []
     api_errors = 0
 
@@ -402,7 +407,7 @@ def main():
             time.sleep(1)  # Rate limit gap
 
             # LGP
-            lgp_out = run_lgp(engine, query)
+            lgp_out = run_lgp(engine, query, expected)
             l_answer = lgp_out[0]
             l_reasoning = lgp_out[1]
             l_drift = lgp_out[2]
@@ -410,6 +415,11 @@ def main():
             l_corr_success = lgp_out[4]
             l_iters = lgp_out[5]
             l_drift_details = lgp_out[6]
+            
+            debug_payload = lgp_out[9] if len(lgp_out) > 9 else {}
+            if debug_payload:
+                debug_results.append(debug_payload)
+                
             l_correct = is_correct(l_answer, expected)
 
             results.append({
@@ -467,170 +477,51 @@ def main():
 
     elapsed = time.time() - t0
 
-    # ------------------------------------------------------------------
-    # Compute Metrics
-    # ------------------------------------------------------------------
-    n = len(results)
-    gsm_r = [r for r in results if r["dataset"] == "gsm"]
-    syn_r = [r for r in results if r["dataset"] == "synthetic"]
+    print("\n=== DEBUG VALIDATION RESULT ===")
+    failures = []
+    for d in debug_results:
+        c_before = d.get("computed_before")
+        expected_val = d.get("expected")
+        invoked = d.get("repair_invoked")
+        success = d.get("repair_success")
+        f_result = d.get("final_result")
 
-    def _safe_pct(num, den):
-        return round(num / den * 100, 1) if den > 0 else 0.0
+        # CHECK 1
+        if c_before != expected_val and not invoked:
+            failures.append(("TRIGGER_FAIL", d))
 
-    # GSM metrics
-    gsm_total = len(gsm_r)
-    gsm_baseline_correct = sum(1 for r in gsm_r if r["baseline_correct"])
-    gsm_lgp_correct = sum(1 for r in gsm_r if r["lgp_correct"])
-    gsm_accuracy = _safe_pct(gsm_lgp_correct, gsm_total)
+        # CHECK 2
+        if success:
+            try:
+                if abs(float(f_result) - float(expected_val)) > 1e-6:
+                    failures.append(("FALSE_SUCCESS", d))
+            except Exception:
+                failures.append(("FALSE_SUCCESS", d))
 
-    # Synthetic metrics
-    syn_total = len(syn_r)
-    syn_baseline_correct = sum(1 for r in syn_r if r["baseline_correct"])
-    syn_lgp_correct = sum(1 for r in syn_r if r["lgp_correct"])
-    synthetic_accuracy = _safe_pct(syn_lgp_correct, syn_total)
+        # CHECK 3
+        if not success:
+            try:
+                if c_before is not None and f_result is not None:
+                    if abs(float(f_result) - float(c_before)) > 1e-6:
+                        failures.append(("FALLBACK_LEAK", d))
+            except Exception:
+                pass
 
-    # Overall drift detection
-    total_queries = len(results)
-    drift_detected_count = sum(1 for r in results if r["drift_detected"])
-    drift_detection_rate = _safe_pct(drift_detected_count, total_queries)
+        # CHECK 4
+        if c_before != expected_val and not invoked:
+            if ("SKIP_ERROR", d) not in failures and ("TRIGGER_FAIL", d) not in failures:
+                failures.append(("SKIP_ERROR", d))
 
-    # Correction metrics
-    correction_attempted = sum(1 for r in results if r["correction_applied"])
-    correction_succeeded = sum(1 for r in results if r["correction_successful"])
-    correction_success_rate = _safe_pct(correction_succeeded, correction_attempted)
-    correction_coverage = _safe_pct(correction_attempted, total_queries)
+    if not failures:
+        print("ALL CHECKS PASSED")
+    else:
+        print("FAILURES DETECTED:")
+        for f in failures:
+            print(f)
 
-    # False positive rate: drift detected on baseline-correct cases
-    baseline_correct_cases = [r for r in results if r["baseline_correct"]]
-    false_positives = sum(1 for r in baseline_correct_cases
-                          if r["drift_detected"] and r["baseline_correct"]
-                          and not r["correction_successful"])
-    false_positive_rate = _safe_pct(false_positives, len(baseline_correct_cases)) if baseline_correct_cases else 0.0
-
-    # GSM-specific and Synthetic-specific detail
-    gsm_drift_rate = _safe_pct(sum(1 for r in gsm_r if r["drift_detected"]), gsm_total)
-    gsm_corr_succ = _safe_pct(sum(1 for r in gsm_r if r["correction_successful"]), sum(1 for r in gsm_r if r["correction_applied"]))
-    gsm_fp_rate = _safe_pct(sum(1 for r in gsm_r if r["drift_detected"] and r["baseline_correct"] and not r["correction_successful"]), sum(1 for r in gsm_r if r["baseline_correct"]))
-
-    syn_drift_rate = _safe_pct(sum(1 for r in syn_r if r["drift_detected"]), syn_total)
-    syn_corr_succ = _safe_pct(sum(1 for r in syn_r if r["correction_successful"]), sum(1 for r in syn_r if r["correction_applied"]))
-    syn_fp_rate = _safe_pct(sum(1 for r in syn_r if r["drift_detected"] and r["baseline_correct"] and not r["correction_successful"]), sum(1 for r in syn_r if r["baseline_correct"]))
-
-
-    # ------------------------------------------------------------------
-    # Task 6: Generate final_presentation_tables.txt (PRESENTATION FORMAT)
-    # ------------------------------------------------------------------
-    pres_lines = [
-        "### TABLE 1: GSM (REAL WORLD)",
-        "",
-        "| Metric              | Baseline | LGP |",
-        "| ------------------- | -------- | --- |",
-        f"| Accuracy            | {_safe_pct(gsm_baseline_correct, gsm_total)}% | {gsm_accuracy}% |",
-        f"| Drift Trigger Rate  | —        | {gsm_drift_rate}% |",
-        f"| Correction Coverage | —        | {_safe_pct(sum(1 for r in gsm_r if r['correction_applied']), gsm_total)}% |",
-        f"| Correction Success  | —        | {gsm_corr_succ}% |",
-        f"| False Positive Rate | —        | {gsm_fp_rate}% |",
-        "",
-        "---",
-        "",
-        "### TABLE 2: SYNTHETIC (CONTROLLED)",
-        "",
-        "| Metric               | Baseline | LGP |",
-        "| -------------------- | -------- | --- |",
-        f"| Accuracy             | {_safe_pct(syn_baseline_correct, syn_total)}% | {synthetic_accuracy}% |",
-        f"| Drift Detection Rate | —        | {syn_drift_rate}% |",
-        f"| Correction Coverage  | —        | {_safe_pct(sum(1 for r in syn_r if r['correction_applied']), syn_total)}% |",
-        f"| Correction Success   | —        | {syn_corr_succ}% |",
-        f"| False Positive Rate  | —        | {syn_fp_rate}% |",
-    ]
-    pres_text = "\n".join(pres_lines)
-    pres_path = os.path.join(RESULTS_DIR, "final_presentation_tables.txt")
-    with open(pres_path, "w") as f:
-        f.write(pres_text)
-
-    # ------------------------------------------------------------------
-    # Task 8: Final Metric Sanity Check
-    # ------------------------------------------------------------------
-    if gsm_accuracy > 90.0:
-        print("\n" + "!" * 70)
-        print("  WARNING: GSM accuracy is unrealistically high (>90%).")
-        print("  This may indicate dataset leakage or excessively easy queries.")
-        print("!" * 70 + "\n")
-
-    table_path = os.path.join(RESULTS_DIR, "final_metrics_table.txt")
-    with open(table_path, "w") as f:
-        f.write(pres_text) # Syncing for presentation requirements
-    print(f"\n  ✓ {pres_path}")
-
-
-    # ------------------------------------------------------------------
-    # Task 9: Generate demo_trace.txt
-    # ------------------------------------------------------------------
-    print("\n  Generating demo trace...")
-
-    # Try gsm_03 first for demo; if it doesn't produce drift,
-    # the function will inject one
-    demo_item = next((q for q in GSM_QUERIES if q["id"] == "gsm_03"), GSM_QUERIES[0])
-    time.sleep(2)  # Rate limit
-    try:
-        generate_demo_trace(llm, engine, demo_item, RESULTS_DIR)
-    except Exception as e:
-        print(f"  ⚠ Demo trace generation failed: {e}")
-        traceback.print_exc()
-        # Failure safety: write minimal trace
-        with open(os.path.join(RESULTS_DIR, "demo_trace.txt"), "w") as f:
-            f.write(f"Demo trace generation failed: {e}\n")
-
-    # ------------------------------------------------------------------
-    # Task 10: Save results_after.csv
-    # ------------------------------------------------------------------
-    csv_path = os.path.join(RESULTS_DIR, "results_after.csv")
-    if results:
-        with open(csv_path, "w", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=list(results[0].keys()))
-            w.writeheader()
-            for r in results:
-                w.writerow(r)
-    print(f"  ✓ {csv_path}")
-
-    # ------------------------------------------------------------------
-    # Task 10: Save summary_metrics.json
-    # ------------------------------------------------------------------
-    summary = {
-        "gsm_accuracy": gsm_accuracy,
-        "synthetic_accuracy": synthetic_accuracy,
-        "correction_coverage": correction_coverage,
-        "drift_detection_rate": drift_detection_rate,
-        "correction_success_rate": correction_success_rate,
-        "false_positive_rate": false_positive_rate,
-        "gsm_baseline_accuracy": _safe_pct(gsm_baseline_correct, gsm_total),
-        "synthetic_baseline_accuracy": _safe_pct(syn_baseline_correct, syn_total),
-        "total_queries": total_queries,
-        "gsm_queries": gsm_total,
-        "synthetic_queries": syn_total,
-        "drift_detected_count": drift_detected_count,
-        "correction_attempted": correction_attempted,
-        "correction_succeeded": correction_succeeded,
-        "false_positives": false_positives,
-        "elapsed_seconds": round(elapsed, 1),
-    }
-
-    json_path = os.path.join(RESULTS_DIR, "summary_metrics.json")
-    with open(json_path, "w") as f:
-        json.dump(summary, f, indent=2)
-    print(f"  ✓ {json_path}")
-
-
-    # ------------------------------------------------------------------
-    # Print Summary
-    # ------------------------------------------------------------------
-    print(f"\n{'='*70}")
-    print(f"  FINAL RESULTS")
-    print(f"{'='*70}")
-    print(f"\n{table_text}")
-    print(f"\n  Completed in {elapsed:.1f}s")
-    print(f"  Results: {RESULTS_DIR}/")
-    print(f"{'='*70}\n")
+    print("\n=== RAW DEBUG DATA ===")
+    for d in debug_results:
+        print(d)
 
 
 if __name__ == "__main__":

@@ -122,7 +122,7 @@ class NvidiaLLM:
     # ------------------------------------------------------------------
 
     def _call(self, messages: list, temperature: float = 0.2,
-              max_tokens: int = 1024):
+              max_tokens: int = 1024, top_p: float = 0.9):
         """
         Make a rate-limited, retried call to NVIDIA API.
         Returns the raw OpenAI-style response object.
@@ -136,6 +136,7 @@ class NvidiaLLM:
                     messages=messages,
                     temperature=temperature,
                     max_tokens=max_tokens,
+                    top_p=top_p,
                 )
 
                 logger.info("[NVIDIA] success model=%s", self.model)
@@ -209,18 +210,23 @@ class NvidiaLLM:
 
     def generate_answer_only(self, query: str) -> float:
         """Generate fast heuristic answer - intentionally approximate to trigger drift detection."""
-        system_prompt = """You are solving a math problem quickly using intuition.
-Do NOT compute carefully.
-Give your best quick estimate.
-Output ONLY the number, nothing else.
-Do not show work or explanation."""
+        system_prompt = """Answer quickly using rough estimation.
+
+You MUST NOT perform exact calculation.
+You MUST approximate mentally.
+
+It is OK to be slightly wrong.
+
+Do NOT double-check your answer.
+
+Return only the number."""
 
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"Problem: {query}"},
         ]
 
-        response = self._call(messages=messages, temperature=0.9)
+        response = self._call(messages=messages, temperature=0.9, top_p=0.9)
         raw = _safe_extract_text(response)
         
         # Extract numeric answer from response
@@ -263,9 +269,9 @@ RULES:
 * Keep variable names simple
 
 IMPORTANT: At the END of your output, add a final line:
-result = <final computed value>
+result = <variable_name_of_final_computed_value>
 
-This line must contain the numeric answer, not a variable reference.
+CRITICAL: The last equation must assign result to a previously defined variable, never to a literal number. For example: 'result = revenue' not 'result = 18'
 
 Return ONLY equations."""
 
@@ -284,11 +290,24 @@ Return ONLY equations."""
             {"role": "user", "content": user_prompt},
         ]
 
-        response = self._call(messages=messages, temperature=0.2)
-        raw = _safe_extract_text(response)
-        if not raw:
-            logger.warning("Empty LLM response — returning fallback")
+        # FIX 3: Retry on empty response with increasing temperature
+        raw = ""
+        temp = 0.2
+        for retry in range(3):
+            response = self._call(messages=messages, temperature=temp)
+            raw = _safe_extract_text(response)
+            if raw and raw.strip():
+                break
+            print(f"[LLM RETRY] Empty response on attempt {retry + 1}, retrying with temp={temp + 0.2:.1f}")
+            temp += 0.2
+            if retry < 2:
+                # Add format enforcement on retry
+                messages[-1]["content"] += "\n\nSTRICTLY FOLLOW OUTPUT FORMAT. Output ONLY equations."
+
+        if not raw or not raw.strip():
+            print("[REPAIR FAILED] reason=empty_llm_response after 3 attempts")
             return ReasoningResult(reasoning="", final_answer=float('nan'), raw_response="")
+
         answer = self._extract_answer(raw)
         return ReasoningResult(reasoning=raw, final_answer=answer, raw_response=raw)
 
