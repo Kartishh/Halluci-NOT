@@ -1,0 +1,10 @@
+=== Ablation Table (SVAMP) ===
+| Condition           | Accuracy | Delta vs Baseline |
+| ------------------- | -------- | ----------------- |
+| Baseline (LLM)      | 95.5%    | —                 |
+| PoT Only (no repair)| 95.5%    | +0.0%               |
+| LGP Full (+ repair) | 99.5%    | +4.0%               |
+
+- Cases where PoT correct but Baseline wrong: 2  (execution contribution)
+- Cases where LGP correct but PoT wrong: 8       (repair contribution)
+- Cases where all three wrong: 1                  (system limit)

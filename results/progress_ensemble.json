@@ -1,0 +1,2002 @@
+[
+  {
+    "question_id": "gsmhard_0",
+    "expected": -9867630.0,
+    "ensemble_answer": -9867630.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_1",
+    "expected": 3431580.0,
+    "ensemble_answer": 3431580.0,
+    "baseline_answer": 3431580.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_2",
+    "expected": 322886700.0,
+    "ensemble_answer": 322886700.0,
+    "baseline_answer": 193066335253500.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": false
+  },
+  {
+    "question_id": "gsmhard_3",
+    "expected": -6887448.0,
+    "ensemble_answer": -6887448.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_4",
+    "expected": 21459061.0,
+    "ensemble_answer": 21459061.0,
+    "baseline_answer": 21459061.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_5",
+    "expected": 82085198.0,
+    "ensemble_answer": 82085198.0,
+    "baseline_answer": 82085198.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_6",
+    "expected": 74363508.0,
+    "ensemble_answer": 74363508.0,
+    "baseline_answer": 74363508.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_7",
+    "expected": 3244047.0999999996,
+    "ensemble_answer": 3244047.0999999996,
+    "baseline_answer": 3244047.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_8",
+    "expected": 17414074.0,
+    "ensemble_answer": 17414074.0,
+    "baseline_answer": 17414074.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_9",
+    "expected": 1.0,
+    "ensemble_answer": 1.0,
+    "baseline_answer": 1.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_10",
+    "expected": 125.0,
+    "ensemble_answer": 125.0,
+    "baseline_answer": 125.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_11",
+    "expected": 6277334000.0,
+    "ensemble_answer": 6277334000.0,
+    "baseline_answer": 6277334000.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_12",
+    "expected": 14053029.666666666,
+    "ensemble_answer": 14053029.666666666,
+    "baseline_answer": 14053029.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_13",
+    "expected": -673649.0,
+    "ensemble_answer": 15.040000000000001,
+    "baseline_answer": 15.04,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": false
+  },
+  {
+    "question_id": "gsmhard_14",
+    "expected": 1379135.0,
+    "ensemble_answer": 1379135.0,
+    "baseline_answer": 475501268359.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_15",
+    "expected": 8.0,
+    "ensemble_answer": 8.0,
+    "baseline_answer": 8.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_16",
+    "expected": 388147.4117647059,
+    "ensemble_answer": 396072.2640870655,
+    "baseline_answer": null,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_17",
+    "expected": 25124292.0,
+    "ensemble_answer": 25124292.0,
+    "baseline_answer": 25124292.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_18",
+    "expected": 18286416.0,
+    "ensemble_answer": 18286416.0,
+    "baseline_answer": 18286416.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_19",
+    "expected": 25.0,
+    "ensemble_answer": 25.0,
+    "baseline_answer": 25.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_20",
+    "expected": 4603904.0,
+    "ensemble_answer": 4603904.0,
+    "baseline_answer": 4603904.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_21",
+    "expected": 109.0,
+    "ensemble_answer": 109.0,
+    "baseline_answer": 109.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_22",
+    "expected": 9099577.916666666,
+    "ensemble_answer": 9099577.916666666,
+    "baseline_answer": 9099577.92,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_23",
+    "expected": 4649302.0,
+    "ensemble_answer": 4649302.0,
+    "baseline_answer": 4649302.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_24",
+    "expected": 486530.0,
+    "ensemble_answer": 486530.0,
+    "baseline_answer": 486530.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_25",
+    "expected": 10.0,
+    "ensemble_answer": 10.0,
+    "baseline_answer": 10.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_26",
+    "expected": 18.0,
+    "ensemble_answer": 18.0,
+    "baseline_answer": 18.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_27",
+    "expected": 8.0,
+    "ensemble_answer": 8.0,
+    "baseline_answer": 8.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_28",
+    "expected": 21127776.0,
+    "ensemble_answer": 21127776.0,
+    "baseline_answer": 21127776.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_29",
+    "expected": 0.0016791648,
+    "ensemble_answer": 0.0016791647834367186,
+    "baseline_answer": 0.0017,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_30",
+    "expected": 1080379.0,
+    "ensemble_answer": 1080379.0,
+    "baseline_answer": 1080379.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_31",
+    "expected": 800.0,
+    "ensemble_answer": 800.0,
+    "baseline_answer": 800.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_32",
+    "expected": 13525766.0,
+    "ensemble_answer": 13525766.0,
+    "baseline_answer": 13525766.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_33",
+    "expected": 10074005.666666666,
+    "ensemble_answer": 10074005.666666666,
+    "baseline_answer": 10074005.67,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_34",
+    "expected": 5.0,
+    "ensemble_answer": 5.0,
+    "baseline_answer": 5.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_35",
+    "expected": -4358966.0,
+    "ensemble_answer": -4358966.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_36",
+    "expected": 23252172.0,
+    "ensemble_answer": 23252172.0,
+    "baseline_answer": 23252172.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_37",
+    "expected": -4357110.0,
+    "ensemble_answer": -4357110.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_38",
+    "expected": 0.0,
+    "ensemble_answer": 1.1782924858604902e-05,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_39",
+    "expected": 83.0,
+    "ensemble_answer": 83.0,
+    "baseline_answer": 83.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_40",
+    "expected": 8778902.0,
+    "ensemble_answer": 8778902.0,
+    "baseline_answer": 8778902.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_41",
+    "expected": 42463867.0,
+    "ensemble_answer": 42463867.0,
+    "baseline_answer": 42463867.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_42",
+    "expected": 5186630.6,
+    "ensemble_answer": 5186630.6,
+    "baseline_answer": 5186631.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_43",
+    "expected": 4795436.8,
+    "ensemble_answer": 4795436.8,
+    "baseline_answer": 4795436.8,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_44",
+    "expected": 108224794.2,
+    "ensemble_answer": 108224794.2,
+    "baseline_answer": 108224794.2,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_45",
+    "expected": 300.0,
+    "ensemble_answer": 300.0,
+    "baseline_answer": 300.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_46",
+    "expected": 36.0,
+    "ensemble_answer": 36.0,
+    "baseline_answer": 36.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_47",
+    "expected": 79886312.0,
+    "ensemble_answer": 79886312.0,
+    "baseline_answer": 79886312.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_48",
+    "expected": 4029727.0,
+    "ensemble_answer": 4029727.0,
+    "baseline_answer": 4029727.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_49",
+    "expected": 5407462.8,
+    "ensemble_answer": 5407462.8,
+    "baseline_answer": 5407463.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_50",
+    "expected": -3638804.0,
+    "ensemble_answer": -3638804.0,
+    "baseline_answer": -3638804.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_51",
+    "expected": 9435680550.0,
+    "ensemble_answer": 1.4178334486374317e+22,
+    "baseline_answer": null,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_52",
+    "expected": 60.0,
+    "ensemble_answer": 60.0,
+    "baseline_answer": 60.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_53",
+    "expected": 99342097.0,
+    "ensemble_answer": 99342097.0,
+    "baseline_answer": 228918457.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_54",
+    "expected": 4561195.2,
+    "ensemble_answer": 4561195.2,
+    "baseline_answer": 4561195.2,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_55",
+    "expected": 8710408.772727273,
+    "ensemble_answer": 8710408.772727273,
+    "baseline_answer": 8710409.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_56",
+    "expected": 100.0,
+    "ensemble_answer": 100.0,
+    "baseline_answer": 100.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_57",
+    "expected": 15.0,
+    "ensemble_answer": 50627678.99999787,
+    "baseline_answer": 50627678.0,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_58",
+    "expected": 418826.8,
+    "ensemble_answer": 418826.80000000005,
+    "baseline_answer": 418826.8,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_59",
+    "expected": 1545200.0,
+    "ensemble_answer": 1545200.0,
+    "baseline_answer": 1545200.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_60",
+    "expected": 2298841.0,
+    "ensemble_answer": 2298841.0,
+    "baseline_answer": 2298841.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_61",
+    "expected": 278081800.0,
+    "ensemble_answer": 278081800.0,
+    "baseline_answer": 278081800.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_62",
+    "expected": 86039481.0,
+    "ensemble_answer": 86039481.0,
+    "baseline_answer": 86039481.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_63",
+    "expected": 17189546.0,
+    "ensemble_answer": 17189546.0,
+    "baseline_answer": 17189546.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_64",
+    "expected": 4767232.5,
+    "ensemble_answer": 4767232.5,
+    "baseline_answer": 4767232.5,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_65",
+    "expected": 16684173.0,
+    "ensemble_answer": 16684173.0,
+    "baseline_answer": 16684173.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_66",
+    "expected": 1726970.0,
+    "ensemble_answer": 1726970.0,
+    "baseline_answer": 1726970.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_67",
+    "expected": 51204384.0,
+    "ensemble_answer": 51204384.0,
+    "baseline_answer": 51204384.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_68",
+    "expected": 1806106.8000000003,
+    "ensemble_answer": 1806106.8000000003,
+    "baseline_answer": 1806106.8,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_69",
+    "expected": 3.0,
+    "ensemble_answer": 3.0,
+    "baseline_answer": 3.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_70",
+    "expected": 58.0,
+    "ensemble_answer": 58.0,
+    "baseline_answer": 58.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_71",
+    "expected": 101257.75,
+    "ensemble_answer": 101257.75,
+    "baseline_answer": 101257.75,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_72",
+    "expected": 140.0,
+    "ensemble_answer": 140.0,
+    "baseline_answer": 140.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_73",
+    "expected": 3731352.0,
+    "ensemble_answer": 3731352.0,
+    "baseline_answer": 3731352.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_74",
+    "expected": 19776716.0,
+    "ensemble_answer": 19776716.0,
+    "baseline_answer": 19776716.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_75",
+    "expected": 52526408.0,
+    "ensemble_answer": 52526408.0,
+    "baseline_answer": 52526408.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_76",
+    "expected": 6588585.0,
+    "ensemble_answer": 6588585.0,
+    "baseline_answer": 6588585.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_77",
+    "expected": 57855762.0,
+    "ensemble_answer": 57855762.0,
+    "baseline_answer": 57855762.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_78",
+    "expected": 60954715.0,
+    "ensemble_answer": 60954715.0,
+    "baseline_answer": 60954715.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_79",
+    "expected": 5489.5466666667,
+    "ensemble_answer": 5489.546666666666,
+    "baseline_answer": null,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_80",
+    "expected": 35333295.0,
+    "ensemble_answer": 35333295.0,
+    "baseline_answer": 35333295.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_81",
+    "expected": 2944943.75,
+    "ensemble_answer": 2944943.75,
+    "baseline_answer": null,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_82",
+    "expected": 51318000.0,
+    "ensemble_answer": 51318000.0,
+    "baseline_answer": 51318000.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_83",
+    "expected": -6721339.0,
+    "ensemble_answer": -6721339.0,
+    "baseline_answer": 5993278655.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_84",
+    "expected": 61525936.0,
+    "ensemble_answer": 61525936.0,
+    "baseline_answer": 61525936.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_85",
+    "expected": 2991216.0,
+    "ensemble_answer": 2991216.0,
+    "baseline_answer": 2991216.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_86",
+    "expected": 50.0,
+    "ensemble_answer": 50.0,
+    "baseline_answer": 50.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_87",
+    "expected": 595541.0,
+    "ensemble_answer": 595541.0,
+    "baseline_answer": 595541.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_88",
+    "expected": 17771862.0,
+    "ensemble_answer": 17771862.0,
+    "baseline_answer": 17771862.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_89",
+    "expected": 13795250.0,
+    "ensemble_answer": 13795250.0,
+    "baseline_answer": 13795250.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_90",
+    "expected": 880.0,
+    "ensemble_answer": 880.0,
+    "baseline_answer": 880.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_91",
+    "expected": -1382862000.0,
+    "ensemble_answer": -1382862000.0,
+    "baseline_answer": -1382862000.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_92",
+    "expected": 4358498.0,
+    "ensemble_answer": 4358498.0,
+    "baseline_answer": 4358498.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_93",
+    "expected": 8637843.0,
+    "ensemble_answer": 17274746.0,
+    "baseline_answer": 17274746.0,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_94",
+    "expected": 56406942.0,
+    "ensemble_answer": 169220706.0,
+    "baseline_answer": 169220706.0,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_95",
+    "expected": 13.0,
+    "ensemble_answer": 13.0,
+    "baseline_answer": 13.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_96",
+    "expected": 426697344.0,
+    "ensemble_answer": 426697344.0,
+    "baseline_answer": 426697344.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_97",
+    "expected": 8609812.0,
+    "ensemble_answer": 8609812.0,
+    "baseline_answer": 8609812.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_98",
+    "expected": 1294876.0,
+    "ensemble_answer": 1294876.0,
+    "baseline_answer": 1294876.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_99",
+    "expected": 13061161.4,
+    "ensemble_answer": 13061161.4,
+    "baseline_answer": 13061161.4,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_100",
+    "expected": 4865122.0,
+    "ensemble_answer": 4865122.0,
+    "baseline_answer": 4865122.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_101",
+    "expected": 39652742.0,
+    "ensemble_answer": 39652742.0,
+    "baseline_answer": 39652742.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_102",
+    "expected": -39785000.0,
+    "ensemble_answer": -39785000.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_103",
+    "expected": 94796016.0,
+    "ensemble_answer": 94796016.0,
+    "baseline_answer": 94796016.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_104",
+    "expected": 16.0,
+    "ensemble_answer": 16.0,
+    "baseline_answer": 16.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_105",
+    "expected": 39475440.0,
+    "ensemble_answer": 39475440.0,
+    "baseline_answer": 39475440.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_106",
+    "expected": 4375557.75,
+    "ensemble_answer": 4375557.75,
+    "baseline_answer": 4375558.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_107",
+    "expected": 2548774.6666666665,
+    "ensemble_answer": 2548774.6666666665,
+    "baseline_answer": 3.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_108",
+    "expected": 2944533.5,
+    "ensemble_answer": 2944533.5,
+    "baseline_answer": 2944533.5,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_109",
+    "expected": -1173896.6,
+    "ensemble_answer": 1956499.260934,
+    "baseline_answer": 1956499.260934,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_110",
+    "expected": 15837508.0,
+    "ensemble_answer": 15837508.0,
+    "baseline_answer": 15837508.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_111",
+    "expected": 441078.0,
+    "ensemble_answer": 441078.0,
+    "baseline_answer": 441078.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_112",
+    "expected": 16.0,
+    "ensemble_answer": 16.0,
+    "baseline_answer": 16.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_113",
+    "expected": 4736666.0,
+    "ensemble_answer": 4736666.0,
+    "baseline_answer": 4736666.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_114",
+    "expected": 19023741.599999998,
+    "ensemble_answer": 3078571905134.88,
+    "baseline_answer": null,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": false
+  },
+  {
+    "question_id": "gsmhard_115",
+    "expected": 19992825.0,
+    "ensemble_answer": 19992825.0,
+    "baseline_answer": 19992825.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_116",
+    "expected": -8657649.0,
+    "ensemble_answer": -8657649.0,
+    "baseline_answer": 649.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_117",
+    "expected": 13032458.333333334,
+    "ensemble_answer": 13032458.333333334,
+    "baseline_answer": 13032459.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": false
+  },
+  {
+    "question_id": "gsmhard_118",
+    "expected": 1575070.0,
+    "ensemble_answer": 1575070.0,
+    "baseline_answer": 1575070.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_119",
+    "expected": 120.0,
+    "ensemble_answer": 120.0,
+    "baseline_answer": 120.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_120",
+    "expected": 54517866.0,
+    "ensemble_answer": 54517866.0,
+    "baseline_answer": 54517866.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_121",
+    "expected": 27045360.0,
+    "ensemble_answer": 27045360.0,
+    "baseline_answer": 27045360.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_122",
+    "expected": 173767716.0,
+    "ensemble_answer": 173767716.0,
+    "baseline_answer": 173767716.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_123",
+    "expected": 5929597.583333333,
+    "ensemble_answer": 5929597.583333333,
+    "baseline_answer": 35.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_124",
+    "expected": -3516391.0,
+    "ensemble_answer": -3516391.0,
+    "baseline_answer": 2054854.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_125",
+    "expected": 350.0,
+    "ensemble_answer": 350.0,
+    "baseline_answer": 350.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_126",
+    "expected": 22463288.0,
+    "ensemble_answer": 22463288.0,
+    "baseline_answer": 22463288.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_127",
+    "expected": 96754437.0,
+    "ensemble_answer": 96754437.0,
+    "baseline_answer": 96754437.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_128",
+    "expected": 2159043.5,
+    "ensemble_answer": 2159043.5,
+    "baseline_answer": 2159043.5,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_129",
+    "expected": 25.0,
+    "ensemble_answer": 25.0,
+    "baseline_answer": 100.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_130",
+    "expected": 8771926.5,
+    "ensemble_answer": 8771926.5,
+    "baseline_answer": 8771926.5,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_131",
+    "expected": -425561.9444444444,
+    "ensemble_answer": null,
+    "baseline_answer": null,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_132",
+    "expected": 106.0,
+    "ensemble_answer": 106.0,
+    "baseline_answer": 106.12,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_133",
+    "expected": 684193.5,
+    "ensemble_answer": 684193.5,
+    "baseline_answer": 547355.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_134",
+    "expected": 2901807.8333333335,
+    "ensemble_answer": 2901807.8333333335,
+    "baseline_answer": 2901807.83,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_135",
+    "expected": 315933300.0,
+    "ensemble_answer": 315933300.0,
+    "baseline_answer": 315933300.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_136",
+    "expected": 3813434.5,
+    "ensemble_answer": 3813434.5,
+    "baseline_answer": 3813434.5,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_137",
+    "expected": -35520793.0,
+    "ensemble_answer": -35520793.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_138",
+    "expected": 965579.0,
+    "ensemble_answer": 965579.0,
+    "baseline_answer": 965579.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_139",
+    "expected": 23103210.4,
+    "ensemble_answer": 23103210.4,
+    "baseline_answer": 23103210.4,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_140",
+    "expected": -6087974.0,
+    "ensemble_answer": -6087974.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_141",
+    "expected": 5579492.0,
+    "ensemble_answer": 5579492.0,
+    "baseline_answer": 5579492.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_142",
+    "expected": 152703491.0,
+    "ensemble_answer": 128592464.0,
+    "baseline_answer": 128592464.0,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_143",
+    "expected": 7500.0,
+    "ensemble_answer": 7500.0,
+    "baseline_answer": 7500.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_144",
+    "expected": 47791980.0,
+    "ensemble_answer": 91362876742440.0,
+    "baseline_answer": 91362876742440.0,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_145",
+    "expected": 445110260.6,
+    "ensemble_answer": 445110260.6,
+    "baseline_answer": 445110260.6,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_146",
+    "expected": 100.0,
+    "ensemble_answer": 100.0,
+    "baseline_answer": 100.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_147",
+    "expected": 31.0,
+    "ensemble_answer": 31.0,
+    "baseline_answer": 31.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_148",
+    "expected": 8400992.0,
+    "ensemble_answer": 8400992.0,
+    "baseline_answer": 8400992.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_149",
+    "expected": 860.0,
+    "ensemble_answer": 860.0,
+    "baseline_answer": 860.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_150",
+    "expected": 353222840.0,
+    "ensemble_answer": 353222840.0,
+    "baseline_answer": 353222840.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_151",
+    "expected": 126647407.0,
+    "ensemble_answer": 126647407.0,
+    "baseline_answer": 126647407.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_152",
+    "expected": 650579.5,
+    "ensemble_answer": 1301149.0,
+    "baseline_answer": 1301149.0,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_153",
+    "expected": 5.0,
+    "ensemble_answer": 5.0,
+    "baseline_answer": 5.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_154",
+    "expected": -3577710.0,
+    "ensemble_answer": -3577710.0,
+    "baseline_answer": -3577710.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_155",
+    "expected": 377712.375,
+    "ensemble_answer": 377712.375,
+    "baseline_answer": 377713.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_156",
+    "expected": -70145984.0,
+    "ensemble_answer": -70145984.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_157",
+    "expected": 16087561.0,
+    "ensemble_answer": 16087561.0,
+    "baseline_answer": 16087561.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_158",
+    "expected": -4930258.5,
+    "ensemble_answer": -4930258.5,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_159",
+    "expected": 7530960.0,
+    "ensemble_answer": 7530960.0,
+    "baseline_answer": 7530960.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_160",
+    "expected": -8877858.0,
+    "ensemble_answer": -8877858.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_161",
+    "expected": 1895280.0,
+    "ensemble_answer": 1895280.0,
+    "baseline_answer": 1895280.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_162",
+    "expected": 36640.0,
+    "ensemble_answer": 36640.0,
+    "baseline_answer": 36640.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_163",
+    "expected": 31879055.0,
+    "ensemble_answer": 31879055.0,
+    "baseline_answer": 31879055.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_164",
+    "expected": 9.0,
+    "ensemble_answer": 9.0,
+    "baseline_answer": 9.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_165",
+    "expected": 100.0,
+    "ensemble_answer": 99.97502370796471,
+    "baseline_answer": 0.0,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_166",
+    "expected": 8843825.0,
+    "ensemble_answer": 16665136.6239033,
+    "baseline_answer": null,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_167",
+    "expected": 1963.4111111111,
+    "ensemble_answer": 1963.4111111111113,
+    "baseline_answer": 1963.41,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_168",
+    "expected": 1002636.9500000002,
+    "ensemble_answer": 1002636.9500000002,
+    "baseline_answer": 1002637.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_169",
+    "expected": 19164408.0,
+    "ensemble_answer": 19164408.0,
+    "baseline_answer": 19164408.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_170",
+    "expected": 18533930.0,
+    "ensemble_answer": 18533930.0,
+    "baseline_answer": 18533930.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_171",
+    "expected": 4401531.0,
+    "ensemble_answer": 4401531.0,
+    "baseline_answer": 4401531.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_172",
+    "expected": 98836.3333333334,
+    "ensemble_answer": 98836.33333333336,
+    "baseline_answer": 98836.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_173",
+    "expected": 20949125.0,
+    "ensemble_answer": 20949125.0,
+    "baseline_answer": 20949125.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_174",
+    "expected": 10663305.0,
+    "ensemble_answer": 10663305.0,
+    "baseline_answer": 10663305.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_175",
+    "expected": 68.0,
+    "ensemble_answer": 68.0,
+    "baseline_answer": 68.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_176",
+    "expected": 778670.2,
+    "ensemble_answer": 778670.2,
+    "baseline_answer": 778670.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_177",
+    "expected": 2709395.5,
+    "ensemble_answer": 2709395.5,
+    "baseline_answer": 2709395.5,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_178",
+    "expected": -7020321.0,
+    "ensemble_answer": 17550815.0,
+    "baseline_answer": 17550815.0,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": false
+  },
+  {
+    "question_id": "gsmhard_179",
+    "expected": 16127300.0,
+    "ensemble_answer": 16127300.0,
+    "baseline_answer": 16127300.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_180",
+    "expected": 781368228.0,
+    "ensemble_answer": 781368228.0,
+    "baseline_answer": 781368228.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_181",
+    "expected": 474031.3333333333,
+    "ensemble_answer": 474031.3333333333,
+    "baseline_answer": 4768.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_182",
+    "expected": 81840200.0,
+    "ensemble_answer": 81840200.0,
+    "baseline_answer": 81840200.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_183",
+    "expected": 501667000.0,
+    "ensemble_answer": 501667000.0,
+    "baseline_answer": 501667000.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_184",
+    "expected": -993656.0,
+    "ensemble_answer": -993656.0,
+    "baseline_answer": -993656.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_185",
+    "expected": 18.0,
+    "ensemble_answer": 18.0,
+    "baseline_answer": 18.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_186",
+    "expected": 3981224.8,
+    "ensemble_answer": 3981224.8,
+    "baseline_answer": null,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": false
+  },
+  {
+    "question_id": "gsmhard_187",
+    "expected": 712071.6,
+    "ensemble_answer": 712071.6000000001,
+    "baseline_answer": 712071.6,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_188",
+    "expected": 5600.0,
+    "ensemble_answer": 5600.0,
+    "baseline_answer": 5600.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_189",
+    "expected": 3120372.0,
+    "ensemble_answer": 3120372.0,
+    "baseline_answer": 3120372.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_190",
+    "expected": 62.0,
+    "ensemble_answer": 62.0,
+    "baseline_answer": 62.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_191",
+    "expected": 42474420.0,
+    "ensemble_answer": 42474420.0,
+    "baseline_answer": 7216298621460.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_192",
+    "expected": 3453167.0,
+    "ensemble_answer": 3453167.0,
+    "baseline_answer": 3453167.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_193",
+    "expected": 18894535.0,
+    "ensemble_answer": 18894535.0,
+    "baseline_answer": 18894535.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_194",
+    "expected": 9500.0,
+    "ensemble_answer": 9500.0,
+    "baseline_answer": 9500.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_195",
+    "expected": 118000.0,
+    "ensemble_answer": 118000.0,
+    "baseline_answer": 0.0,
+    "ensemble_correct": true,
+    "baseline_correct": false,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_196",
+    "expected": 28083565.0,
+    "ensemble_answer": 28083565.0,
+    "baseline_answer": 28083565.0,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_197",
+    "expected": 507210.5,
+    "ensemble_answer": 507210.5,
+    "baseline_answer": 507210.5,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_198",
+    "expected": 19827119.5,
+    "ensemble_answer": 19827119.5,
+    "baseline_answer": 19827119.5,
+    "ensemble_correct": true,
+    "baseline_correct": true,
+    "drift_detected": false,
+    "ensemble_agreement": true
+  },
+  {
+    "question_id": "gsmhard_199",
+    "expected": 48646760.0,
+    "ensemble_answer": 197208905776960.0,
+    "baseline_answer": null,
+    "ensemble_correct": false,
+    "baseline_correct": false,
+    "drift_detected": true,
+    "ensemble_agreement": true
+  }
+]

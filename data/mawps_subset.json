@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "mawps_0",
+    "query": "Mark had 2 Doll. Roland proffered him some more. Now Mark has 161 Doll. How many did Roland proffer him?",
+    "expected_answer": 159.0
+  },
+  {
+    "id": "mawps_1",
+    "query": "Gloria had some raspberry. Margaret gave him 7 more. Now Gloria has 33 raspberry. How many raspberry did Gloria have in the first?",
+    "expected_answer": 26.0
+  },
+  {
+    "id": "mawps_2",
+    "query": "Tina had 7 raspberry . He hash each raspberry into 10 slices . How many raspberry slices did Tina make?",
+    "expected_answer": 70.0
+  },
+  {
+    "id": "mawps_3",
+    "query": "Ernesto had some pear. Jimmie gave him 8 more. Now Ernesto has 35 pear. How many pear did Ernesto have primitively?",
+    "expected_answer": 27.0
+  },
+  {
+    "id": "mawps_4",
+    "query": "Elizabeth had some cherry. Don took 74 from him. Now Elizabeth has 74 cherry. How many cherry Elizabeth had in the beginning?",
+    "expected_answer": 148.0
+  },
+  {
+    "id": "mawps_5",
+    "query": "Joseph had 93 fig. Howard took 90 from him. Now How many fig Joseph have minus?",
+    "expected_answer": 3.0
+  },
+  {
+    "id": "mawps_6",
+    "query": "Nichole had some plum. David took 25 from him. Now Nichole has 31 plum. How many plum Nichole had earlier?",
+    "expected_answer": 56.0
+  },
+  {
+    "id": "mawps_7",
+    "query": "Joseph had 1 blueberry. Jessica contributeed him some more. Now Joseph has 132 blueberry. How many did Jessica contribute him?",
+    "expected_answer": 131.0
+  },
+  {
+    "id": "mawps_8",
+    "query": "Billy has 62 crayons. 52 are eaten by a hippopotamus. How many crayons will Billy have?",
+    "expected_answer": 10.0
+  },
+  {
+    "id": "mawps_9",
+    "query": "Cindy had some Banana. Mary gave him 3 more. Now Cindy has 11 Banana. How many Banana did Cindy have incipiently?",
+    "expected_answer": 8.0
+  },
+  {
+    "id": "mawps_10",
+    "query": "Stephanie had 13 Biscuit. Polly accorded him some more. Now Stephanie has 164 Biscuit. How many did Polly accord him?",
+    "expected_answer": 151.0
+  },
+  {
+    "id": "mawps_11",
+    "query": "Willie had 12 peach. Marvin gifted him some more. Now Willie has 167 peach. How many did Marvin gift him?",
+    "expected_answer": 155.0
+  },
+  {
+    "id": "mawps_12",
+    "query": "Winnie had some Biscuit. Anna took 19 from him. Now Winnie has 24 Biscuit. How many Biscuit Winnie had earlier?",
+    "expected_answer": 43.0
+  },
+  {
+    "id": "mawps_13",
+    "query": "Justin had some apricot. Jose gave him 7 more. Now Justin has 26 apricot. How many apricot did Justin have at first?",
+    "expected_answer": 19.0
+  },
+  {
+    "id": "mawps_14",
+    "query": "Cecelia had 187 blackcurrant. Wm took 71 from him. Now How many blackcurrant does Cecelia have now?",
+    "expected_answer": 116.0
+  },
+  {
+    "id": "mawps_15",
+    "query": "Valerie had some lychee. Richard gave him 2 more. Now Valerie has 39 lychee. How many lychee did Valerie have initially?",
+    "expected_answer": 37.0
+  },
+  {
+    "id": "mawps_16",
+    "query": "Teresa had 147 Biscuit. David clasped some Biscuit. Now Teresa has 11  Biscuit. How many did David claspeds?",
+    "expected_answer": 136.0
+  },
+  {
+    "id": "mawps_17",
+    "query": "Rudy had some blackcurrant. Robert gave him 3 more. Now Rudy has 39 blackcurrant. How many blackcurrant did Rudy have incipiently?",
+    "expected_answer": 36.0
+  },
+  {
+    "id": "mawps_18",
+    "query": "Paul had 110 blueberry. Cristal took 90 from him. Now How many blueberry Paul have left over?",
+    "expected_answer": 20.0
+  },
+  {
+    "id": "mawps_19",
+    "query": "Desiree had 10 lime. David confered him some more. Now Desiree has 194 lime. How many did David confer him?",
+    "expected_answer": 184.0
+  },
+  {
+    "id": "mawps_20",
+    "query": "Logan recorded the snowfall every day during a snowstorm . He recorded 0.3333333333333333 centimeter on Wednesday , 0.3333333333333333 centimeter on Thursday , and 0.2222222222222222 centimeter on Friday . How many total centimeters of snow did Logan record ?",
+    "expected_answer": 0.888888
+  },
+  {
+    "id": "mawps_21",
+    "query": "Catherine had some Mango. James took 41 from him. Now Catherine has 47 Mango. How many Mango Catherine had incipiently?",
+    "expected_answer": 88.0
+  },
+  {
+    "id": "mawps_22",
+    "query": "You deposit 70 dollars in a savings account that pays an annual interest rate of 3 %. How much simple interest would you earn in 2.5 years , in dollars?",
+    "expected_answer": 5.25
+  },
+  {
+    "id": "mawps_23",
+    "query": "Ana had 252 Biscuit. Gail clutched some Biscuit. Now Ana has 70  Biscuit. How many did Gail clutcheds?",
+    "expected_answer": 182.0
+  },
+  {
+    "id": "mawps_24",
+    "query": "Nathan had 177 strawberry. John clutched some strawberry. Now Nathan has 84  strawberry. How many did John clutcheds?",
+    "expected_answer": 93.0
+  },
+  {
+    "id": "mawps_25",
+    "query": "Helen had some raspberry. Joetta took 87 from him. Now Helen has 91 raspberry. How many raspberry Helen had at first?",
+    "expected_answer": 178.0
+  },
+  {
+    "id": "mawps_26",
+    "query": "Deanna had 182 banana. John gripped some banana. Now Deanna has 48  banana. How many did John grippeds?",
+    "expected_answer": 134.0
+  },
+  {
+    "id": "mawps_27",
+    "query": "Emily collects 63 cards. Emily's father gives Emily 7 more. Bruce has 13 apples. How many cards does Emily have?",
+    "expected_answer": 70.0
+  },
+  {
+    "id": "mawps_28",
+    "query": "Eric had 297 Bread. Dorothy clutched some Bread. Now Eric has 36  Bread. How many did Dorothy clutcheds?",
+    "expected_answer": 261.0
+  },
+  {
+    "id": "mawps_29",
+    "query": "Marcie had 161 apricot. Therese grasped some apricot. Now Marcie has 60  apricot. How many did Therese graspeds?",
+    "expected_answer": 101.0
+  },
+  {
+    "id": "mawps_30",
+    "query": "Wanda had 197 fig. Andrew took 11 from him. Now How many fig Wanda have take away?",
+    "expected_answer": 186.0
+  },
+  {
+    "id": "mawps_31",
+    "query": "Eric had 25 raspberry. Kyle presented him some more. Now Eric has 101 raspberry. How many did Kyle present him?",
+    "expected_answer": 76.0
+  },
+  {
+    "id": "mawps_32",
+    "query": "Shirlee had some kiwi. Robbie took 79 from him. Now Shirlee has 81 kiwi. How many kiwi Shirlee had in the beginning?",
+    "expected_answer": 160.0
+  },
+  {
+    "id": "mawps_33",
+    "query": "Rachel had 171 kiwi. Jeane took 100 from him. Now How many kiwi Rachel have reduced?",
+    "expected_answer": 71.0
+  },
+  {
+    "id": "mawps_34",
+    "query": "Antonette had 256 avocado. Johnnie grabbed some avocado. Now Antonette has 33  avocado. How many did Johnnie grabbeds?",
+    "expected_answer": 223.0
+  },
+  {
+    "id": "mawps_35",
+    "query": "Tracy had 62 Chocolate. Johnnie took 51 from him. Now How many Chocolate Tracy have less than?",
+    "expected_answer": 11.0
+  },
+  {
+    "id": "mawps_36",
+    "query": "Debra had 8 Car. Andrew furnished him some more. Now Debra has 61 Car. How many did Andrew furnish him?",
+    "expected_answer": 53.0
+  },
+  {
+    "id": "mawps_37",
+    "query": "Martha had 225 toy. Ida grabbed some toy. Now Martha has 75  toy. How many did Ida grabbeds?",
+    "expected_answer": 150.0
+  },
+  {
+    "id": "mawps_38",
+    "query": "Tonya had some toy. He hash each toy into 5 slices. If total 147 toy slices Tonya make, then how many toy Tonya had?",
+    "expected_answer": 29.4
+  },
+  {
+    "id": "mawps_39",
+    "query": "Viola had 36 seashells. Michelle donateed him some more. Now Viola has 151 seashells. How many did Michelle donate him?",
+    "expected_answer": 115.0
+  },
+  {
+    "id": "mawps_40",
+    "query": "Curtis had 211 cherry. George get hold of some cherry. Now Curtis has 65  cherry. How many did George get hold ofs?",
+    "expected_answer": 146.0
+  },
+  {
+    "id": "mawps_41",
+    "query": "Patricia had 27 pineapple. Donald accorded him some more. Now Patricia has 151 pineapple. How many did Donald accord him?",
+    "expected_answer": 124.0
+  },
+  {
+    "id": "mawps_42",
+    "query": "Terrance had some lemon. Michael took 29 from him. Now Terrance has 70 lemon. How many lemon Terrance had incipiently?",
+    "expected_answer": 99.0
+  },
+  {
+    "id": "mawps_43",
+    "query": "A bee colony produced 0.36 pounds of honey, but bears ate 0.05 pounds of it. How much honey remains?",
+    "expected_answer": 0.31
+  },
+  {
+    "id": "mawps_44",
+    "query": "Pat had some blackcurrant. Nancy took 37 from him. Now Pat has 56 blackcurrant. How many blackcurrant Pat had earlier?",
+    "expected_answer": 93.0
+  },
+  {
+    "id": "mawps_45",
+    "query": "Tammy had some pineapple. Sylvia gave him 1 more. Now Tammy has 13 pineapple. How many pineapple did Tammy have at first?",
+    "expected_answer": 12.0
+  },
+  {
+    "id": "mawps_46",
+    "query": "Izetta had 192 blackcurrant. Estella clutched some blackcurrant. Now Izetta has 29  blackcurrant. How many did Estella clutcheds?",
+    "expected_answer": 163.0
+  },
+  {
+    "id": "mawps_47",
+    "query": "Paco 's Countertop Company purchased pieces of marble from a quarry . The weights of the pieces they purchased were 0.3333333333333333 ton , 0.3333333333333333 ton , and 0.08333333333333333 ton . How many tons of marble did Paco 's Countertop Company purchase in all ?",
+    "expected_answer": 0.749999
+  },
+  {
+    "id": "mawps_48",
+    "query": "While playing a video game , Paul scored 3103 points . He and his cousin together have a total of 5816 points . How many points does Paul 's cousin have ?",
+    "expected_answer": 2713.0
+  },
+  {
+    "id": "mawps_49",
+    "query": "You make candles and sell them for 15 dollars each. The material to make up to 20 candles costs 20 dollars. How many candles must you sell to have a profit of 85 dollars?",
+    "expected_answer": 7.0
+  },
+  {
+    "id": "mawps_50",
+    "query": "Jennifer had some Pen. Virgina gave him 3 more. Now Jennifer has 30 Pen. How many Pen did Jennifer have incipiently?",
+    "expected_answer": 27.0
+  },
+  {
+    "id": "mawps_51",
+    "query": "Salvatore had 142 Chocolate. Betty grasped some Chocolate. Now Salvatore has 70  Chocolate. How many did Betty graspeds?",
+    "expected_answer": 72.0
+  },
+  {
+    "id": "mawps_52",
+    "query": "Christine had 185 Press. Gwendolyn clasped some Press. Now Christine has 29  Press. How many did Gwendolyn claspeds?",
+    "expected_answer": 156.0
+  },
+  {
+    "id": "mawps_53",
+    "query": "Last Saturday, Spencer walked all over town running errands. First, he walked 0.3 of a mile from his house to the library and 0.1 of a mile from the library to the post office. Then he walked 0.4 of a mile from the post office back home. How many miles did Spencer walk in all?",
+    "expected_answer": 0.8
+  },
+  {
+    "id": "mawps_54",
+    "query": "Jennifer had some pear. He cut each pear into 13 slices. If total 196 pear slices Jennifer make, then how many pear Jennifer had?",
+    "expected_answer": 15.076923076923077
+  },
+  {
+    "id": "mawps_55",
+    "query": "Jody had 280 quince. Carolyn get hold of some quince. Now Jody has 2  quince. How many did Carolyn get hold ofs?",
+    "expected_answer": 278.0
+  },
+  {
+    "id": "mawps_56",
+    "query": "Anthony had some Car. He carve each Car into 29 slices. If total 157 Car slices Anthony make, then how many Car Anthony had?",
+    "expected_answer": 5.413793103448276
+  },
+  {
+    "id": "mawps_57",
+    "query": "James had 30 Biscuit. Dorothy confered him some more. Now James has 98 Biscuit. How many did Dorothy confer him?",
+    "expected_answer": 68.0
+  },
+  {
+    "id": "mawps_58",
+    "query": "Caridad had some pear. Harriett gave him 6 more. Now Caridad has 43 pear. How many pear did Caridad have incipiently?",
+    "expected_answer": 37.0
+  },
+  {
+    "id": "mawps_59",
+    "query": "Ernest had 275 banana. Laura clasped some banana. Now Ernest has 40  banana. How many did Laura claspeds?",
+    "expected_answer": 235.0
+  },
+  {
+    "id": "mawps_60",
+    "query": "Edelmira had some avocado. Terry gave him 1 more. Now Edelmira has 16 avocado. How many avocado did Edelmira have originally?",
+    "expected_answer": 15.0
+  },
+  {
+    "id": "mawps_61",
+    "query": "Clifford had 186 Car. Eric clutched some Car. Now Clifford has 20  Car. How many did Eric clutcheds?",
+    "expected_answer": 166.0
+  },
+  {
+    "id": "mawps_62",
+    "query": "Darrell had some Book. Jamie took 46 from him. Now Darrell has 53 Book. How many Book Darrell had incipiently?",
+    "expected_answer": 99.0
+  },
+  {
+    "id": "mawps_63",
+    "query": "Charles had some raspberry. Gloria gave him 2 more. Now Charles has 17 raspberry. How many raspberry did Charles have to begin with?",
+    "expected_answer": 15.0
+  },
+  {
+    "id": "mawps_64",
+    "query": "Kenneth had 165 peach. Teri grasped some peach. Now Kenneth has 98  peach. How many did Teri graspeds?",
+    "expected_answer": 67.0
+  },
+  {
+    "id": "mawps_65",
+    "query": "Vernon had 234 coconut. Keisha take hold of some coconut. Now Vernon has 85  coconut. How many did Keisha take hold ofs?",
+    "expected_answer": 149.0
+  },
+  {
+    "id": "mawps_66",
+    "query": "Shelly had 7 blueberry. Joseph supplyed him some more. Now Shelly has 151 blueberry. How many did Joseph supply him?",
+    "expected_answer": 144.0
+  },
+  {
+    "id": "mawps_67",
+    "query": "Dale had 287 Bread. Dorothy grasped some Bread. Now Dale has 35  Bread. How many did Dorothy graspeds?",
+    "expected_answer": 252.0
+  },
+  {
+    "id": "mawps_68",
+    "query": "Charles had 185 Press. Barbara took 88 from him. Now How many Press Charles have difference?",
+    "expected_answer": 97.0
+  },
+  {
+    "id": "mawps_69",
+    "query": "Melissa had some blackcurrant. Alisha gave him 6 more. Now Melissa has 32 blackcurrant. How many blackcurrant did Melissa have primitively?",
+    "expected_answer": 26.0
+  },
+  {
+    "id": "mawps_70",
+    "query": "Christopher had 178 blackberry. Christi lay hold of some blackberry. Now Christopher has 38  blackberry. How many did Christi lay hold of?",
+    "expected_answer": 140.0
+  },
+  {
+    "id": "mawps_71",
+    "query": "Diane had 165 Chocolate. Wm took 55 from him. Now How many Chocolate Diane have difference?",
+    "expected_answer": 110.0
+  },
+  {
+    "id": "mawps_72",
+    "query": "Frank had 288 papaya. Edith lay hold of some papaya. Now Frank has 1  papaya. How many did Edith lay hold ofs?",
+    "expected_answer": 287.0
+  },
+  {
+    "id": "mawps_73",
+    "query": "Charles has 4 apples. Jessica gives Charles 39 more. How many apples does Charles have in all?",
+    "expected_answer": 43.0
+  },
+  {
+    "id": "mawps_74",
+    "query": "A ship is filled with 5,973 tons of cargo. It stops in the Bahamas, where sailors load 8,723 more tons of cargo onboard. How many tons of cargo does the ship hold now?",
+    "expected_answer": 14696.0
+  },
+  {
+    "id": "mawps_75",
+    "query": "Robert had 40 strawberry. Frieda awarded him some more. Now Robert has 165 strawberry. How many did Frieda award him?",
+    "expected_answer": 125.0
+  },
+  {
+    "id": "mawps_76",
+    "query": "Donald had 165 toy. Donna clutched some toy. Now Donald has 99  toy. How many did Donna clutcheds?",
+    "expected_answer": 66.0
+  },
+  {
+    "id": "mawps_77",
+    "query": "Willis had 215 apple. Ethel gripped some apple. Now Willis has 61  apple. How many did Ethel grippeds?",
+    "expected_answer": 154.0
+  },
+  {
+    "id": "mawps_78",
+    "query": "Kelly had some Box. Jose gave him 6 more. Now Kelly has 31 Box. How many Box did Kelly have originally?",
+    "expected_answer": 25.0
+  },
+  {
+    "id": "mawps_79",
+    "query": "Micah had 231 cherry. James take hold of some cherry. Now Micah has 27  cherry. How many did James take hold ofs?",
+    "expected_answer": 204.0
+  },
+  {
+    "id": "mawps_80",
+    "query": "Michael had 159 Doll. Pearl grasped some Doll. Now Michael has 76  Doll. How many did Pearl graspeds?",
+    "expected_answer": 83.0
+  },
+  {
+    "id": "mawps_81",
+    "query": "Glendora had some nectarine. Ruby took 14 from him. Now Glendora has 34 nectarine. How many nectarine Glendora had in the first?",
+    "expected_answer": 48.0
+  },
+  {
+    "id": "mawps_82",
+    "query": "Francine had 291 strawberry. Anna grabbed some strawberry. Now Francine has 69  strawberry. How many did Anna grabbeds?",
+    "expected_answer": 222.0
+  },
+  {
+    "id": "mawps_83",
+    "query": "Robert had some Doll. Benjamin took 79 from him. Now Robert has 94 Doll. How many Doll Robert had in the beginning?",
+    "expected_answer": 173.0
+  },
+  {
+    "id": "mawps_84",
+    "query": "A recipe calls for 0.6667 cup of diced green pepper. Give the number of cups of diced green pepper that should be used to make 0.5 of this recipe.",
+    "expected_answer": 0.33335
+  },
+  {
+    "id": "mawps_85",
+    "query": "Norma had some lemon. Patricia gave him 7 more. Now Norma has 14 lemon. How many lemon did Norma have originally?",
+    "expected_answer": 7.0
+  },
+  {
+    "id": "mawps_86",
+    "query": "Janessa had 21 Doll. Diana granted him some more. Now Janessa has 82 Doll. How many did Diana grant him?",
+    "expected_answer": 61.0
+  },
+  {
+    "id": "mawps_87",
+    "query": "James had 7 pineapple . He hash each pineapple into 3 slices . How many pineapple slices did James make?",
+    "expected_answer": 21.0
+  },
+  {
+    "id": "mawps_88",
+    "query": "Troy had 105 quince. Nolan clutched some quince. Now Troy has 84  quince. How many did Nolan clutcheds?",
+    "expected_answer": 21.0
+  },
+  {
+    "id": "mawps_89",
+    "query": "Lee had 145 Box. Grant took 76 from him. Now How many Box Lee have minus?",
+    "expected_answer": 69.0
+  },
+  {
+    "id": "mawps_90",
+    "query": "Todd had 143 apricot. Jacob grasped some apricot. Now Todd has 53  apricot. How many did Jacob graspeds?",
+    "expected_answer": 90.0
+  },
+  {
+    "id": "mawps_91",
+    "query": "Cameron had some cherry. George gave him 3 more. Now Cameron has 30 cherry. How many cherry did Cameron have to begin with?",
+    "expected_answer": 27.0
+  },
+  {
+    "id": "mawps_92",
+    "query": "Wendy had some Doll. Theresa gave him 6 more. Now Wendy has 11 Doll. How many Doll did Wendy have primitively?",
+    "expected_answer": 5.0
+  },
+  {
+    "id": "mawps_93",
+    "query": "Tommy had 11 toy. Thomas awarded him some more. Now Tommy has 198 toy. How many did Thomas award him?",
+    "expected_answer": 187.0
+  },
+  {
+    "id": "mawps_94",
+    "query": "Deborah had 70 peach. Alan took 46 from him. Now How many peach Deborah have left over?",
+    "expected_answer": 24.0
+  },
+  {
+    "id": "mawps_95",
+    "query": "Joel had some Doll. Katherine gave him 4 more. Now Joel has 32 Doll. How many Doll did Joel have primitively?",
+    "expected_answer": 28.0
+  },
+  {
+    "id": "mawps_96",
+    "query": "John had some papaya. Joshua took 44 from him. Now John has 88 papaya. How many papaya John had originally?",
+    "expected_answer": 132.0
+  },
+  {
+    "id": "mawps_97",
+    "query": "James had some pear. He dice each pear into 10 slices. If total 102 pear slices James make, then how many pear James had?",
+    "expected_answer": 10.2
+  },
+  {
+    "id": "mawps_98",
+    "query": "Sarah had 112 Bread. Oliver took 13 from him. Now How many Bread Sarah have left over?",
+    "expected_answer": 99.0
+  },
+  {
+    "id": "mawps_99",
+    "query": "The library is divided into different sections for different type of books. The science fiction section has 8 books. If each book has 478 pages, how many pages do all the books have in total?",
+    "expected_answer": 3824.0
+  },
+  {
+    "id": "mawps_100",
+    "query": "Vincent bought 10 books about animals, 1 book about outer space, and 3 books about trains. Each book cost $16. How much did Vincent spend on the books?",
+    "expected_answer": 224.0
+  },
+  {
+    "id": "mawps_101",
+    "query": "Betty had some Bread. Roy gave him 5 more. Now Betty has 28 Bread. How many Bread did Betty have initially?",
+    "expected_answer": 23.0
+  },
+  {
+    "id": "mawps_102",
+    "query": "So far , an orchard has sold a combined total of 9792 pounds of fresh and frozen fruit this season . If they have sold 3513 pounds of frozen fruit , how many pounds of fresh fruit have been sold so far ?",
+    "expected_answer": 6279.0
+  },
+  {
+    "id": "mawps_103",
+    "query": "Shawn had some Pen. Cheryl gave him 9 more. Now Shawn has 38 Pen. How many Pen did Shawn have primitively?",
+    "expected_answer": 29.0
+  },
+  {
+    "id": "mawps_104",
+    "query": "Ann had 32 Mango. Amanda confered him some more. Now Ann has 67 Mango. How many did Amanda confer him?",
+    "expected_answer": 35.0
+  },
+  {
+    "id": "mawps_105",
+    "query": "Roberta had 146 banana. William took 93 from him. Now How many banana Roberta have reduced?",
+    "expected_answer": 53.0
+  },
+  {
+    "id": "mawps_106",
+    "query": "Dora had 186 papaya. Hugo lay hold of some papaya. Now Dora has 77  papaya. How many did Hugo lay hold ofs?",
+    "expected_answer": 109.0
+  },
+  {
+    "id": "mawps_107",
+    "query": "Robert had some Biscuit. James took 11 from him. Now Robert has 50 Biscuit. How many Biscuit Robert had at first?",
+    "expected_answer": 61.0
+  },
+  {
+    "id": "mawps_108",
+    "query": "Gladys had 53 banana. Dave took 47 from him. Now How many banana Gladys have less than?",
+    "expected_answer": 6.0
+  },
+  {
+    "id": "mawps_109",
+    "query": "Manuel had 174 kiwi. Daria gripped some kiwi. Now Manuel has 96  kiwi. How many did Daria grippeds?",
+    "expected_answer": 78.0
+  },
+  {
+    "id": "mawps_110",
+    "query": "Chelsea had 199 Press. Danielle grasped some Press. Now Chelsea has 2  Press. How many did Danielle graspeds?",
+    "expected_answer": 197.0
+  },
+  {
+    "id": "mawps_111",
+    "query": "Oceanside Bike Rental Shop charges 17 dollars plus 7 dollars an hour for renting a bike. Tom paid 80 dollars to rent a bike. How many hours did he pay to have the bike checked out ?",
+    "expected_answer": 9.0
+  },
+  {
+    "id": "mawps_112",
+    "query": "Jessica had 31 plum. Courtney supplyed him some more. Now Jessica has 198 plum. How many did Courtney supply him?",
+    "expected_answer": 167.0
+  },
+  {
+    "id": "mawps_113",
+    "query": "Jamie had 123 Watch. Connie clutched some Watch. Now Jamie has 81  Watch. How many did Connie clutcheds?",
+    "expected_answer": 42.0
+  },
+  {
+    "id": "mawps_114",
+    "query": "Yasuko had 25 avocado. Brian supplyed him some more. Now Yasuko has 41 avocado. How many did Brian supply him?",
+    "expected_answer": 16.0
+  },
+  {
+    "id": "mawps_115",
+    "query": "Maria had some raspberry. Jill took 47 from him. Now Maria has 52 raspberry. How many raspberry Maria had originally?",
+    "expected_answer": 99.0
+  },
+  {
+    "id": "mawps_116",
+    "query": "Walter had 158 Pen. Shirley clasped some Pen. Now Walter has 83  Pen. How many did Shirley claspeds?",
+    "expected_answer": 75.0
+  },
+  {
+    "id": "mawps_117",
+    "query": "James had 120 Bread. Jon took 20 from him. Now How many Bread James have take away?",
+    "expected_answer": 100.0
+  },
+  {
+    "id": "mawps_118",
+    "query": "Linda had 35 Flower. Marilyn accorded him some more. Now Linda has 142 Flower. How many did Marilyn accord him?",
+    "expected_answer": 107.0
+  },
+  {
+    "id": "mawps_119",
+    "query": "Thomas had 251 blackberry. Darlene clutched some blackberry. Now Thomas has 77  blackberry. How many did Darlene clutcheds?",
+    "expected_answer": 174.0
+  },
+  {
+    "id": "mawps_120",
+    "query": "Martin had 135 papaya. Jerald grabbed some papaya. Now Martin has 99  papaya. How many did Jerald grabbeds?",
+    "expected_answer": 36.0
+  },
+  {
+    "id": "mawps_121",
+    "query": "Tina had 91 papaya. Katie took 29 from him. Now How many papaya Tina have reduced?",
+    "expected_answer": 62.0
+  },
+  {
+    "id": "mawps_122",
+    "query": "Jeremy had 221 Car. Paul take hold of some Car. Now Jeremy has 32  Car. How many did Paul take hold ofs?",
+    "expected_answer": 189.0
+  },
+  {
+    "id": "mawps_123",
+    "query": "Trenton had 149 blackberry. Ben clasped some blackberry. Now Trenton has 35  blackberry. How many did Ben claspeds?",
+    "expected_answer": 114.0
+  },
+  {
+    "id": "mawps_124",
+    "query": "Michelle had some nectarine. Carlos gave him 1 more. Now Michelle has 15 nectarine. How many nectarine did Michelle have initially?",
+    "expected_answer": 14.0
+  },
+  {
+    "id": "mawps_125",
+    "query": "Stephen had some cherry. Nelson gave him 7 more. Now Stephen has 35 cherry. How many cherry did Stephen have primitively?",
+    "expected_answer": 28.0
+  },
+  {
+    "id": "mawps_126",
+    "query": "Ashley had some Bread. John gave him 8 more. Now Ashley has 11 Bread. How many Bread did Ashley have at first?",
+    "expected_answer": 3.0
+  },
+  {
+    "id": "mawps_127",
+    "query": "Brenda had some apricot. Albert took 30 from him. Now Brenda has 57 apricot. How many apricot Brenda had originally?",
+    "expected_answer": 87.0
+  },
+  {
+    "id": "mawps_128",
+    "query": "Charlie had 11 Press. Clement giveed him some more. Now Charlie has 172 Press. How many did Clement give him?",
+    "expected_answer": 161.0
+  },
+  {
+    "id": "mawps_129",
+    "query": "Lisa had 145 cherry. Alan took 142 from him. Now How many cherry Lisa have difference?",
+    "expected_answer": 3.0
+  },
+  {
+    "id": "mawps_130",
+    "query": "George had some avocado. Jules took 53 from him. Now George has 76 avocado. How many avocado George had originally?",
+    "expected_answer": 129.0
+  },
+  {
+    "id": "mawps_131",
+    "query": "Betty had 240 raspberry. Kimberly clasped some raspberry. Now Betty has 83  raspberry. How many did Kimberly claspeds?",
+    "expected_answer": 157.0
+  },
+  {
+    "id": "mawps_132",
+    "query": "Pamela bought 9.8 ounces of sugar, and she spilled 5.2 ounces of it on the floor. How much is left?",
+    "expected_answer": 4.6000000000000005
+  },
+  {
+    "id": "mawps_133",
+    "query": "Joanne had some toy. Todd took 34 from him. Now Joanne has 87 toy. How many toy Joanne had incipiently?",
+    "expected_answer": 121.0
+  },
+  {
+    "id": "mawps_134",
+    "query": "Fred has 709 green balloons, he gave Sandy 221 of the balloons. How many green balloons does he now have ?",
+    "expected_answer": 488.0
+  },
+  {
+    "id": "mawps_135",
+    "query": "Robin had 134 Chocolate. Shaun took 7 from him. Now How many Chocolate Robin have minus?",
+    "expected_answer": 127.0
+  },
+  {
+    "id": "mawps_136",
+    "query": "Ward had some papaya. Daniel gave him 2 more. Now Ward has 24 papaya. How many papaya did Ward have earlier?",
+    "expected_answer": 22.0
+  },
+  {
+    "id": "mawps_137",
+    "query": "Eric has 3 boxes of pencils. Each box holds 9 pencils. How many pencils does Eric have?",
+    "expected_answer": 27.0
+  },
+  {
+    "id": "mawps_138",
+    "query": "Marsha had 24 plum. Matthew awarded him some more. Now Marsha has 164 plum. How many did Matthew award him?",
+    "expected_answer": 140.0
+  },
+  {
+    "id": "mawps_139",
+    "query": "Clara had 271 lime. Debra grabbed some lime. Now Clara has 52  lime. How many did Debra grabbeds?",
+    "expected_answer": 219.0
+  },
+  {
+    "id": "mawps_140",
+    "query": "Mike had 182 Box. Allen gripped some Box. Now Mike has 51  Box. How many did Allen grippeds?",
+    "expected_answer": 131.0
+  },
+  {
+    "id": "mawps_141",
+    "query": "Lucille had 169 cherry. Brian lay hold of some cherry. Now Lucille has 49  cherry. How many did Brian lay hold ofs?",
+    "expected_answer": 120.0
+  },
+  {
+    "id": "mawps_142",
+    "query": "Frank had 156 blueberry. Marsha took 123 from him. Now How many blueberry Frank have left over?",
+    "expected_answer": 33.0
+  },
+  {
+    "id": "mawps_143",
+    "query": "Christine wandered 20 miles at 4 miles per hour. How long did Christine wander?",
+    "expected_answer": 5.0
+  },
+  {
+    "id": "mawps_144",
+    "query": "Elizabeth had 188 lemon. Sharron took 178 from him. Now How many lemon Elizabeth have reduced?",
+    "expected_answer": 10.0
+  },
+  {
+    "id": "mawps_145",
+    "query": "Elmo had 289 Beg. Sadie grasped some Beg. Now Elmo has 2  Beg. How many did Sadie graspeds?",
+    "expected_answer": 287.0
+  },
+  {
+    "id": "mawps_146",
+    "query": "Robert had 152 blackcurrant. Jane gripped some blackcurrant. Now Robert has 71  blackcurrant. How many did Jane grippeds?",
+    "expected_answer": 81.0
+  },
+  {
+    "id": "mawps_147",
+    "query": "Myrna had 108 Chocolate. Armando clutched some Chocolate. Now Myrna has 64  Chocolate. How many did Armando clutcheds?",
+    "expected_answer": 44.0
+  },
+  {
+    "id": "mawps_148",
+    "query": "Bernice had some watermelon. Grace took 42 from him. Now Bernice has 92 watermelon. How many watermelon Bernice had primitively?",
+    "expected_answer": 134.0
+  },
+  {
+    "id": "mawps_149",
+    "query": "Debra had 96 peach. Rosa took 26 from him. Now How many peach Debra have take away?",
+    "expected_answer": 70.0
+  },
+  {
+    "id": "mawps_150",
+    "query": "Charles had some orange. George took 11 from him. Now Charles has 77 orange. How many orange Charles had earlier?",
+    "expected_answer": 88.0
+  },
+  {
+    "id": "mawps_151",
+    "query": "Sean had some apple. Jack gave him 2 more. Now Sean has 26 apple. How many apple did Sean have to begin with?",
+    "expected_answer": 24.0
+  },
+  {
+    "id": "mawps_152",
+    "query": "Michael had some blackberry. Annie gave him 1 more. Now Michael has 39 blackberry. How many blackberry did Michael have earlier?",
+    "expected_answer": 38.0
+  },
+  {
+    "id": "mawps_153",
+    "query": "Randy had 288 Doll. Nathan grabbed some Doll. Now Randy has 42  Doll. How many did Nathan grabbeds?",
+    "expected_answer": 246.0
+  },
+  {
+    "id": "mawps_154",
+    "query": "Darcie had 183 Box. Patrick took 66 from him. Now How many Box Darcie have decreased by?",
+    "expected_answer": 117.0
+  },
+  {
+    "id": "mawps_155",
+    "query": "Samuel had some toy. Walter gave him 4 more. Now Samuel has 24 toy. How many toy did Samuel have in the first?",
+    "expected_answer": 20.0
+  },
+  {
+    "id": "mawps_156",
+    "query": "Victoria had 28 cherry. Charlotte supplyed him some more. Now Victoria has 153 cherry. How many did Charlotte supply him?",
+    "expected_answer": 125.0
+  },
+  {
+    "id": "mawps_157",
+    "query": "Sheri had some blackberry. He chop each blackberry into 9 slices. If total 63 blackberry slices Sheri make, then how many blackberry Sheri had?",
+    "expected_answer": 7.0
+  },
+  {
+    "id": "mawps_158",
+    "query": "John had 92 Car. Velma took 11 from him. Now How many Car John have deducted?",
+    "expected_answer": 81.0
+  },
+  {
+    "id": "mawps_159",
+    "query": "Michael had 118 nectarine. Charles gripped some nectarine. Now Michael has 72  nectarine. How many did Charles grippeds?",
+    "expected_answer": 46.0
+  },
+  {
+    "id": "mawps_160",
+    "query": "Sabrina had 175 papaya. Virgil took 153 from him. Now How many papaya Sabrina have less than?",
+    "expected_answer": 22.0
+  },
+  {
+    "id": "mawps_161",
+    "query": "Jason had 294 blackberry. James get hold of some blackberry. Now Jason has 15  blackberry. How many did James get hold ofs?",
+    "expected_answer": 279.0
+  },
+  {
+    "id": "mawps_162",
+    "query": "Regina had 162 avocado. Ruth took 161 from him. Now How many avocado Regina have minus?",
+    "expected_answer": 1.0
+  },
+  {
+    "id": "mawps_163",
+    "query": "Helen had 12 peach. Anna granted him some more. Now Helen has 196 peach. How many did Anna grant him?",
+    "expected_answer": 184.0
+  },
+  {
+    "id": "mawps_164",
+    "query": "Lewis had some raspberry. Ann gave him 5 more. Now Lewis has 18 raspberry. How many raspberry did Lewis have in the beginning?",
+    "expected_answer": 13.0
+  },
+  {
+    "id": "mawps_165",
+    "query": "Liza had 34 Press. Thomas furnished him some more. Now Liza has 64 Press. How many did Thomas furnish him?",
+    "expected_answer": 30.0
+  },
+  {
+    "id": "mawps_166",
+    "query": "Eugene had some blackcurrant. Dorothy gave him 8 more. Now Eugene has 26 blackcurrant. How many blackcurrant did Eugene have primitively?",
+    "expected_answer": 18.0
+  },
+  {
+    "id": "mawps_167",
+    "query": "Chris had 30 toy. Peter donateed him some more. Now Chris has 105 toy. How many did Peter donate him?",
+    "expected_answer": 75.0
+  },
+  {
+    "id": "mawps_168",
+    "query": "Mike joined his school's band. He bought a trumpet for $145.16, and a song book which was $5.84. How much did Mike spend at the music store?",
+    "expected_answer": 151.0
+  },
+  {
+    "id": "mawps_169",
+    "query": "Jose had 188 Chocolate. Amanda took 14 from him. Now How many Chocolate Jose have removed?",
+    "expected_answer": 174.0
+  },
+  {
+    "id": "mawps_170",
+    "query": "Thelma had some Beg. Gordon took 44 from him. Now Thelma has 67 Beg. How many Beg Thelma had to begin with?",
+    "expected_answer": 111.0
+  },
+  {
+    "id": "mawps_171",
+    "query": "Johnny had 134 papaya. Maia took 18 from him. Now How many papaya Johnny have take away?",
+    "expected_answer": 116.0
+  },
+  {
+    "id": "mawps_172",
+    "query": "Cathy had 9 blackberry. Laura accorded him some more. Now Cathy has 50 blackberry. How many did Laura accord him?",
+    "expected_answer": 41.0
+  },
+  {
+    "id": "mawps_173",
+    "query": "Joseph had 94 banana. Harold took 61 from him. Now How many banana Joseph have take away?",
+    "expected_answer": 33.0
+  },
+  {
+    "id": "mawps_174",
+    "query": "A ship is filled with 5973 tons of cargo . It stops in the Bahamas , where sailors load 8723 tons of cargo onboard . How many tons of cargo does the ship hold now ?",
+    "expected_answer": 14696.0
+  },
+  {
+    "id": "mawps_175",
+    "query": "Thomas had 239 papaya. Charlie get hold of some papaya. Now Thomas has 86  papaya. How many did Charlie get hold ofs?",
+    "expected_answer": 153.0
+  },
+  {
+    "id": "mawps_176",
+    "query": "Vince had some Biscuit. Michael gave him 2 more. Now Vince has 10 Biscuit. How many Biscuit did Vince have originally?",
+    "expected_answer": 8.0
+  },
+  {
+    "id": "mawps_177",
+    "query": "Kristen had 282 Beg. Randy gripped some Beg. Now Kristen has 74  Beg. How many did Randy grippeds?",
+    "expected_answer": 208.0
+  },
+  {
+    "id": "mawps_178",
+    "query": "Thelma had some Watch. Lee gave him 1 more. Now Thelma has 14 Watch. How many Watch did Thelma have incipiently?",
+    "expected_answer": 13.0
+  },
+  {
+    "id": "mawps_179",
+    "query": "Ruby had 49 Book. Lance took 29 from him. Now How many Book Ruby have left over?",
+    "expected_answer": 20.0
+  },
+  {
+    "id": "mawps_180",
+    "query": "Daniel had 239 strawberry. Robert gripped some strawberry. Now Daniel has 26  strawberry. How many did Robert grippeds?",
+    "expected_answer": 213.0
+  },
+  {
+    "id": "mawps_181",
+    "query": "Troy had 157 Flower. William took 52 from him. Now How many Flower Troy have detracted?",
+    "expected_answer": 105.0
+  },
+  {
+    "id": "mawps_182",
+    "query": "Scott had 161 banana. Rose clutched some banana. Now Scott has 18  banana. How many did Rose clutcheds?",
+    "expected_answer": 143.0
+  },
+  {
+    "id": "mawps_183",
+    "query": "Robert had some kiwi(fruit). Timothy gave him 1 more. Now Robert has 23 kiwi(fruit). How many kiwi(fruit) did Robert have originally?",
+    "expected_answer": 22.0
+  },
+  {
+    "id": "mawps_184",
+    "query": "Gregory had 9 watermelon. Phyllis accorded him some more. Now Gregory has 104 watermelon. How many did Phyllis accord him?",
+    "expected_answer": 95.0
+  },
+  {
+    "id": "mawps_185",
+    "query": "Ann had 20 mango. Mary bestowed him some more. Now Ann has 122 mango. How many did Mary bestow him?",
+    "expected_answer": 102.0
+  },
+  {
+    "id": "mawps_186",
+    "query": "Kenneth had some Flower. Andrew took 27 from him. Now Kenneth has 61 Flower. How many Flower Kenneth had initially?",
+    "expected_answer": 88.0
+  },
+  {
+    "id": "mawps_187",
+    "query": "John had 189 apricot. Agueda took 11 from him. Now How many apricot John have take away?",
+    "expected_answer": 178.0
+  },
+  {
+    "id": "mawps_188",
+    "query": "Bella had 196 lychee. Patricia took 109 from him. Now How many lychee Bella have decreased by?",
+    "expected_answer": 87.0
+  },
+  {
+    "id": "mawps_189",
+    "query": "Betty had some Car. Jeffrey gave him 2 more. Now Betty has 36 Car. How many Car did Betty have originally?",
+    "expected_answer": 34.0
+  },
+  {
+    "id": "mawps_190",
+    "query": "Anita had some Book. Jean gave him 6 more. Now Anita has 28 Book. How many Book did Anita have incipiently?",
+    "expected_answer": 22.0
+  },
+  {
+    "id": "mawps_191",
+    "query": "Tammi had 17 Box. Renee giveed him some more. Now Tammi has 115 Box. How many did Renee give him?",
+    "expected_answer": 98.0
+  },
+  {
+    "id": "mawps_192",
+    "query": "Agnes had 33 Doll. Judy bestowed him some more. Now Agnes has 162 Doll. How many did Judy bestow him?",
+    "expected_answer": 129.0
+  },
+  {
+    "id": "mawps_193",
+    "query": "Shirley had 33 nectarine. Bernadine supplyed him some more. Now Shirley has 172 nectarine. How many did Bernadine supply him?",
+    "expected_answer": 139.0
+  },
+  {
+    "id": "mawps_194",
+    "query": "Melvin had some blackberry. Juanita gave him 1 more. Now Melvin has 25 blackberry. How many blackberry did Melvin have in the beginning?",
+    "expected_answer": 24.0
+  },
+  {
+    "id": "mawps_195",
+    "query": "Each chocolate bar in a box cost $3. If a box had 9 bars total and Wendy sold all but 3 bars, how much money would she have made?",
+    "expected_answer": 18.0
+  },
+  {
+    "id": "mawps_196",
+    "query": "Alana had 2 coconut. Gary supplyed him some more. Now Alana has 68 coconut. How many did Gary supply him?",
+    "expected_answer": 66.0
+  },
+  {
+    "id": "mawps_197",
+    "query": "Robert had 196 fig. Luvenia grasped some fig. Now Robert has 24  fig. How many did Luvenia graspeds?",
+    "expected_answer": 172.0
+  },
+  {
+    "id": "mawps_198",
+    "query": "During a canned food drive , items were sorted into bins . The drive resulted in 0.125 bin of soup , 0.125 bin of vegetables , and 0.5 bin of pasta . Altogether , how many bins would the canned food take up ?",
+    "expected_answer": 0.75
+  },
+  {
+    "id": "mawps_199",
+    "query": "Joseph had some Car. Kenneth gave him 9 more. Now Joseph has 47 Car. How many Car did Joseph have incipiently?",
+    "expected_answer": 38.0
+  }
+]

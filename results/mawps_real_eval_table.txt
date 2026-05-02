@@ -1,0 +1,10 @@
+=== Ablation Table (MAWPS) ===
+| Condition           | Accuracy | Delta vs Baseline |
+| ------------------- | -------- | ----------------- |
+| Baseline (LLM)      | 94.5%    | —                 |
+| PoT Only (no repair)| 98.5%    | +4.0%               |
+| LGP Full (+ repair) | 100.0%    | +5.5%               |
+
+- Cases where PoT correct but Baseline wrong: 8  (execution contribution)
+- Cases where LGP correct but PoT wrong: 3       (repair contribution)
+- Cases where all three wrong: 0                  (system limit)

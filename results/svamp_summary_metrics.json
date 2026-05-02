@@ -1,0 +1,10 @@
+{
+  "dataset_size": 200,
+  "baseline_accuracy": 0.955,
+  "lgp_accuracy": 0.995,
+  "correction_gain": 0.040000000000000036,
+  "drift_trigger_rate": 0.04,
+  "correction_success": 0.875,
+  "false_positive_rate": 0.005235602094240838,
+  "fallback_used": false
+}

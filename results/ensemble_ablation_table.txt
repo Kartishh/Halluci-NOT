@@ -1,0 +1,11 @@
+=== Ablation Table (GSM-Hard) ===
+| Condition              | Accuracy | Delta vs Baseline |
+| ---------------------- | -------- | ----------------- |
+| Baseline (LLM)         | 69.0%    | —                 |
+| PoT Only (no repair)   | 85.0%    | +16.0%               |
+| HalluciNOT Full        | 92.0%    | +23.0%               |
+| HalluciNOT + Ensemble  | 92.0%    | +21.0%               |
+
+Old drift recall: 37.1%
+Ensemble drift recall: 39.7%
+Ensemble 95% Wilson CI: [87.4%, 95.0%]
