@@ -72,6 +72,18 @@ The framework is divided into several core components:
 
 ## 🛠️ Usage
 
+### Working Demo
+
+For a fast presentation demo, run the reasoning audit dashboard. It accepts a problem or claim, optionally accepts a draft reasoning chain, and returns a logic-grounded verdict, verified answer, symbolic trace, drift reports, and correction.
+
+```bash
+cp .env.example .env
+# Add REASONING_ANALYZER_API_KEY to .env
+python3 demo_server.py --host 127.0.0.1 --port 8020
+```
+
+Open `http://127.0.0.1:8020`.
+
 ### Running the Evaluation Suite
 To run the standard evaluation pipeline against the GSM subset:
 ```bash
