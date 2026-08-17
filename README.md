@@ -1,4 +1,4 @@
-# Halluci-NOT: A Framework for Mitigating Symbolic Drift in LLMs
+# Halluci-NOT: A Framework for Mitigating Symbolic Drift in LLMs.
 
 Halluci-NOT is a research-grade framework designed to tackle **hallucination** and **symbolic drift** in Large Language Models (LLMs). By integrating Symbolic State and Constraint Extraction (SSCE) with deterministic execution environments, Halluci-NOT ensures rigorous mathematical and logical reasoning without falling into the trap of "painless logic" or unverified numerical claims.
 
